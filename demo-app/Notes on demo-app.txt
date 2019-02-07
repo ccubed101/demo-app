@@ -1,0 +1,11 @@
+﻿Notes on demo-app
+=================
+
+>> Created the project using in Visual Studio Community 2017.  Selected "File/New/Project..." to display the
+   "New Project" dialog.  In the dialog selected "Installed/Visual C#/Web/.NET Core" in the left panel and 
+   then "ASP.NET Core Web Application" in the middle panel.  Pressed the "OK" button to display the "New 
+   ASP.NET Core Web Application - <application name>" dialog.  In the dialog selected "ASP.NET Core 2.1" and
+   the "Angular", no Docker support, no authentication and did check "Configure for HTTPS".
+
+>> Open a PowerShell window in "ClientApp" directory and types "npm serve".  Got an error message about a
+   missing "angular.json" file.
