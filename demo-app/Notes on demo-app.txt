@@ -1,11 +1,33 @@
 ﻿Notes on demo-app
 =================
 
+Initial Setup Steps (2/7/2019)
+------------------------------
+
 >> Created the project using in Visual Studio Community 2017.  Selected "File/New/Project..." to display the
    "New Project" dialog.  In the dialog selected "Installed/Visual C#/Web/.NET Core" in the left panel and 
    then "ASP.NET Core Web Application" in the middle panel.  Pressed the "OK" button to display the "New 
    ASP.NET Core Web Application - <application name>" dialog.  In the dialog selected "ASP.NET Core 2.1" and
    the "Angular", no Docker support, no authentication and did check "Configure for HTTPS".
+
+>> Ran the app from within Visual Studio.  The "node_modules" directory was created and the app ran.
+
+>> As part of "restoring" he "node_modules" directory version 1.7.0 of the Angular CLI was installed.  Version
+   6.0.1 of the Angular CLI had been previously installed globally.  Because the local version will be used 
+   before the global version the local version had to be uninstalled using "npm uninstall @angular/cli"
+
+>> The project created using the Visual Studio ASP.NET Core Angular template included version 5.2.0 of Angular.
+   Decided to upgrade to the latest version of Angular.  But before doing so created a repository on GitHub 
+   called "demo-app", turned the project directory hierarchy into a local repository using Git.exe and performed 
+   an initial push so that the code, as provided by Visual Studio, would be saved.
+
+>> Get the latest version of Angular, from version 5.2.0 to version 7.2.4 (except for @nguniversal/module-map-ngfactory-loader
+   which was upgraded to version 7.1.0).
+
+>> Modified the Configure() method in the Startup class in Startup.cs so that the Angular CLI server could
+   be used.
+
+>> 
 
 >> Open a PowerShell window in "ClientApp" directory and types "npm serve".  Got an error message about a
    missing "angular.json" file.
