@@ -19,14 +19,16 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
     FetchDataComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-    ])
+    ]),
+    // Add .withServerTransition() to support Universal rendering.  Note that 'app-root'
+    // identifies the element in index.html where the Angular generated html is placed.
+    BrowserModule.withServerTransition({ appId: 'app-root' }),
   ],
   providers: [],
   bootstrap: [AppComponent]

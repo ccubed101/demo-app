@@ -16,5 +16,7 @@ if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic(providers).bootstrapModule(AppModule)
-  .catch(err => console.log(err));
+document.addEventListener('DOMContentLoaded', () => {               // This line added to support Server Side Rendering.
+  platformBrowserDynamic(providers).bootstrapModule(AppModule)
+    .catch(err => console.log(err));                                // This line added to support Server Side Rendering.
+});

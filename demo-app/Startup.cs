@@ -60,7 +60,18 @@ namespace demo_app
 
                 spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
+				// **** Added to support Server Side Rendering ****
+				spa.UseSpaPrerendering(options =>
+				{
+					options.BootModulePath = $"{spa.Options.SourcePath}/dist/server/main.js";
+					options.BootModuleBuilder = env.IsDevelopment()
+						? new AngularCliBuilder(npmScript: "build:ssr")
+						: null;
+					options.ExcludeUrls = new[] { "/sockjs-node" };
+				});
+				// **** Added to support Server Side Rendering ****
+
+				if (env.IsDevelopment())
                 {
 					// From https://docs.microsoft.com/en-us/aspnet/core/client-side/spa/angular?view=aspnetcore-2.1&tabs=netcore-cli#server-side-rendering
 					// Around 10 seconds is required to start the Angular CLI server when you try and run your app from within VS.  

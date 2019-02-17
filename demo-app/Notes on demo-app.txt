@@ -1,6 +1,72 @@
 ﻿Notes on demo-app
 =================
 
+Documentation for angular.json File
+-----------------------------------
+>> Angular CLI workspace file (angular.json) schema
+   https://github.com/angular/angular-cli/wiki/angular-workspace
+
+Angular Universal (Server Side Rendering)
+-----------------------------------------
+
+>> Steps to add server-side rendering (SSR) to an application:
+   >> Add code to the Configure() method in the Startup class in the Startup.cs file.
+   >> In the angular.json file add a "server" target under "architect targets".  (Note that "architect targets"
+      may be "architect" or "targets".)
+   >> In the package.json file add a "build:ssr" script under "scripts".  Note that the name of the script, 
+      "build:ssr" must match the name specified in the Configure() method in the Startup class in the Startup.cs 
+	  file.
+   >> Use NPM to install @angular/platform-server.
+   >> Use NPM to install aspnet-prerendering.
+   >> Use NPM to install @nguniversal/module-map-ngfactory-loader.
+   >> Add the following to the "imports" section in the app.module.ts file:
+		// Add .withServerTransition() to support Universal rendering.  Note that 'app-root'
+		// identifies the element in index.html where the Angular generated html is placed.
+		BrowserModule.withServerTransition({ appId: 'app-root' }),
+   >> Add the main.server.ts file.
+   >> Add the app.server.module.ts file.
+   >> Add the tsconfig.server.json file.
+
+>> ERROR popup window
+   Adding the code to the Configure() method in the Startup class in the Startup.cs file cause a small error window
+   to be displayed every other time the application is run by pressing the "IIS Express" button in the VS toolbar.
+   The text of the message is similar to the following:
+
+		Unable to start process C:\Program Files\dotnet\dotnet.exe.  The web server request
+		failed with status code 502, Bad Gateway.  The full response has been written to 
+		C:\Users\ccube\AppData\Local\Temp\HeepFailure_04-37-55.html.
+
+   By changing from "IIS Express" to "demo_app" (which will send output to a console window) the problem goes away.
+
+>> https://github.com/angular/universal
+   https://github.com/MarkPieszak/aspnetcore-angular-universal
+
+>> Building Single Page Applications on ASP.NET Core with JavaScriptServices
+   February 14, 2017
+   https://blogs.msdn.microsoft.com/webdev/2017/02/14/building-single-page-applications-on-asp-net-core-with-javascriptservices/
+
+>> Installed @angular/platform-server, @nguniversal/module-map-ngfactory-loader, ts-loader and webpack-cli using
+   npm install --save @angular/platform-server @nguniversal/module-map-ngfactory-loader ts-loader webpack-cli
+
+>> Use the Angular project template with ASP.NET Core
+   Go to section titled: Server-side rendering
+   https://docs.microsoft.com/en-us/aspnet/core/client-side/spa/angular?view=aspnetcore-2.1&tabs=visual-studio&utm_source=jeliknes&utm_medium=blog&utm_campaign=medium&WT.mc_id=medium-blog-jeliknes#server-side-rendering
+
+>> Drawbacks of SSR:
+   1. SSR requires a Node.js installation on your production servers. This is automatically the case for some 
+      deployment scenarios, such as Azure App Services, but not for others, such as Azure Service Fabric.
+   2. Enabling the BuildServerSideRenderer build flag causes your node_modules directory to publish. This 
+      folder contains 20,000+ files, which increases deployment time.
+   3. To run your code in a Node.js environment, it can't rely on the existence of browser-specific JavaScript 
+      APIs such as window or localStorage. If your code (or some third-party library you reference) tries to 
+	  use these APIs, you'll get an error during SSR. For example, don't use jQuery because it references 
+	  browser-specific APIs in many places. To prevent errors, you must either avoid SSR or avoid browser-specific 
+	  APIs or libraries. You can wrap any calls to such APIs in checks to ensure they aren't invoked during SSR.
+	  For example, use a check such as the following in JavaScript or TypeScript code:
+		  if (typeof window !== 'undefined') {
+			  // Call browser-specific APIs here
+	      }
+
 Initial Setup Steps (2/7/2019)
 ------------------------------
 
@@ -21,13 +87,33 @@ Initial Setup Steps (2/7/2019)
    called "demo-app", turned the project directory hierarchy into a local repository using Git.exe and performed 
    an initial push so that the code, as provided by Visual Studio, would be saved.
 
->> Get the latest version of Angular, from version 5.2.0 to version 7.2.4 (except for @nguniversal/module-map-ngfactory-loader
-   which was upgraded to version 7.1.0).
+>> Updated to the latest version of Angular, from version 5.2.5 to version 7.2.4 (except for @nguniversal/module-map-ngfactory-loader
+   which was updaded to version 7.1.0).
 
 >> Modified the Configure() method in the Startup class in Startup.cs so that the Angular CLI server could
    be used.
 
->> 
+>> Updated rsjx from version 5.5.6 to version 6.4.0.
 
->> Open a PowerShell window in "ClientApp" directory and types "npm serve".  Got an error message about a
-   missing "angular.json" file.
+>> Open a PowerShell window in "ClientApp" directory and types "npm start" (or possibly "npm serve").  Got an 
+   error message about a missing "angular.json" file.
+   Searched internet for solution.  Most said run "ng update @angular/cli".  This did not work.  Error message
+   said something about angular/cli not being present.  @angular/cli had been installed globally on the machine.
+   But is was not installed locally.  Tried installing it locally with "npm install -save-dev @angular/cli:latest".
+   Got error message that said "Could not install from "@angular\cli:latest" as it does not contain a package.json 
+   file."  But the package.json file was present.  Tried same command but specified different (earlier) versions.
+   Same result.  Tried same command without specifying a version.  That worked.  But .angular-cli.json was not
+   converted.  Then executed "ng update @angular/cli".  That worked; .angular-cli.json was converted to angular.json
+   and a bunch of other changes were also made including the installation of "@angular-devkit/build-angular": "~0.13.0"
+   under "devDependencies".
+
+>> Executed "npm start" whick executed "ng serve --extract-css".  Got error message that included 
+   "Unknown option: '--extract-css'"  Changed line in package.json from "start": "ng serve --extract-css", to
+   "start": "ng serve, (removing the --extract-css flag).  Now the Angular Development server got further along
+   but then got following error, "ERROR in The Angular Compiler requires TypeScript >=3.1.1 and <3.3.0 but 2.5.3 
+   was found instead."  Navigated to C:\Program Files (x86)\Microsoft SDKs\TypeScript and saw that version 3.2 
+   of TypeScript had been installed.  But this is not the Typescript used by the Angular Developent server.  So 
+   had to install Typescript locally in project by executing "npm install --save-dev typescript@3.2.4".  Now 
+   Angular Development Server runs as expected.
+
+
