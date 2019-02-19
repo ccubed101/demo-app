@@ -22,10 +22,15 @@ namespace demo_app
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            // In production, the Angular files will be served from this directory
+            // In production, the Angular files will be served from this directory. 
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/dist";
+				// The path specified in the statement below should agree with the 
+				// "outputPath" property of the "build" target in the angular.json 
+				// file (e.g.. "outputPath": "dist").  This is done so that when a 
+				// VS Publish operation occurs the client side code will automatically
+				// be in the appropriate location.
+				configuration.RootPath = "ClientApp/dist";
             });
         }
 
@@ -63,7 +68,17 @@ namespace demo_app
 				// **** Added to support Server Side Rendering ****
 				spa.UseSpaPrerendering(options =>
 				{
-					options.BootModulePath = $"{spa.Options.SourcePath}/dist/server/main.js";
+					// The path specified in the statement below should probably be different
+					// from the path specified above, configuration.RootPath = "ClientApp/dist";
+					// The reason is that the "outputPath" property of the "build" target in 
+					// the angular.json file will specify "dist" for sake of convenience.  While
+					// it may seem nice to have the client code and server-side rendering code in 
+					// the same directory problems could arise during a VS Publish operation if 
+					// the contents of the output directory (i.e. "dist") is deleted at the start
+					// of the operation becasue the directory already contain the server-side
+					// rendering code.
+					// 
+					options.BootModulePath = $"{spa.Options.SourcePath}/dist-server/main.js";
 					options.BootModuleBuilder = env.IsDevelopment()
 						? new AngularCliBuilder(npmScript: "build:ssr")
 						: null;
