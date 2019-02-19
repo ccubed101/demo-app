@@ -14,6 +14,6 @@
   //  Angular Universal support: Add "angularCompilerOptions" with the AppServerModule you wrote
   // set as the "entryModule".
   "angularCompilerOptions": {
-    "entryModule": "app/app.server.module#AppServerModule"
+    "entryModule": "app/modules/main/app.server.module#AppServerModule"
   }
 }

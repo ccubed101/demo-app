@@ -5,7 +5,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { enableProdMode } from '@angular/core';
 import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
 import { createServerRenderer } from 'aspnet-prerendering';
-export { AppServerModule } from './app/app.server.module';
+export { AppServerModule } from './app/modules/main/app.server.module';
 
 enableProdMode();
 
@@ -29,21 +29,3 @@ export default createServerRenderer(params => {
   return renderPromise.then(html => ({ html }));
  
 })
-
-
-
-
-
-
-
-
-
-//import { enableProdMode } from '@angular/core';
-
-//import { environment } from './environments/environment';
-
-//if (environment.production) {
-//  enableProdMode();
-//}
-
-//export { AppServerModule } from './app/app.server.module';

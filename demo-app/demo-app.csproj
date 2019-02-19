@@ -19,17 +19,34 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\app\modules\main\counter\**" />
+    <Compile Remove="ClientApp\src\app\modules\main\fetch-data\**" />
+    <Compile Remove="ClientApp\src\app\modules\main\home\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\src\app\modules\main\counter\**" />
+    <Content Remove="ClientApp\src\app\modules\main\fetch-data\**" />
+    <Content Remove="ClientApp\src\app\modules\main\home\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="ClientApp\src\app\modules\main\counter\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\modules\main\fetch-data\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\modules\main\home\**" />
+    <None Remove="ClientApp\src\app\modules\main\counter\**" />
+    <None Remove="ClientApp\src\app\modules\main\fetch-data\**" />
+    <None Remove="ClientApp\src\app\modules\main\home\**" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\app.server.module.ts" />
     <None Remove="ClientApp\src\app\main.server.ts" />
+    <None Remove="ClientApp\src\app\modules\main\components\app\splash\splash.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\app.server.module.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\modules\main\app.server.module.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\modules\main\components\app\splash\splash.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\main.server.ts" />
   </ItemGroup>
 
