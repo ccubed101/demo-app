@@ -1,0 +1,3 @@
+# output.png is generated each time the "smoke test" is executed.  It is compared against reference.png
+# to see if amything changed.  Therefore output.png does not need to be in the reposigory.
+output.png

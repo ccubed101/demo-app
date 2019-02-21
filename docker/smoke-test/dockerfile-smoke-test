@@ -1,0 +1,73 @@
+# escape=`
+# The above parser directive changes escape character from '\' to '`'.  Note this line must come before any other lines except other parser directives.
+
+# dockerfile-smoke-test-base and dockerfile-smoke-test combine to build the smoke-test 
+# image.  dockerfile-smoke-test-base represents the static, unchanging parts of the image.  
+# dockerfile-smoke-test represents the dynamic parts of the image.  dockerfile-smoke-test-base
+# is the base image used by dockerfile-smoke-test.
+#
+# Build command (execute in the directory that contains the Dockerfile)
+#	docker build --force-rm -t <desired image name> -f <path to this dockerfile> .
+#
+#	Example:
+#		docker build --force-rm -f "D:\Code Projects\demo-app\docker\smoke-test\dockerfile-smoke-test" -t smoke-test "D:\Code Projects\demo-app\docker\smoke-test"
+#
+# Run command: 
+#	docker run --rm --name <name of container> <name of image> <optional command>
+#	
+#		docker run --rm --name smoke-test smoke-test
+#		docker run --rm -it --name smoke-test smoke-test						(-it is not strictly necessary.  Behavior will be different but will not make a difference.)
+#
+# Use the following to get the IP address of a Docker container:
+#
+#	docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' smoke-test
+#
+
+# Need to use this image to get access to setx.
+FROM microsoft/iis:nanoserver
+
+# Append paths for NodeJS and Git to PATH environment variable.
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'Continue'; $verbosePreference='Continue';"]
+RUN setx /M PATH $($Env:PATH + ';C:\nodejs;C:\Git\bin')
+
+# 
+FROM smoke-test-base
+
+# Switch off SSL checks in order to avoid the following error.  
+# 	fatal: unable to access 'https://github.com/ccubed101/demo-app/': error setting certificate verify locations:
+#		CAfile: C:\Program Files (x86)\git\bin\curl-ca-bundle.crt
+#		CApath: none
+# (Switching off SSL checks is not advisable; but currently do not know of an alternative.)
+RUN git config --system http.sslverify false
+
+# Clone the repository
+RUN git clone https://github.com/ccubed101/demo-app
+
+# Build client-side of application ("Release" configuration).
+RUN dotnet publish -c Release -o C:\dist C:\demo-app\demo-app.sln
+
+# Build server-side rendering code.
+WORKDIR C:\demo-app\demo-app\ClientApp
+# (Note that "RUN ng run demo_app:server" will not work in place of the line below.)
+RUN npm run build:ssr							
+
+# Since the server-side render code was built after demo-app was published the 
+# server-side render code will not be part of the published app.  Therefore it 
+# has to be moved to the directory where app was published.  (Although it has
+# not been tried the following "move" command would probably not be necessary
+# if the server-side render code was build before the app was published.)
+RUN move dist-server c:\dist\ClientApp
+
+# Since the server-side render code depends on packages in the node_modules 
+# directory the entire directory has to be moved to the ClientApp directory 
+# where the application was published.
+RUN move node_modules c:\dist\ClientApp
+
+# Make directory where demo-app was published the current working directory.
+WORKDIR C:\dist
+
+# Following is how to invoke headless chrome to take a screenshot.
+# Note that you must specify the path and name of the file that will receive the
+# screenshot and that Chrome must have permissions to write a file in that location.
+#RUN "C:\Program Files (x86)\Google\Chrome\Application\chrome" --headless --disable-gpu --window-size=1200,1000 --screenshot=D:\output.png https://www.foxnews.com/
+#RUN "C:\Program Files (x86)\Google\Chrome\Application\chrome" --headless --disable-gpu --window-size=1200,1000 --screenshot=C:\output.png https://www.foxnews.com/

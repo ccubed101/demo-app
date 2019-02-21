@@ -1,0 +1,54 @@
+# escape=`
+# The above parser directive changes escape character from '\' to '`'.  Note this line must come before any other lines except other parser directives.
+
+# dockerfile-smoke-test-base and dockerfile-smoke-test combine to build the smoke-test 
+# image.  dockerfile-smoke-test-base represents the static, unchanging parts of the image.  
+# dockerfile-smoke-test represents the dynamic parts of the image.  dockerfile-smoke-test-base
+# is the base image used by dockerfile-smoke-test.
+#
+# Build command (execute in the directory that contains the Dockerfile)
+#	docker build --force-rm -t <desired image name> -f <path to this dockerfile> .
+#
+#	Example:
+#		docker build --force-rm -f "D:\Code Projects\demo-app\docker\smoke-test\dockerfile-smoke-test-base" -t smoke-test-base "D:\Code Projects\demo-app\docker\smoke-test"
+#
+# Run command: 
+#	
+#	This image is not meant to be used to produce a container.  Instead it is the base image 
+#   used by dockerfile-smoke-test.
+#
+
+# Need microsoft/windowsservercore base image because it has PowerShell and System.Net.WebClient.
+FROM microsoft/windowsservercore AS dev-env
+
+# Install Chocolatey so that we can do an unattended installation of Git.
+# See https://chocolatey.org/install for more information.
+RUN PowerShell Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+
+# Do unattended installation of Git using Chocolatey.
+RUN choco install -y git.install
+
+# Install NodeJS
+ENV NODE_VERSION 10.9.0
+RUN PowerShell Invoke-WebRequest $('https://nodejs.org/dist/v{0}/node-v{0}-win-x64.zip' -f $env:NODE_VERSION) -OutFile 'node.zip' -UseBasicParsing ; `
+     Expand-Archive node.zip -DestinationPath C:\ ; `
+     Rename-Item -Path $('C:\node-v{0}-win-x64' -f $env:NODE_VERSION) -NewName 'C:\nodejs'
+	 
+# Switch to microsoft/dotnet:sdk image because we need dotnet.exe.
+FROM microsoft/dotnet:sdk
+
+# Bring along Nodejs to the new image.
+RUN mkdir nodejs
+COPY --from=dev-env nodejs nodejs
+
+# Bring along Git to the new image.
+RUN mkdir "C:\Git"
+COPY --from=dev-env ["C:\\Program Files\\Git", "C:\\Git"]
+
+# Modify the 'Path' environment variable so that when 'dotnet build' is executed it will be able to find Nodejs.
+# It would be nice to do something like 'ENV Path $Path;C:\nodejs'.  But this does not work.  $Path appears to be empty.
+# Instead you have to determine what 'Path' is 
+ENV Path C:\Windows\system32;C:\Windows;C:\Users\ContainerAdministrator\AppData\Local\Microsoft\WindowsApps;C:\Program Files\dotnet;C:\Users\ContainerUser\AppData\Local\Microsoft\WindowsApps;C:\Users\ContainerUser\.dotnet\tools;C:\nodejs;C:\Git\bin
+
+RUN git config --global user.name "ccubed101"
+RUN git config --global user.email "ccubed101@gmail.com"

@@ -1,0 +1,39 @@
+version: '3.5'
+
+services:
+
+  smoke-test:
+    image: smoke-test
+    build:
+      context: "d:\\code projects\\demo-app\\docker\\smoke-test"
+      dockerfile: "d:\\code projects\\demo-app\\docker\\smoke-test\\dockerfile-smoke-test"
+    container_name: smoke-test
+    ports:
+      - "86:80"
+    command: dotnet demo-app.dll     
+    networks:
+      - smoke-test-net
+      
+  # chrome-screenshot:
+    # image: chrome-screenshot
+    # build:
+      # context: "d:\\code projects\\demo-app\\docker\\chrome-screenshot"
+      # dockerfile: "d:\\code projects\\demo-app\\docker\\chrome-screenshot\\dockerfile"
+    # container_name: chrome-screenshot
+    # depends_on:
+       # - smoke-test
+    # volumes:
+      # - type: bind
+        # source: "d:\\code projects\\demo-app\\docker"
+        # target: c:\output
+    # #command: [ "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome", "--headless", "--disable-gpu", "--window-size=1200,1000", "--screenshot=C:\\output\\output.png", "smoke-test" ]
+    # # In statement below we execute "ping -t localhost" to keep the container running.
+    # command: ping -t localhost
+    # networks:
+      # - smoke-test-net
+    # logging:
+      # driver: "json-file"
+
+networks:
+  smoke-test-net:
+    name: smoke-test-net
