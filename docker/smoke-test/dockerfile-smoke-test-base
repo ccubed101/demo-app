@@ -6,6 +6,10 @@
 # dockerfile-smoke-test represents the dynamic parts of the image.  dockerfile-smoke-test-base
 # is the base image used by dockerfile-smoke-test.
 #
+# The "smoke test" is supposed to verify that what is currently in the Git repository can be 
+# cloned locally, published (production configuration) and then executed to produce the expected
+# displayed result.
+#
 # Build command (execute in the directory that contains the Dockerfile)
 #	docker build --force-rm -t <desired image name> -f <path to this dockerfile> .
 #

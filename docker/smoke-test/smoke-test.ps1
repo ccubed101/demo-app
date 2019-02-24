@@ -3,7 +3,7 @@ param([String]$configFileSpec="karma.conf.js")
 ECHO "**** Executing smoke-test.ps1 ****"
 
 # Delete the output.png file if it exists in order to avoid having to deal with whether or not the file should be overwritten.
-ECHO remove-item output.png
+ECHO 'remove-item output.png'
 remove-item output.png
 
 # Get rid of the "smoke-test" image if it exists.  Doing so will guarantee that the image will be re-built.
