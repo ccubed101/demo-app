@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/app/nav-menu/nav-menu.component';
 import { SplashComponent } from './components/app/splash/splash.component';
+import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -27,7 +28,8 @@ import { SharedModule } from '../shared/shared.module';
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
-    SharedModule.forRoot(),         // This will add service providers from SharedModule to AppModule's service providers.
+    CoreModule,                     // For application wide (global) services.  This will add providers from CoreModule to AppModule's providers.
+    SharedModule.forRoot(),         // For stuff that is shared across multiple apps.  This will add providers from SharedModule to AppModule's providers. 
   ],
   providers: [],
   bootstrap: [AppComponent]
