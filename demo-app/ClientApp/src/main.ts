@@ -20,5 +20,3 @@ document.addEventListener('DOMContentLoaded', () => {               // This line
   platformBrowserDynamic(providers).bootstrapModule(AppModule)
     .catch(err => console.log(err));                                // This line added to support Server Side Rendering.
 });
-
-//XXX
