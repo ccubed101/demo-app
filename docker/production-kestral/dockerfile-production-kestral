@@ -1,0 +1,107 @@
+# escape=`
+# The above parser directive changes escape character from '\' to '`'.  Note this line must come before any other lines except other parser directives.
+
+# dockerfile-production-kestral
+#
+# Given the path to the root directory of a local ASP.NET Core application project (i.e. the 
+# path to the directory that contains the solution (.sln) file) build an image that publishes
+# a "Release" configuration of the application to a location within the image such that
+# when the image is run the resulting container will server the application using the built-in
+# Kestral server.
+#
+# Build command (execute in the directory that contains the Dockerfile)
+#	docker build --force-rm -t <desired image name> -f <path to this dockerfile> <path to context>
+#
+#	Example:
+#		docker build --force-rm -f "D:\Code Projects\demo-app\docker\production-kestral\dockerfile-production-kestral" -t demo-app-prod-kestral "D:\Code Projects\demo-app"
+#
+# Run command: 
+#	docker run --rm --name <name of container> <name of image> <optional command>
+#	
+#		docker run --rm --name demo-app-prod-kestral demo-app-prod-kestral
+#		docker run --rm -it --name demo-app-prod-kestral demo-app-prod-kestral						(-it is not strictly necessary.  Behavior will be different but will not make a difference.)
+#
+# Use the following to get the IP address of a Docker container:
+#
+#	docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' demo-app-prod-kestral
+#
+
+
+# NOTE: A "FROM" command must precede EVERY other command.
+
+# Need microsoft/windowsservercore base image because it has PowerShell and System.Net.WebClient.
+FROM microsoft/windowsservercore AS forNodeInsall
+
+# Install NodeJS
+ENV NODE_VERSION 10.9.0
+RUN PowerShell Invoke-WebRequest $('https://nodejs.org/dist/v{0}/node-v{0}-win-x64.zip' -f $env:NODE_VERSION) -OutFile 'node.zip' -UseBasicParsing ; `
+     Expand-Archive node.zip -DestinationPath C:\ ; `
+     Rename-Item -Path $('C:\node-v{0}-win-x64' -f $env:NODE_VERSION) -NewName 'C:\nodejs'
+
+# Need dotnet.exe to publish the application.  
+# (NOTE: microsoft/dotnet:sdk image does not have PowerShell!!!)
+FROM microsoft/dotnet:sdk
+
+# Bring along Nodejs to the new image.
+RUN mkdir nodejs
+COPY --from=forNodeInsall nodejs nodejs
+
+# Append path for NodeJS to PATH environment variable. 
+RUN setx Path "%Path%;C:\nodejs"
+
+# Arguments:
+ARG pathToPublish=C:\publish
+ARG pathToProject=C:\project
+
+# Programmer Note: How do you consume ARGs in a dockerfile?  The rules are complicated.  
+# Assume that we have the following command: 
+#	ARG argName
+# Then it depends on whether we are talking about 
+# 1. Docker commands
+#    Use $argName or ${argName} 
+# 2. PowerShell commands
+#    Use $Env:argName
+# 3. CMD commands
+#    Use %argname
+# Note that it is important to be aware of whether PowerShell is in effect or CMD is in effect.
+# Examples:
+#	1. PowerShell
+#	   SHELL ["powershell", "-command"]
+#	   RUN ECHO $Env:argName
+#	   RUN New-Item -ItemType directory -Path $Env:argName
+#	   RUN mkdir $Env:argName
+#   2. CMD
+#      SHELL ["cmd", "/S", "/C"]
+#	   RUN ECHO %argName%
+#      RUN mkdir %argName%
+# Note that the RUN command executes either CMD or PowerShell commands.
+# Note that some base images do not make PowerShell available.
+# Note that ARG commands apply to the image that is in effect.  In other words ARG commands that precede a FROM command are not applicable to the image specified in the FROM command.
+
+
+# Create directory that project will be copied into.
+RUN mkdir %pathToProject%
+
+# Create directory where application will be published to.
+RUN mkdir %pathToPublish%
+
+# Copy project into image.
+ADD . ${pathToProject}
+
+# Publish the application to the specified location in the image.
+RUN dotnet publish %pathToProject%\demo-app.sln -c Release -o %pathToPublish%
+
+# Because the application includes server-side rendering (SSR), which depends on 
+# packages in the "node_modules" directory, the "node_modules" directory must be 
+# copied to the "ClientApp" directory under the directory to where the application
+# was published.
+RUN mkdir %pathToPublish%\ClientApp\node_modules
+RUN xcopy /Q /S %pathToProject%\demo-app\ClientApp\node_modules %pathToPublish%\ClientApp\node_modules
+
+# Serve the application when the container is run.
+# Make sure the working directory is the directory that contains the demo-app.dll file.  (If that 
+# is not the case then you will get an error that says the "index.html" file cannot be found.  The 
+# reason for the error is that demo-app.dll will look for the file in ".\ClientApp\dist"--as specified
+# in the ConfigureServices() method in the Startup class in the Startup.cs file.) 
+WORKDIR C:\publish
+CMD dotnet demo-app.dll
