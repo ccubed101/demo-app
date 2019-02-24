@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { PLATFORM_ID, APP_ID, Inject } from '@angular/core';    // Added for Angular Universal app.
 import { isPlatformBrowser } from '@angular/common';            // Added for Angular Universal app.
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/app/nav-menu/nav-menu.component';
 import { SplashComponent } from './components/app/splash/splash.component';
@@ -21,9 +22,7 @@ import { SplashComponent } from './components/app/splash/splash.component';
   imports: [
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot([
-      { path: '', component: SplashComponent, pathMatch: 'full' },
-    ]),
+    AppRoutingModule,
     // Add .withServerTransition() to support Universal rendering.  Note that 'app-root'
     // identifies the element in index.html where the Angular generated html is placed.
     BrowserModule.withServerTransition({ appId: 'app-root' }),
