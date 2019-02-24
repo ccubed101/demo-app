@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/app/nav-menu/nav-menu.component';
 import { SplashComponent } from './components/app/splash/splash.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -20,12 +21,13 @@ import { SplashComponent } from './components/app/splash/splash.component';
     SplashComponent
   ],
   imports: [
-    HttpClientModule,
-    FormsModule,
-    AppRoutingModule,
     // Add .withServerTransition() to support Universal rendering.  Note that 'app-root'
     // identifies the element in index.html where the Angular generated html is placed.
     BrowserModule.withServerTransition({ appId: 'app-root' }),
+    HttpClientModule,
+    FormsModule,
+    AppRoutingModule,
+    SharedModule.forRoot(),         // This will add service providers from SharedModule to AppModule's service providers.
   ],
   providers: [],
   bootstrap: [AppComponent]
