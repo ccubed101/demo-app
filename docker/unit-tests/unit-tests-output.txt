@@ -1,0 +1,25 @@
+
+> demo_app@0.0.0 test C:\ClientApp
+> ng test "--karma-config" "karma.ChromeHeadless.conf.js"
+
+[32m25 02 2019 18:27:44.874:INFO [karma]: [39mFront-end scripts not present. Compiling...
+[32m25 02 2019 18:27:48.624:INFO [karma]: [39mKarma v2.0.0 server started at http://0.0.0.0:9876/
+[32m25 02 2019 18:27:48.624:INFO [launcher]: [39mLaunching browser ChromeHeadlessNoSandbox with unlimited concurrency
+[32m25 02 2019 18:27:48.624:INFO [launcher]: [39mStarting browser ChromeHeadless
+[32m25 02 2019 18:27:49.831:INFO [HeadlessChrome 73.0.3679 (Windows 10.0.0)]: [39mConnected on socket PSXWopdl1sLvlE9aAAAA with id 17892856
+HeadlessChrome 73.0.3679 (Windows 10.0.0): Executed 0 of 2 SUCCESS (0 secs / 0 secs)
+[1A[2KHeadlessChrome 73.0.3679 (Windows 10.0.0) CoreModule should create an instance FAILED
+	Expected CoreModule({  }) not to be truthy.
+	    at UserContext.<anonymous> (src/app/modules/core/core.module.spec.ts:11:28)
+	    at ZoneDelegate../node_modules/zone.js/dist/zone.js.ZoneDelegate.invoke (node_modules/zone.js/dist/zone.js:391:1)
+	    at ProxyZoneSpec.push../node_modules/zone.js/dist/zone-testing.js.ProxyZoneSpec.onInvoke (node_modules/zone.js/dist/zone-testing.js:289:1)
+	    at ZoneDelegate../node_modules/zone.js/dist/zone.js.ZoneDelegate.invoke (node_modules/zone.js/dist/zone.js:390:1)
+HeadlessChrome 73.0.3679 (Windows 10.0.0): Executed 1 of 2 (1 FAILED) (0 secs / 0.088 secs)
+HeadlessChrome 73.0.3679 (Windows 10.0.0) CoreModule should create an instance FAILED
+	Expected CoreModule({  }) not to be truthy.
+	    at UserContext.<anonymous> (src/app/modules/core/core.module.spec.ts:11:28)
+	    at ZoneDelegate../node_modules/zone.js/dist/zone.js.ZoneDelegate.invoke (node_modules/zone.js/dist/zone.js:391:1)
+	    at ProxyZoneSpec.push../node_modules/zone.js/dist/zone-testing.js.ProxyZoneSpec.onInvoke (node_modules/zone.js/dist/zone-testing.js:289:1)
+	    at ZoneDelegate../node_modules/zone.js/dist/zone.js.ZoneDelegate.invoke (node_modules/zone.js/dist/zone.js:390:1)
+[1A[2KHeadlessChrome 73.0.3679 (Windows 10.0.0): Executed 2 of 2 (1 FAILED) (0 secs / 0.088 secs)
+[1A[2KHeadlessChrome 73.0.3679 (Windows 10.0.0): Executed 2 of 2 (1 FAILED) (0.018 secs / 0.088 secs)

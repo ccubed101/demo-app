@@ -1,0 +1,26 @@
+This directory contains the following files:
+
+demo-app-unit-tests.cmd                                                                                                                     
+demo-app-unit-tests.ps1                                                                                                                     
+docker-compose.yml                                                                                                                          
+dockerfile                                                                                                                                  
+read-me.txt                                                                                                                                                                                                                                                                    
+unit-tests-output.txt  
+
+To perform the unit tests execute "demo-app-unit-tests.ps1" by right clicking the item and then selecting
+"Run with PowerShell" in the context menu.
+
+The "dockerfile" file is used to build the "demo-app-unit-tests:1.0.0" image.
+
+NOTE: When the "demo-app-unit-tests:1.0.0" docker image is "run" it must be given 5 GB of memory.  That is
+done using the following option for the "run" command: -m=5g.
+
+The "demo-app-unit-tests.cmd" file is the batch file that is executed in the Docker container that is run
+by the "demo-app-unit-tests.ps1" PowerShell script. 
+
+The "docker-compose.yml" is a docker-compose file that was originally going to be used to "run" the
+"demo-app-unit-tests:1.0.0" image.  But that method could not be used becasue the method of specifying 5 GB
+of memory for running the container did not work.  (See the "docker-compose.yml" and "demo-app-unit-tests.ps1"
+.files
+
+The "unit-tests-output.txt" file contains the output of the Karma/Jasmine unit tests.

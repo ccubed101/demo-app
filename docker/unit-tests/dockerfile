@@ -1,0 +1,57 @@
+# escape=`		
+# The above parser directive changes escape character from '\' to '`'.  Note this line must come before any other lines except other parser directives.
+
+
+# demo-app-unit-tests
+#
+# Use to build image for container that runs unit tests using Karma, Jasmine and "headless" Chrome browser.
+#
+# Build command: 
+#	docker build -t <name to assign to image> -f <path to this dockerfile> <Path that specifies context sent to Docker daemon>
+#
+#	Examples:
+#		docker build --force-rm -t demo-app-unit-tests:1.0.0 .
+#
+#
+# Run command: 
+#	docker run --rm -m=5g -v '<Full path to directory on host>:<Full path to directory in container>' --name <desired name of container> <Name of image>
+#
+#	Examples:
+#		docker run --rm -m=5g -v $PWD\..\..\:c:\project --name demo-app-unit-tests demo-app-unit-tests:1.0.0
+#
+#
+# Notes:
+# 1. The volume specified in the command line for the docker run command should specify the project root directory.
+
+# Only using "microsoft/windowsservercore" image for Node.js installation.
+FROM microsoft/windowsservercore 
+
+#SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+SHELL ["powershell", "-Command"]
+
+# Specify which version of Node.js
+ENV NODE_VERSION 10.9.0
+
+# Download from nodejs.org.
+RUN Invoke-WebRequest $('https://nodejs.org/dist/v{0}/node-v{0}-win-x64.zip' -f $env:NODE_VERSION) -OutFile 'node.zip' -UseBasicParsing ; `
+     Expand-Archive node.zip -DestinationPath C:\ ; `
+     Rename-Item -Path $('C:\node-v{0}-win-x64' -f $env:NODE_VERSION) -NewName 'C:\nodejs'
+	 
+# Append path for NodeJS to PATH environment variable.
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'Continue'; $verbosePreference='Continue';"]
+RUN setx /M PATH $($Env:PATH + ';C:\nodejs')
+
+# Switch back to original shell.
+SHELL ["cmd", "/S", "/C"]
+
+# Install the Karma CLI (Command Line Interface) globally.  (Karma CLI does not work if installed locally in a particular project.)
+RUN npm install -g karma-cli
+
+# The batch file that contains the commands that will be executed when the container is run.  It basically copies the
+# entire project into the container and then executes Karma to run the unit tests.  A volume cannot be used because 
+# it confuses Karma.
+ADD [ "demo-app-unit-tests.cmd",  "c:/" ]							# Note that with ADD you have to use forward slashes.
+
+# Execute this process when the container is run.  The parameter is the name of the Karma configuration file to use.
+CMD demo-app-unit-tests.cmd karma.ChromeHeadless.conf.js
+

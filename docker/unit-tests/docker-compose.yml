@@ -1,0 +1,22 @@
+version: '3.5'
+
+services:
+
+  demo-app-unit-tests:
+    image: demo-app-unit-tests:1.0.0
+    deploy: 
+      resources:
+        limits:
+          memory: 5g
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: demo-app-unit-tests
+    # Paths for volumes are not allowed to be relative.  A work around is to use the $PWD environment variable (path to working directory).
+    volumes:
+      - type: bind
+        source: ..\..\
+        target: c:\project
+    command: demo-app-unit-tests.cmd karma.ChromeHeadless.conf.js
+
+    
