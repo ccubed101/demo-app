@@ -7,10 +7,8 @@ import { SplashComponent } from './components/app/splash/splash.component';
 
 const routes: Routes = [
 
-  //{ path: '', component: SplashComponent, pathMatch: 'full' },
-  { path: '', redirectTo: 'reactive-forms-demo', pathMatch: 'full' },
-
-  { path: 'reactive-forms-demo', loadChildren: '../forms-demo/forms-demo.module#FormsDemoModule', data: { preload: false } },
+	{ path: '', component: SplashComponent, pathMatch: 'full' },
+	{ path: 'reactive-forms-demo', loadChildren: '../forms-demo/forms-demo.module#FormsDemoModule', data: { preload: false } },
 
 
     // ?

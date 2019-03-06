@@ -1,14 +1,23 @@
 import { Component } from '@angular/core';
 
+import { NavMenuItem } from '../app/expanding-nav-menu/NavMenuItem';
+
 @Component({
     selector: 'app-root',
-    template: `
-      <router-outlet></router-outlet>
+	template: `
+		<expanding-nav-menu [navMenuTree]="navMenuTree"></expanding-nav-menu>
+		<router-outlet></router-outlet>
     `,
   styles: [
-    "#splashText { color: red; font-family: Comic Sans MS; font-size: 144px; font-weight: 900; text-align: center; margin-top: 10% }",
   ]
 })
 export class AppComponent {
-    title = 'app';
+	title = 'app';
+
+	navMenuTree: NavMenuItem[] = [
+		new NavMenuItem("Splash", "/", null),
+	];
+
+
+
 }

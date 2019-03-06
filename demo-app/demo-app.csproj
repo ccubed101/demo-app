@@ -45,11 +45,17 @@
   <ItemGroup>
     <None Remove="ClientApp\src\app\app.server.module.ts" />
     <None Remove="ClientApp\src\app\main.server.ts" />
+    <None Remove="ClientApp\src\app\modules\main\components\app\expanding-nav-menu\expanding-nav-menu.component.ts" />
+    <None Remove="ClientApp\src\app\modules\main\components\app\expanding-nav-menu\nav-menu-item.component.ts" />
+    <None Remove="ClientApp\src\app\modules\main\components\app\expanding-nav-menu\NavMenuItem.ts" />
     <None Remove="ClientApp\src\app\modules\main\components\app\splash\splash.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\modules\main\app.server.module.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\modules\main\components\app\expanding-nav-menu\expanding-nav-menu.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\modules\main\components\app\expanding-nav-menu\nav-menu-item.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\modules\main\components\app\expanding-nav-menu\NavMenuItem.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\modules\main\components\app\splash\splash.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\main.server.ts" />
   </ItemGroup>
