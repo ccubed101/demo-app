@@ -45,6 +45,10 @@
   <ItemGroup>
     <None Remove="ClientApp\src\app\app.server.module.ts" />
     <None Remove="ClientApp\src\app\main.server.ts" />
+    <None Remove="ClientApp\src\app\modules\analytics\components\commit-history\commit-history.component.ts" />
+    <None Remove="ClientApp\src\app\modules\forms-demo\components\reactive-forms-example1\reactive-forms-example1.component.ts" />
+    <None Remove="ClientApp\src\app\modules\forms-demo\components\reactive-forms-example2\reactive-forms-example2.component.ts" />
+    <None Remove="ClientApp\src\app\modules\forms-demo\components\reactive-forms-example3\reactive-forms-example3.component.ts" />
     <None Remove="ClientApp\src\app\modules\main\components\app\expanding-nav-menu\expanding-nav-menu.component.ts" />
     <None Remove="ClientApp\src\app\modules\main\components\app\expanding-nav-menu\nav-menu-item.component.ts" />
     <None Remove="ClientApp\src\app\modules\main\components\app\expanding-nav-menu\NavMenuItem.ts" />
@@ -52,6 +56,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\modules\analytics\components\commit-history\commit-history.component.ts" />
+	<TypeScriptCompile Include="ClientApp\src\app\modules\forms-demo\components\reactive-forms-example1\reactive-forms-example1.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\modules\forms-demo\components\reactive-forms-example2\reactive-forms-example2.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\modules\forms-demo\components\reactive-forms-example3\reactive-forms-example3.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\modules\main\app.server.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\modules\main\components\app\expanding-nav-menu\expanding-nav-menu.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\modules\main\components\app\expanding-nav-menu\nav-menu-item.component.ts" />

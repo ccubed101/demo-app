@@ -1,17 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { FormsDemoRoutingModule } from './forms-demo-routing.module';
-import { ReactiveFormComponent } from './components/reactive-form/reactive-form.component'
+import { ReactiveFormsExample1Component } from './components/reactive-forms-example1/reactive-forms-example1.component'
+import { ReactiveFormsExample2Component } from './components/reactive-forms-example2/reactive-forms-example2.component';
+import { ReactiveFormsExample3Component } from './components/reactive-forms-example3/reactive-forms-example3.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsDemoRoutingModule,
-  ],
-  declarations: [
-    ReactiveFormComponent
-  ]
+	imports: [
+		CommonModule,
+		FormsDemoRoutingModule,
+		ReactiveFormsModule,
+	],
+	declarations: [
+		ReactiveFormsExample1Component,
+		ReactiveFormsExample2Component,
+		ReactiveFormsExample3Component,
+	]
 })
 export class FormsDemoModule {
 
