@@ -16,7 +16,7 @@ export class AppComponent {
 
 	navMenuTree: NavMenuItem[] = [
 		new NavMenuItem("Splash", "/", null),
-		//new NavMenuItem("Commit History", "analytics", null),
+		new NavMenuItem("Commit History", "analytics", null),
 		new NavMenuItem("Reactive Forms Examples", null, [
 			new NavMenuItem("Reactive Forms Example #1", "reactive-forms-demo/reactive-forms-example1", null),
 			new NavMenuItem("Reactive Forms Example #2", "reactive-forms-demo/reactive-forms-example2", null),
