@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/app/nav-menu/nav-menu.component';
 import { SplashComponent } from './components/app/splash/splash.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ExpandingNavMenuComponent } from './components/app/expanding-nav-menu/expanding-nav-menu.component';
 import { NavMenuItemComponent } from './components/app/expanding-nav-menu/nav-menu-item.component';
 import { CoreModule } from '../core/core.module';
@@ -24,6 +25,7 @@ import { SharedModule } from '../shared/shared.module';
 		SplashComponent,
 		ExpandingNavMenuComponent,
 		NavMenuItemComponent,
+		PageNotFoundComponent,
   ],
   imports: [
 		// Add .withServerTransition() to support Universal rendering.  Note that 'app-root'

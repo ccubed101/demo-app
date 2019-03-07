@@ -53,6 +53,7 @@
     <None Remove="ClientApp\src\app\modules\main\components\app\expanding-nav-menu\nav-menu-item.component.ts" />
     <None Remove="ClientApp\src\app\modules\main\components\app\expanding-nav-menu\NavMenuItem.ts" />
     <None Remove="ClientApp\src\app\modules\main\components\app\splash\splash.component.ts" />
+    <None Remove="ClientApp\src\app\modules\main\components\page-not-found\page-not-found.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -65,6 +66,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\modules\main\components\app\expanding-nav-menu\nav-menu-item.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\modules\main\components\app\expanding-nav-menu\NavMenuItem.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\modules\main\components\app\splash\splash.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\modules\main\components\page-not-found\page-not-found.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\main.server.ts" />
   </ItemGroup>
 
