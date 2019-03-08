@@ -22,6 +22,7 @@ export class AppComponent {
 			new NavMenuItem("Reactive Forms Example #2", "reactive-forms-demo/reactive-forms-example2", null),
 			new NavMenuItem("Reactive Forms Example #3", "reactive-forms-demo/reactive-forms-example3", null),
 		]),
+		new NavMenuItem("Routing Examples", "RoutingExamples", null),
 	];
 
 	//navMenuTree: { Text: string, Route: string, Children: {} }[] = [
