@@ -19,69 +19,97 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
-    <Compile Remove="ClientApp\src\app\modules\FormsDemo\**" />
-    <Compile Remove="ClientApp\src\app\modules\main\counter\**" />
-    <Compile Remove="ClientApp\src\app\modules\main\fetch-data\**" />
-    <Compile Remove="ClientApp\src\app\modules\main\home\**" />
+    <Compile Remove="ClientApp\src\app\main\counter\**" />
+    <Compile Remove="ClientApp\src\app\main\fetch-data\**" />
+    <Compile Remove="ClientApp\src\app\main\home\**" />
     <Content Remove="$(SpaRoot)**" />
-    <Content Remove="ClientApp\src\app\modules\FormsDemo\**" />
-    <Content Remove="ClientApp\src\app\modules\main\counter\**" />
-    <Content Remove="ClientApp\src\app\modules\main\fetch-data\**" />
-    <Content Remove="ClientApp\src\app\modules\main\home\**" />
+    <Content Remove="ClientApp\src\app\main\counter\**" />
+    <Content Remove="ClientApp\src\app\main\fetch-data\**" />
+    <Content Remove="ClientApp\src\app\main\home\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Remove="ClientApp\src\app\modules\FormsDemo\**" />
-    <EmbeddedResource Remove="ClientApp\src\app\modules\main\counter\**" />
-    <EmbeddedResource Remove="ClientApp\src\app\modules\main\fetch-data\**" />
-    <EmbeddedResource Remove="ClientApp\src\app\modules\main\home\**" />
-    <None Remove="ClientApp\src\app\modules\FormsDemo\**" />
-    <None Remove="ClientApp\src\app\modules\main\counter\**" />
-    <None Remove="ClientApp\src\app\modules\main\fetch-data\**" />
-    <None Remove="ClientApp\src\app\modules\main\home\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\main\counter\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\main\fetch-data\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\main\home\**" />
+    <None Remove="ClientApp\src\app\main\counter\**" />
+    <None Remove="ClientApp\src\app\main\fetch-data\**" />
+    <None Remove="ClientApp\src\app\main\home\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\AnimationsModule\AnimatedListComponent\AnimatedList.component.ts" />
+    <None Remove="ClientApp\src\app\AnimationsModule\AnimationsRootComponent\Animations.ts" />
+    <None Remove="ClientApp\src\app\AnimationsModule\AnimationsRootComponent\AnimationsRoot.component.ts" />
+    <None Remove="ClientApp\src\app\AnimationsModule\AnimationsRootComponent\RotationComponent\Rotation.component.ts" />
+    <None Remove="ClientApp\src\app\AnimationsModule\AnimationsRootComponent\RotatorComponent\Rotator.component.ts" />
+    <None Remove="ClientApp\src\app\AnimationsModule\AnimationsRootComponent\RouteTransitionPage1Component\RouteTransitionPage1.component.ts" />
+    <None Remove="ClientApp\src\app\AnimationsModule\AnimationsRootComponent\RouteTransitionPage2Component\RouteTransitionPage2.component.ts" />
+    <None Remove="ClientApp\src\app\AnimationsModule\AnimationsRootComponent\ThickFrame3DComponent\ThickFrame3D.component.ts" />
+    <None Remove="ClientApp\src\app\AnimationsModule\AnimationsRootComponent\RotatorWrapperComponent\RotatorWrapper.component.ts" />
     <None Remove="ClientApp\src\app\app.server.module.ts" />
     <None Remove="ClientApp\src\app\main.server.ts" />
-    <None Remove="ClientApp\src\app\modules\analytics\components\commit-history\commit-history.component.ts" />
-    <None Remove="ClientApp\src\app\modules\forms-demo\components\reactive-forms-example1\reactive-forms-example1.component.ts" />
-    <None Remove="ClientApp\src\app\modules\forms-demo\components\reactive-forms-example2\reactive-forms-example2.component.ts" />
-    <None Remove="ClientApp\src\app\modules\forms-demo\components\reactive-forms-example3\reactive-forms-example3.component.ts" />
-    <None Remove="ClientApp\src\app\modules\main\components\app\expanding-nav-menu\expanding-nav-menu.component.ts" />
-    <None Remove="ClientApp\src\app\modules\main\components\app\expanding-nav-menu\nav-menu-item.component.ts" />
-    <None Remove="ClientApp\src\app\modules\main\components\app\expanding-nav-menu\NavMenuItem.ts" />
-    <None Remove="ClientApp\src\app\modules\main\components\app\splash\splash.component.ts" />
-    <None Remove="ClientApp\src\app\modules\main\components\page-not-found\page-not-found.component.ts" />
-    <None Remove="ClientApp\src\app\modules\RoutingExamples\RoutingExample1.component.ts" />
-    <None Remove="ClientApp\src\app\modules\RoutingExamples\RoutingExample2.component.ts" />
-    <None Remove="ClientApp\src\app\modules\RoutingExamples\RoutingExample3.component.ts" />
-    <None Remove="ClientApp\src\app\modules\RoutingExamples\RoutingExample4.component.ts" />
-    <None Remove="ClientApp\src\app\modules\RoutingExamples\RoutingExamples.component.ts" />
+    <None Remove="ClientApp\src\app\AnalyticsModule\components\commit-history\commit-history.component.ts" />
+    <None Remove="ClientApp\src\app\forms-demo\components\reactive-forms-example1\reactive-forms-example1.component.ts" />
+    <None Remove="ClientApp\src\app\forms-demo\components\reactive-forms-example2\reactive-forms-example2.component.ts" />
+    <None Remove="ClientApp\src\app\forms-demo\components\reactive-forms-example3\reactive-forms-example3.component.ts" />
+    <None Remove="ClientApp\src\app\main\auth.guard.ts" />
+    <None Remove="ClientApp\src\app\main\components\app\expanding-nav-menu\expanding-nav-menu.component.ts" />
+    <None Remove="ClientApp\src\app\main\components\app\expanding-nav-menu\nav-menu-item.component.ts" />
+    <None Remove="ClientApp\src\app\main\components\app\expanding-nav-menu\NavMenuItem.ts" />
+    <None Remove="ClientApp\src\app\main\components\app\splash\splash.component.ts" />
+    <None Remove="ClientApp\src\app\main\components\page-not-found\page-not-found.component.ts" />
+    <None Remove="ClientApp\src\app\RoutingExamples\RouteParamExample1.component.ts" />
+    <None Remove="ClientApp\src\app\RoutingExamples\RouteParamExamples.component.ts" />
+    <None Remove="ClientApp\src\app\RoutingExamples\RoutingExample1.component.ts" />
+    <None Remove="ClientApp\src\app\RoutingExamples\RoutingExample2.component.ts" />
+    <None Remove="ClientApp\src\app\RoutingExamples\RoutingExample3.component.ts" />
+    <None Remove="ClientApp\src\app\RoutingExamples\RoutingExample4.component.ts" />
+    <None Remove="ClientApp\src\app\RoutingExamples\RoutingExamples.component.ts" />
+    <None Remove="ClientApp\src\app\VideosModule\SingleVideoComponent\SingleVideo.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\modules\analytics\components\commit-history\commit-history.component.ts" />
-	<TypeScriptCompile Include="ClientApp\src\app\modules\forms-demo\components\reactive-forms-example1\reactive-forms-example1.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\modules\forms-demo\components\reactive-forms-example2\reactive-forms-example2.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\modules\forms-demo\components\reactive-forms-example3\reactive-forms-example3.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\modules\main\app.server.module.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\modules\main\components\app\expanding-nav-menu\expanding-nav-menu.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\modules\main\components\app\expanding-nav-menu\nav-menu-item.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\modules\main\components\app\expanding-nav-menu\NavMenuItem.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\modules\main\components\app\splash\splash.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\modules\main\components\page-not-found\page-not-found.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\modules\RoutingExamples\RoutingExample1.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\modules\RoutingExamples\RoutingExample2.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\modules\RoutingExamples\RoutingExample3.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\modules\RoutingExamples\RoutingExample4.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\modules\RoutingExamples\RoutingExamples.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\AnimationsModule\AnimatedListComponent\AnimatedList.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\AnimationsModule\AnimationsRootComponent\AnimationsRoot.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\AnimationsModule\AnimationsRootComponent\Animations.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\AnimationsModule\AnimationsRootComponent\RotationComponent\Rotation.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\AnimationsModule\AnimationsRootComponent\RotatorComponent\Rotator.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\AnimationsModule\AnimationsRootComponent\RouteTransitionPage1Component\RouteTransitionPage1.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\AnimationsModule\AnimationsRootComponent\RouteTransitionPage2Component\RouteTransitionPage2.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\AnimationsModule\AnimationsRootComponent\ThickFrame3DComponent\ThickFrame3D.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\AnimationsModule\AnimationsRootComponent\RotatorWrapperComponent\RotatorWrapper.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\AnalyticsModule\components\commit-history\commit-history.component.ts" />
+	<TypeScriptCompile Include="ClientApp\src\app\forms-demo\components\reactive-forms-example1\reactive-forms-example1.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\forms-demo\components\reactive-forms-example2\reactive-forms-example2.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\forms-demo\components\reactive-forms-example3\reactive-forms-example3.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\main\app.server.module.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\main\auth.guard.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\main\components\app\expanding-nav-menu\expanding-nav-menu.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\main\components\app\expanding-nav-menu\nav-menu-item.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\main\components\app\expanding-nav-menu\NavMenuItem.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\main\components\app\splash\splash.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\main\components\page-not-found\page-not-found.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\RoutingExamples\RouteParamExample1.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\RoutingExamples\RoutingExample1.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\RoutingExamples\RoutingExample2.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\RoutingExamples\RoutingExample3.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\RoutingExamples\RoutingExample4.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\RoutingExamples\RoutingExamples.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\RoutingExamples\RouteParamExamples.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\VideosModule\SingleVideoComponent\SingleVideo.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\main.server.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\src\app\modules\core\" />
+    <Folder Include="ClientApp\src\app\core\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ForHTTPS3.pfx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

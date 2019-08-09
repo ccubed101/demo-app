@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, RouterState } from '@angular/router';
+import { Observable, Observer, PartialObserver, Subscription, of } from 'rxjs';
 
 @Component({
 	selector: 'RoutingExamples',
@@ -89,57 +91,61 @@ import { Component } from '@angular/core';
 		".flexItem { width: 50% }",
 	]
 })
-export class RoutingExamplesComponent {
+export class RoutingExamplesComponent implements OnInit, OnDestroy {
+
+	// Construction.
+	constructor(private activatedRoute: ActivatedRoute) {
+		console.log('---- activatedRoute.paremt ----');
+		console.log(this.activatedRoute.parent);
+		console.log('---- activatedRoute.outlet ----');
+		console.log(this.activatedRoute.outlet);
+		console.log('---- activatedRoute.firstChild ----');
+		console.log(this.activatedRoute.firstChild);
+		console.log('---- children ----')
+		this.activatedRoute.children.forEach((child) => {
+			console.log(child);
+		});
+		console.log('---- observables ----');
+	}
+
+
+	// Instance variables.
+
+	subscriptions: Subscription[] = [];
+
+
+	// Life-cycle
+
+	ngOnInit() {
+		this.subscriptions.push(
+			this.activatedRoute.url.subscribe(this.url$),
+		);
+	}
+
+	ngOnDestroy() {
+		this.subscriptions.forEach(subscription => subscription.unsubscribe());
+	}
+
+
+	// Observers
+
+	url$: PartialObserver<any> = {
+		next: (item) => { console.log(item); }
+	};
+
+
+	// Event handlers.
+	navigationStart() {
+		console.log('Event: NavigationStart');
+	}
 }
 
 /* Programmer Notes:
  *
- * >> In the above statement RoutingExample1 will be interpreted as a property of the RoutingExamplesComponent class.
- *    <a [routerLink]="RoutingExample1">Link #1</a>
+ * >> In the statement below 'RoutingExample1' will be interpreted as a property of the RoutingExamplesComponent class.
+ *		<a [routerLink]="RoutingExample1">Link #1</a>
  *    Intead use
- *    <a [routerLink]="['RoutingExample1']">Link #1</a>
+ *		<a [routerLink]="['RoutingExample1']">Link #1</a>
  *
  *
  */
-
-
-		//<div class="centerText">
-		//	Routing Examples
-		//</div>
-		//<div class="centerText">
-		//	<a [routerLink]="[{ outlets: { first: ['RoutingExample1'] } } ]">Link #1</a>
-		//</div>
-		//<div class="centerText">
-		//	<a [routerLink]="['/RoutingExamples/RoutingExample2']">Link #2</a>
-		//</div>
-		//<div class="centerText">
-		//	<a [routerLink]="[{ outlets: { third: ['RoutingExample3'] } } ]">Link #3</a>
-		//</div>
-		//<div class="centerText">
-		//	<a [routerLink]="[{ outlets: { fourth: ['\RoutingExample4'] } } ]">Link #4</a>
-		//</div>
-		//			<router-outlet name="first"></router-outlet>
-		//			<router-outlet name="second"></router-outlet>
-		//			<router-outlet name="third"></router-outlet>
-		//			<router-outlet name="fourth"></router-outlet>
-		//<table>
-		//	<tr>
-		//		<th>
-		//		</th>
-		//		<th>
-		//		</th>
-		//	</tr>
-		//	<tr>
-		//		<td>
-		//		</td>
-		//		<td>
-		//		</td>
-		//	</tr>
-		//	<tr>
-		//		<td>
-		//		</td>
-		//		<td>
-		//		</td>
-		//	</tr>
-		//</table>
-

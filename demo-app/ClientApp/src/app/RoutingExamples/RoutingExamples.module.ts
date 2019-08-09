@@ -7,6 +7,8 @@ import { RoutingExample1Component } from './RoutingExample1.component';
 import { RoutingExample2Component } from './RoutingExample2.component';
 import { RoutingExample3Component } from './RoutingExample3.component';
 import { RoutingExample4Component } from './RoutingExample4.component';
+import { RouteParamExamplesComponent } from './RouteParamExamples.component';
+import { RouteParamExample1Component } from './RouteParamExample1.component';
 
 @NgModule({
 	imports: [
@@ -19,6 +21,8 @@ import { RoutingExample4Component } from './RoutingExample4.component';
 		RoutingExample2Component,
 		RoutingExample3Component,
 		RoutingExample4Component,
+		RouteParamExamplesComponent,
+		RouteParamExample1Component,
 	]
 })
 export class RoutingExamplesModule {

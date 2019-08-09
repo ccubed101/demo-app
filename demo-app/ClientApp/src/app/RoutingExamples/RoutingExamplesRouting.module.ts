@@ -6,6 +6,8 @@ import { RoutingExample1Component } from './RoutingExample1.component';
 import { RoutingExample2Component } from './RoutingExample2.component';
 import { RoutingExample3Component } from './RoutingExample3.component';
 import { RoutingExample4Component } from './RoutingExample4.component';
+import { RouteParamExamplesComponent } from './RouteParamExamples.component';
+import { RouteParamExample1Component } from './RouteParamExample1.component';
 
 const routes: Routes = [
 	{
@@ -40,6 +42,10 @@ const routes: Routes = [
 			{ path: '', component: RoutingExample1Component, outlet: 'second' },					// Applies when first entering page.
 		]
 	},
+	{
+		path: 'RouteParameterExamples', component: RouteParamExamplesComponent, children: [
+			{ path: 'RouteParameterExample1/:id1/:id2/:id3', component: RouteParamExample1Component },
+		]},
 	{ path: '', redirectTo: 'shim' }
 ];
 

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Next 2 lines added to support Angular Universal (server-side rendering).
 import { PLATFORM_ID, APP_ID, Inject } from '@angular/core';    // Added for Angular Universal app.
@@ -17,28 +18,31 @@ import { ExpandingNavMenuComponent } from './components/app/expanding-nav-menu/e
 import { NavMenuItemComponent } from './components/app/expanding-nav-menu/nav-menu-item.component';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
-  declarations: [
+	declarations: [
 		AppComponent,
 		NavMenuComponent,
 		SplashComponent,
 		ExpandingNavMenuComponent,
 		NavMenuItemComponent,
 		PageNotFoundComponent,
-  ],
-  imports: [
+		LoginComponent
+	],
+	imports: [
 		// Add .withServerTransition() to support Universal rendering.  Note that 'app-root'
 		// identifies the element in index.html where the Angular generated html is placed.
 		BrowserModule.withServerTransition({ appId: 'app-root' }),
+		BrowserAnimationsModule,
 		HttpClientModule,
 		FormsModule,
-		AppRoutingModule,
 		CoreModule,                     // For application wide (global) services.  This will add providers from CoreModule to AppModule's providers.
 		SharedModule.forRoot(),         // For stuff that is shared across multiple apps.  This will add providers from SharedModule to AppModule's providers. 
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+		AppRoutingModule,				// Should always be last in the list (so that routing works correctly).
+	],
+	providers: [],
+	bootstrap: [AppComponent]
 })
 export class AppModule {
 

@@ -2,6 +2,7 @@ import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+import { AuthenticationService } from './authentication.service';
 import { SampleService } from './Sample.service';
 import { SampleResolverService } from './resolvers/sample-resolver.service';
 
@@ -10,7 +11,8 @@ import { SampleResolverService } from './resolvers/sample-resolver.service';
         CommonModule
         , FormsModule
     ],
-    providers: [
+	providers: [
+		//AuthenticationService,
         SampleService
         , SampleResolverService
     ],
