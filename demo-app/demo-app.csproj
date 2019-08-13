@@ -19,10 +19,12 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\app\main\components\**" />
     <Compile Remove="ClientApp\src\app\main\counter\**" />
     <Compile Remove="ClientApp\src\app\main\fetch-data\**" />
     <Compile Remove="ClientApp\src\app\main\home\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\src\app\main\components\**" />
     <Content Remove="ClientApp\src\app\main\counter\**" />
     <Content Remove="ClientApp\src\app\main\fetch-data\**" />
     <Content Remove="ClientApp\src\app\main\home\**" />
@@ -30,9 +32,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="ClientApp\src\app\main\components\**" />
     <EmbeddedResource Remove="ClientApp\src\app\main\counter\**" />
     <EmbeddedResource Remove="ClientApp\src\app\main\fetch-data\**" />
     <EmbeddedResource Remove="ClientApp\src\app\main\home\**" />
+    <None Remove="ClientApp\src\app\main\components\**" />
     <None Remove="ClientApp\src\app\main\counter\**" />
     <None Remove="ClientApp\src\app\main\fetch-data\**" />
     <None Remove="ClientApp\src\app\main\home\**" />
@@ -55,11 +59,6 @@
     <None Remove="ClientApp\src\app\forms-demo\components\reactive-forms-example2\reactive-forms-example2.component.ts" />
     <None Remove="ClientApp\src\app\forms-demo\components\reactive-forms-example3\reactive-forms-example3.component.ts" />
     <None Remove="ClientApp\src\app\main\auth.guard.ts" />
-    <None Remove="ClientApp\src\app\main\components\app\expanding-nav-menu\expanding-nav-menu.component.ts" />
-    <None Remove="ClientApp\src\app\main\components\app\expanding-nav-menu\nav-menu-item.component.ts" />
-    <None Remove="ClientApp\src\app\main\components\app\expanding-nav-menu\NavMenuItem.ts" />
-    <None Remove="ClientApp\src\app\main\components\app\splash\splash.component.ts" />
-    <None Remove="ClientApp\src\app\main\components\page-not-found\page-not-found.component.ts" />
     <None Remove="ClientApp\src\app\RoutingExamples\RouteParamExample1.component.ts" />
     <None Remove="ClientApp\src\app\RoutingExamples\RouteParamExamples.component.ts" />
     <None Remove="ClientApp\src\app\RoutingExamples\RoutingExample1.component.ts" />
@@ -86,11 +85,6 @@
     <TypeScriptCompile Include="ClientApp\src\app\forms-demo\components\reactive-forms-example3\reactive-forms-example3.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\main\app.server.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\main\auth.guard.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\main\components\app\expanding-nav-menu\expanding-nav-menu.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\main\components\app\expanding-nav-menu\nav-menu-item.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\main\components\app\expanding-nav-menu\NavMenuItem.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\main\components\app\splash\splash.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\main\components\page-not-found\page-not-found.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\RoutingExamples\RouteParamExample1.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\RoutingExamples\RoutingExample1.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\RoutingExamples\RoutingExample2.component.ts" />

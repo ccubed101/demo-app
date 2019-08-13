@@ -10,12 +10,12 @@ import { PLATFORM_ID, APP_ID, Inject } from '@angular/core';    // Added for Ang
 import { isPlatformBrowser } from '@angular/common';            // Added for Angular Universal app.
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './components/app/app.component';
-import { NavMenuComponent } from './components/app/nav-menu/nav-menu.component';
-import { SplashComponent } from './components/app/splash/splash.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { ExpandingNavMenuComponent } from './components/app/expanding-nav-menu/expanding-nav-menu.component';
-import { NavMenuItemComponent } from './components/app/expanding-nav-menu/nav-menu-item.component';
+import { AppComponent } from './app/app.component';
+import { NavMenuComponent } from './app/nav-menu/nav-menu.component';
+import { SplashComponent } from './app/splash/splash.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ExpandingNavMenuComponent } from './app/expanding-nav-menu/expanding-nav-menu.component';
+import { NavMenuItemComponent } from './app/expanding-nav-menu/nav-menu-item.component';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { LoginComponent } from './login/login.component';
