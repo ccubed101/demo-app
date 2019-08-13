@@ -19,6 +19,7 @@ import { NavMenuItemComponent } from './app/expanding-nav-menu/nav-menu-item.com
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { LoginComponent } from './login/login.component';
+import { JwtDemoComponent } from './jwt-demo/jwt-demo.component';
 
 @NgModule({
 	declarations: [
@@ -28,7 +29,8 @@ import { LoginComponent } from './login/login.component';
 		ExpandingNavMenuComponent,
 		NavMenuItemComponent,
 		PageNotFoundComponent,
-		LoginComponent
+		LoginComponent,
+		JwtDemoComponent,
 	],
 	imports: [
 		// Add .withServerTransition() to support Universal rendering.  Note that 'app-root'

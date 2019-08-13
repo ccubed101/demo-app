@@ -16,6 +16,7 @@ export class AppComponent {
 
 	navMenuTree: NavMenuItem[] = [
 		new NavMenuItem("Splash", "/", null),
+		new NavMenuItem("JWT Demo", "JwtDemo", null),
 		new NavMenuItem("Commit History", "analytics", null),
 		new NavMenuItem("Single Video", "Videos/SingleVideo", null),
 		new NavMenuItem("Animations", null, [
