@@ -12,11 +12,11 @@ import { JwtDemoComponent } from './jwt-demo/jwt-demo.component';
 
 const routes: Routes = [
 
-	{ path: 'reactive-forms-demo', loadChildren: '../forms-demo/forms-demo.module#FormsDemoModule', data: { preload: false } },
-	{ path: 'analytics', loadChildren: '../AnalyticsModule/analytics.module#AnalyticsModule', data: { preload: false } },
-	{ path: 'RoutingExamples', loadChildren: '../RoutingExamples/RoutingExamples.module#RoutingExamplesModule', data: { preload: false } },
-	{ path: 'Animations', loadChildren: '../AnimationsModule/Animations.module#AnimationsModule', data: { preload: false } },
-	{ path: 'Videos', loadChildren: '../VideosModule/Videos.module#VideosModule', data: { preload: false } },
+	{ path: 'reactive-forms-demo', loadChildren: () => import('../forms-demo/forms-demo.module').then(m => m.FormsDemoModule), data: { preload: false } },
+	{ path: 'analytics', loadChildren: () => import('../AnalyticsModule/analytics.module').then(m => m.AnalyticsModule), data: { preload: false } },
+	{ path: 'RoutingExamples', loadChildren: () => import('../RoutingExamples/RoutingExamples.module').then(m => m.RoutingExamplesModule), data: { preload: false } },
+	{ path: 'Animations', loadChildren: () => import('../AnimationsModule/Animations.module').then(m => m.AnimationsModule), data: { preload: false } },
+	{ path: 'Videos', loadChildren: () => import('../VideosModule/Videos.module').then(m => m.VideosModule), data: { preload: false } },
 	{ path: 'Splash', component: SplashComponent },
 	{ path: 'Login', component: LoginComponent },
 	{ path: '', component: SplashComponent, pathMatch: 'full' },

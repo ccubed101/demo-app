@@ -6,7 +6,7 @@ import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
 
 import { LoginComponent } from './login.component';
-import { AuthenticationService } from './authentication.service';
+import { AuthenticationService } from '../../core/authentication.service';
 
 describe('LoginComponent', () => {
 	let component: LoginComponent;

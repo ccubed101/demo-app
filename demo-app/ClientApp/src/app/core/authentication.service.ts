@@ -3,9 +3,11 @@ import { HttpClient, HttpResponse, HttpErrorResponse, HttpHeaders } from '@angul
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
+
 export interface IAuthenticationService {
 	Login(userName: string, password: string): Observable<string>;
 	IsLoggedIn(): boolean;
+	Jwt: string;
 }
 
 @Injectable({
@@ -18,6 +20,21 @@ export class AuthenticationService implements IAuthenticationService {
 	constructor(
 		private httpClient: HttpClient
 	) {
+	}
+
+
+	// Instance variables.
+
+	jwt: string = null;
+
+
+	// Property accessors.
+
+	public get Jwt(): string {
+		return this.jwt;
+	}
+	public set Jwt(jwt: string) {
+		this.jwt = jwt;
 	}
 
 
@@ -103,11 +120,13 @@ export class AuthenticationService implements IAuthenticationService {
 		).pipe(
 			catchError(this.onError),
 			map(httpResponse => httpResponse.body),
+			map(jwt => this.jwt = jwt),
+			tap(() => console.log(this.jwt))
 		);
 	}
 
 	IsLoggedIn(): boolean {
-		return false;
+		return (this.jwt != null);
 	}
 
 

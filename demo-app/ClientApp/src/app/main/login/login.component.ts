@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthenticationService } from './authentication.service';
+import { AuthenticationService } from '../../core/authentication.service';
 import { LoginModel } from './Login.Model'
+import { LoginCallbacksService } from '../../core/login.callbacks.service';
 
 @Component({
 	selector: 'login',
@@ -72,7 +73,7 @@ import { LoginModel } from './Login.Model'
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-	constructor(private authenticationService: AuthenticationService) { }
+	constructor(private authenticationService: AuthenticationService, private loginCallbacksService: LoginCallbacksService) { }
 
 
 	// Angular life-cycle methods
@@ -102,8 +103,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 		this.authenticationService.Login(this.LoginModel.UserName, this.LoginModel.Password)
 			.subscribe(
 				httpResponse => {
-					console.log(httpResponse);
+					this.loginCallbacksService.SuccessCallback();
 				},
+				err => {
+					this.loginCallbacksService.FailCallback();
+				}
 			);
 	}
 }

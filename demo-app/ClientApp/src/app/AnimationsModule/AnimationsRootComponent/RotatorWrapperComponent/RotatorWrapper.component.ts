@@ -34,7 +34,7 @@ export class RotatorWrapperComponent {
 
 
 	// Access to child components
-	@ViewChild(RotatorComponent) rotator: RotatorComponent;
+	@ViewChild(RotatorComponent, { static: true }) rotator: RotatorComponent;
 
 	// Constants
 

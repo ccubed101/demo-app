@@ -97,7 +97,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\src\app\core\" />
     <Folder Include="ClientApp\src\app\main\jwt-demo\" />
   </ItemGroup>
 

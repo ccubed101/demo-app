@@ -13,7 +13,7 @@
 #	docker build --force-rm -t <desired image name> -f <path to this dockerfile> <path to context>
 #
 #	Example:
-#		docker build --force-rm -f "D:\Code Projects\demo-app\docker\production-kestral\dockerfile-production-kestral" -t demo-app-prod-kestral "D:\Code Projects\demo-app"
+#		docker build --force-rm -f "D:\Code Projects\demo-app\docker\production-kestral\dockerfile-production-kestral" -t demo-app-prod-kestral:latest "D:\Code Projects\demo-app"
 #
 # Run command: 
 #	docker run --rm --name <name of container> <name of image> <optional command>
@@ -37,7 +37,7 @@ ENV NODE_VERSION 10.9.0
 RUN PowerShell Invoke-WebRequest $('https://nodejs.org/dist/v{0}/node-v{0}-win-x64.zip' -f $env:NODE_VERSION) -OutFile 'node.zip' -UseBasicParsing ; `
      Expand-Archive node.zip -DestinationPath C:\ ; `
      Rename-Item -Path $('C:\node-v{0}-win-x64' -f $env:NODE_VERSION) -NewName 'C:\nodejs'
-
+	 
 # Need dotnet.exe to publish the application.  
 # (NOTE: microsoft/dotnet:sdk image does not have PowerShell!!!)
 FROM microsoft/dotnet:sdk
@@ -49,44 +49,57 @@ COPY --from=forNodeInsall nodejs nodejs
 # Append path for NodeJS to PATH environment variable. 
 RUN setx Path "%Path%;C:\nodejs"
 
-# Arguments:
-ARG pathToPublish=C:\publish
-ARG pathToProject=C:\project
+# arguments:
+arg pathtopublish=c:\publish
+arg pathtoproject=c:\project
 
-# Programmer Note: How do you consume ARGs in a dockerfile?  The rules are complicated.  
-# Assume that we have the following command: 
-#	ARG argName
-# Then it depends on whether we are talking about 
-# 1. Docker commands
-#    Use $argName or ${argName} 
-# 2. PowerShell commands
-#    Use $Env:argName
-# 3. CMD commands
-#    Use %argname
-# Note that it is important to be aware of whether PowerShell is in effect or CMD is in effect.
-# Examples:
-#	1. PowerShell
-#	   SHELL ["powershell", "-command"]
-#	   RUN ECHO $Env:argName
-#	   RUN New-Item -ItemType directory -Path $Env:argName
-#	   RUN mkdir $Env:argName
-#   2. CMD
-#      SHELL ["cmd", "/S", "/C"]
-#	   RUN ECHO %argName%
-#      RUN mkdir %argName%
-# Note that the RUN command executes either CMD or PowerShell commands.
-# Note that some base images do not make PowerShell available.
-# Note that ARG commands apply to the image that is in effect.  In other words ARG commands that precede a FROM command are not applicable to the image specified in the FROM command.
+# programmer note: how do you consume args in a dockerfile?  the rules are complicated.  
+# assume that we have the following command: 
+#	arg argname
+# then it depends on whether we are talking about 
+# 1. docker commands
+#    use $argname or ${argname} 
+# 2. powershell commands
+#    use $env:argname
+# 3. cmd commands
+#    use %argname
+# note that it is important to be aware of whether powershell is in effect or cmd is in effect.
+# examples:
+#	1. powershell
+#	   shell ["powershell", "-command"]
+#	   run echo $env:argname
+#	   run new-item -itemtype directory -path $env:argname
+#	   run mkdir $env:argname
+#   2. cmd
+#      shell ["cmd", "/s", "/c"]
+#	   run echo %argname%
+#      run mkdir %argname%
+# note that the run command executes either cmd or powershell commands.
+# note that some base images do not make powershell available.
+# note that arg commands apply to the image that is in effect.  in other words arg commands that precede a from command are not applicable to the image specified in the from command.
 
+# create directory that project will be copied into.
+run mkdir %pathtoproject%
 
-# Create directory that project will be copied into.
-RUN mkdir %pathToProject%
+# Copy the project into the image.
+# "." refers to the context specified in the "docker build" command.  It is the directory that contains the .sln file.
+# The entire project is in that directory or one of the child directories and all of those directories are copied into
+# the image.  There is one exception.  The "./demo-app/ClientApp/node_modules/@angular/cli/" directory will not be copied.
+# It will not be copied because it is listed in the ".dockerignore" file in the same directory that contains the solution
+# (.sln) file.  This directory is not copied because the only way to get the Angular CLI to work correctly in the 
+# container is to not copy the directory and then install the Angular CLI as part of the image build process  (see below).
+add . ${pathtoproject}
 
-# Create directory where application will be published to.
-RUN mkdir %pathToPublish%
+# Make the directory that contains the client-side Angular app the current directory.
+WORKDIR C:\project\demo-app\ClientApp
 
-# Copy project into image.
-ADD . ${pathToProject}
+# The following command will install the most recent version of the Angular CLI.  However if a 
+# package.json file is present it will install the version of the CLI specified in package.json.  As
+# of 8/20/2019 the version being used on my machine is 8.2.2.  
+RUN npm install @angular/cli
+
+# Build the server side rendering code.  It will be placed in the "C:/project/demo-app/ClientApp/dist-server" directory.
+RUN npm run build:ssr
 
 # Publish the application to the specified location in the image.
 RUN dotnet publish %pathToProject%\demo-app.sln -c Release -o %pathToPublish%
