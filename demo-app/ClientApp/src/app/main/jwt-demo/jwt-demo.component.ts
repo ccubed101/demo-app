@@ -21,10 +21,10 @@ import { catchError, map, tap } from 'rxjs/operators';
 				</textarea>
 			</div>
 			<div>
-				<button (click)="Click()">Call Protected Service</button>
+				<button id="callProtectedService" (click)="Click()">Call Protected Service</button>
 			</div>
 			<div>
- 				<textarea rows="5" cols="100" [value]="this.responseText">
+ 				<textarea rows="5" cols="100" id="responseText" [value]="this.responseText">
 				</textarea>
 			</div>
 		</div>
