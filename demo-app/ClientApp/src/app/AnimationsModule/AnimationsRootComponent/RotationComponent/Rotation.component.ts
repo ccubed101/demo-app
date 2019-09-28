@@ -5,9 +5,9 @@ import { trigger, state, style, animate, transition, keyframes, AnimationEvent }
 	selector: 'rotation',
 	template: `
 		<div style="text-align: center; overflow: hidden">
-			<button (click)="onPanel1()">Panel 1</button>
-			<button (click)="onPanel2()">Panel 2</button>
-			<button (click)="onPanel3()">Panel 3</button>
+			<button id="panel1Bttn" (click)="onPanel1()">Panel 1</button>
+			<button id="panel2Bttn" (click)="onPanel2()">Panel 2</button>
+			<button id="panel3Bttn" (click)="onPanel3()">Panel 3</button>
 			<div>
 				<!-- When 'perspective' style is applied to div below it can have some unusual effect on other
 					 parts of the DOM.  In particular the EpandingNavMenu would unexpectedly close as soon as
