@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { BreezeBridgeHttpClientModule } from 'breeze-bridge2-angular';
 
-import { EntityManager, NamingConvention, MetadataStore } from 'breeze-client'
+import { BreezeDemoEntityManager } from './BreezeDemoEntityManager'
 
 import { BreezeDemoRoutingModule } from './BreezeDemoRouting.module';
 import { BreezeDemoRootComponent } from './BreezeDemoRootComponent/BreezeDemoRoot.component'
@@ -13,8 +13,6 @@ import { CoursesComponent } from './BreezeDemoRootComponent/courses/courses.comp
 import { StudentsComponent } from './BreezeDemoRootComponent/students/students.component'
 import { EnrollmentsComponent } from './BreezeDemoRootComponent/enrollments/enrollments.component'
 import { StudentsCoursesComponent } from './BreezeDemoRootComponent/StudentsCourses/StudentsCourses.component'
-
-import { entityManagerFactory } from './EntityManagerFactory'
 
 import { UnitOfWork } from './UnitOfWork'
 import { CourseRepository } from './CourseRepository';
@@ -64,12 +62,14 @@ import { ITestDepObj, testDepObj, TEST_DEP_OBJ } from './TestDepObj'
          *      { provider: TEST_DEP_OBJ, useValue: { name: 'Test Name' }
          */
 
-        // The Breeze server-side service is implemented using an independent WebApi app (i.e. a microservice).
-        // So the specific "service name" must be supplied to the EntityManager constructor.  The service
-        // name is just the specific URL to the controller that implements the service.
-        {
-            provide: EntityManager, useValue: entityManagerFactory()
-        },
+        //// The Breeze server-side service is implemented using an independent WebApi app (i.e. a microservice).
+        //// So the specific "service name" must be supplied to the EntityManager constructor.  The service
+        //// name is just the specific URL to the controller that implements the service.
+        //{
+        //    provide: EntityManager, useValue: entityManagerFactory()
+        //},
+
+        BreezeDemoEntityManager,
 
         UnitOfWork,
         CourseRepository,

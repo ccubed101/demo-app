@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { EntityManager } from 'breeze-client';
 
-//import { NgrxPlusBreezeModule } from './NgrxPlusBreeze.module';
+import { BreezeDemoEntityManager } from './BreezeDemoEntityManager'
 
 import { IRepository, Repository } from './Repository';
 import { ITeacher } from './Teacher'
@@ -22,7 +22,7 @@ export class TeacherRepository extends Repository<ITeacher> implements ITeacherR
     // Construction.
 
     constructor(
-        entityManager: EntityManager,
+        entityManager: BreezeDemoEntityManager,
     ) {
         super(entityManager);
     }

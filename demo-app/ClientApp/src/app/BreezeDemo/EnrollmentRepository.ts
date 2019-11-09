@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { BreezeDemoModule } from './BreezeDemo.module';
+import { BreezeDemoEntityManager } from './BreezeDemoEntityManager'
 
 import { IRepository, Repository } from './Repository';
 import { IEnrollment } from './Enrollment'
@@ -16,6 +16,14 @@ export interface IEnrollmentRepository extends IRepository<IEnrollment>{
 //    providedIn: NgrxPlusBreezeModule
 //})
 export class EnrollmentRepository extends Repository<IEnrollment> implements IEnrollmentRepository {
+
+    // Construction.
+
+    constructor(
+        entityManager: BreezeDemoEntityManager,
+    ) {
+        super(entityManager);
+    }
 
     // Property Accessors
 
