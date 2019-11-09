@@ -7,6 +7,7 @@ export let configuration = {
         new NavMenuItem("JWT Demo", "JwtDemo", null),
         new NavMenuItem("Commit History", "analytics", null),
         new NavMenuItem("Single Video", "Videos/SingleVideo", null),
+        new NavMenuItem("Breeze Demo", "BreezeDemo/BreezeDemoRoot", null),
         new NavMenuItem("Animations", null, [
             new NavMenuItem("Route Transitions", null, [
                 new NavMenuItem("Route Transition Page #1", "Animations/AnimationsRoot/RouteTransitionPage1", null),
