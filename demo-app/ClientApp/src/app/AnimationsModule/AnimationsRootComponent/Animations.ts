@@ -46,7 +46,7 @@ export const fadeOutInAnimation =
 
 
 // Programmer note: Only elements positioned by the box model can be transformed. As a rule 
-// of rule of thumb, an element is positioned by the box model if it has display: block.
+// of thumb, an element is positioned by the box model if it has display: block.
 
 export const batmanAnimation =
 	trigger('routeAnimations', [
