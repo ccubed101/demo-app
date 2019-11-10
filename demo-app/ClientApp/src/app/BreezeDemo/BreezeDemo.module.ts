@@ -62,14 +62,24 @@ import { ITestDepObj, testDepObj, TEST_DEP_OBJ } from './TestDepObj'
          *      { provider: TEST_DEP_OBJ, useValue: { name: 'Test Name' }
          */
 
-        //// The Breeze server-side service is implemented using an independent WebApi app (i.e. a microservice).
-        //// So the specific "service name" must be supplied to the EntityManager constructor.  The service
-        //// name is just the specific URL to the controller that implements the service.
-        //{
-        //    provide: EntityManager, useValue: entityManagerFactory()
-        //},
-
         BreezeDemoEntityManager,
+
+        /*
+            The code below is the original method that a Breeze EntityManager was made available via dependency
+            injection.  The method could not be used because while there was no problem when compiling in
+            development mode that was not the case when compiling in production mode using the AOT (Ahead of Time)
+            compiler.  An error kept occurring where "index" could not be found in "breeze-client".  The problem
+            was clearly related to the dependency injection process.  The problem was resolved by creating the
+            BreezeDemoEntityManager and deriving it from the Breeze EntityManager class.
+         
+            // The Breeze server-side service is implemented using an independent WebApi app (i.e. a microservice).
+            // So the specific "service name" must be supplied to the EntityManager constructor.  The service
+            // name is just the specific URL to the controller that implements the service.
+            {
+                provide: EntityManager, useValue: entityManagerFactory()
+            },
+        */
+
 
         UnitOfWork,
         CourseRepository,
@@ -77,6 +87,7 @@ import { ITestDepObj, testDepObj, TEST_DEP_OBJ } from './TestDepObj'
         EnrollmentRepository,
         TeacherRepository,
         SchoolModel,
+
         TestDepClass,
         { provide: TEST_DEP_OBJ, useValue: <ITestDepObj>testDepObj },
     ]
