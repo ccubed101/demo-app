@@ -9,7 +9,7 @@ import { ITestDepObj, testDepObj, TEST_DEP_OBJ } from '../../TestDepObj';
 @Component({
     selector: 'courses',
     template: `
-        <div style="margin: 1em">
+         <div style="margin: 1em">
             <div style="text-align: center">
                 Course
             </div>
@@ -33,7 +33,7 @@ import { ITestDepObj, testDepObj, TEST_DEP_OBJ } from '../../TestDepObj';
 			    </div>
 		    </form>
         </div>
-    `,
+   `,
     //providers: [
     //    TestDepClass,
     //    { provide: TEST_DEP_OBJ, useValue: <ITestDepObj>testDepObj },
@@ -71,5 +71,6 @@ export class CoursesComponent implements OnInit {
             this.formGroup.controls['credits'].value,
         );
     }
+
 
 }

@@ -1,6 +1,6 @@
 import { BreezeDemoModule } from './BreezeDemo.module';
 
-describe('NgrxPlusBreeze module', () => {
+describe('BreezeDemo module', () => {
     let module: BreezeDemoModule;
 
   beforeEach(() => {
