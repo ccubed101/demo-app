@@ -1,3 +1,6 @@
+# Ignore .js files generated from transpiling .ts files.
+**/ClientApp/src/**/*.js
+
 /Properties/launchSettings.json
 
 ## Ignore Visual Studio temporary files, build results, and
@@ -235,5 +238,4 @@ _Pvt_Extensions
 # ignore .map files
 *.map
 
-# Ignore .js files generated from transpiling .ts files.
-**/src/*.js
+
