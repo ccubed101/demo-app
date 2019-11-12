@@ -1,0 +1,82 @@
+﻿Notes on BreezeJS
+=================
+
+Ways To Use Breeze
+------------------
+>> Breeze will fixup relationships.  For example say you have an Orders collection and each Order has 
+   a Details collection.  You also have a data service with a controller that has an Orders method,
+     public IQueryable<Order> Orders() { return DbContext.Orders; } 
+   and a Details method,
+     public IQueryable<Detail> Details() { return DbContext.Details; } 
+   If you just call the Orders method each of the Order objects will have a Details collection but it
+   will be empty.  When the Details() method is called Breeze will automatically populate the Details
+   collections of the Order objects.
+   This may be the best way to use Breeze.  I may not be the most efficient way because you don't take
+   opportunities to optimize...but it may be the easiest way.  You simply load up all the objects you 
+   want and let Breeze take care of fixing up the relationships.
+>> If you want to avoid calling the Details method then you could change the Orders() method to 
+     public IQueryable<Order> Orders() { return DbContext.Orders.Include("Details"); }
+   There is a potential problem here.  Let's say every Detail object has a reference to it's parent 
+   Order object.  This situation is a circular reference.  And there may be a complaint about a circular
+   reference from the software that serializes the entities from Entity Framework into JSON in order to 
+   be sent to the client.  this was the case as of 11/2019.  But that may change in the future.
+>> Another alternative is to use lazy loading.  In that scenario the Details method would be
+   called automatically by Breeze when an Order object's Details collection is accessed.
+
+Installation
+------------
+>> BreezeJS must be on the client and can be (but does not necessarily have to be) on the server.
+   >> For an Angular on the client app you can use NPM to install Breeze-Client
+        npm install breeze-client --save
+   >> Then follow the above with
+        npm install breeze-bridge2-angular --save
+      (Note that there is a package called breeze-brigde-angular.  But it is for versions of Angular
+      prior to version 4.3.  It uses @angular/http.  breeze-bridge2-angular use @angular/common/http
+      which is more recent.)
+   >> Then add the following line to file where the root NgModule is declared (e.g. app.module.ts)
+        import { BreezeBridgeHttpClientModule } from 'breeze-bridge2-angular';
+   >> Finally import the BreezeBridgeHttpClientModule in the same file as follows:
+        @NgModule({
+            ...
+	    imports: [
+		...
+		BreezeBridgeHttpClientModule,
+    	    ],
+	    ...
+	})
+
+   >> If an independent microservice is being used for the back-end to implement the server side 
+      Breeze service make sure that when you instantiate an EntityManager on the client to specify
+      the correct "serviceName".  For example:
+        providers: [
+	    ...
+	    // SchoolModel comes from the name of the controller class, "SchoolModelController'.
+            { provide: EntityManager, useValue: new EntityManager('https://localhost:443/breeze/SchoolModel') },
+    	]
+
+
+   >> On the server:
+      >> if you are going to write a "Breeze Web API" service using .NET Core then you use NuGet to 
+	     install the "Breeze.AspNetCore.NetCore" package.
+
+Q (Q.js) vs. $q
+---------------
+>> Q and $q iimplement promises.
+   >> Q are the promises returned by Breeze asynchronous methods.
+   >> Many Angular modules do not understand Q promises.  Instead they use $q promises.
+      So it is recommended that $q promises are used.
+   >> To make the switch from Q to $q you use the breeze-bridge2-angular package.
+
+ASP.NET Web API
+---------------
+>> If you are using ASP.NET Web API then there are 3 ways to write a service:
+   >> Breeze Web API  (The notes above apply to this method.)
+   >> Conventional Web API (i.e. REST API)
+   >> OData Web API
+
+Breeze and Ngrx Together
+------------------------
+>> Ngrx specifically says that Ngrx and Breeze cannot be used together.  See 
+   1. https://ngrx.io/guide/data/limitations
+   2. https://github.com/johnpapa/angular-ngrx-data/blob/master/docs/limitations.md
+
