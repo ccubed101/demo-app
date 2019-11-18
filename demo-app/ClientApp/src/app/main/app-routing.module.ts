@@ -18,6 +18,7 @@ const routes: Routes = [
 	{ path: 'Animations', loadChildren: () => import('../AnimationsModule/Animations.module').then(m => m.AnimationsModule), data: { preload: false } },
     { path: 'Videos', loadChildren: () => import('../VideosModule/Videos.module').then(m => m.VideosModule), data: { preload: false } },
     { path: 'BreezeDemo', loadChildren: () => import('../BreezeDemo/BreezeDemo.module').then(m => m.BreezeDemoModule), data: { preload: false } },
+    { path: 'NgrxDemo', loadChildren: () => import('../NgrxDemo/NgrxDemo.module').then(m => m.NgrxDemoModule), data: { preload: false } },
 	{ path: 'Splash', component: SplashComponent },
 	{ path: 'Login', component: LoginComponent },
 	{ path: '', component: SplashComponent, pathMatch: 'full' },
