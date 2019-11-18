@@ -8,13 +8,13 @@ import { NgrxDemoRoutingModule } from './NgrxDemoRouting.module'
 
 
 // ngrx 
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { mainReducer } from './ngrx/main.reducers';
-import { featureReducer } from './FeatureState.reducer'
-import { FavoriteMoviesEffects } from './FavoriteMovies.effects'
+//import { StoreModule } from '@ngrx/store';
+//import { EffectsModule } from '@ngrx/effects';
+//import { mainReducer } from './ngrx/main.reducers';
+//import { featureReducer } from './FeatureState.reducer'
+//import { FavoriteMoviesEffects } from './FavoriteMovies.effects'
 
-import { configuration } from './Configuration'
+//import { configuration } from './Configuration'
 
 @NgModule({
 	imports: [
@@ -25,17 +25,17 @@ import { configuration } from './Configuration'
         ReactiveFormsModule,
 
 
-        // For ngrx.  This makes the store available for injection everywhere in the app.
-        StoreModule.forRoot({
-            main: mainReducer,
-        }),
-        // For ngrx effects.  Note that even if you do not need to register any effects at the
-        // "root" level you still must have the following (with an empty array) because is sets
-        // up the providers required for effects.
-        EffectsModule.forRoot([
-        ]),
-        StoreModule.forFeature('featureState', featureReducer),
-        EffectsModule.forFeature([FavoriteMoviesEffects]),
+        //// For ngrx.  This makes the store available for injection everywhere in the app.
+        //StoreModule.forRoot({
+        //    main: mainReducer,
+        //}),
+        //// For ngrx effects.  Note that even if you do not need to register any effects at the
+        //// "root" level you still must have the following (with an empty array) because is sets
+        //// up the providers required for effects.
+        //EffectsModule.forRoot([
+        //]),
+        //StoreModule.forFeature('featureState', featureReducer),
+        //EffectsModule.forFeature([FavoriteMoviesEffects]),
 	],
 	declarations: [
 		NgrxDemoRootComponent,
