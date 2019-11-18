@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, RouterState, RouterOutlet } from '@angular/router';
 
-import { Store, select } from '@ngrx/store';
-import { setGreeting, setSecondGreeting } from '../../main/ngrx/main.actions';
-import { loadFavoriteMovies, favoriteMoviesLoaded } from '../FeatureState.reducer'
-import { Observable, of } from 'rxjs';
+//import { Store, select } from '@ngrx/store';
+//import { setGreeting, setSecondGreeting } from '../../main/ngrx/main.actions';
+//import { loadFavoriteMovies, favoriteMoviesLoaded } from '../FeatureState.reducer'
+//import { Observable, of } from 'rxjs';
 
 
 @Component({
@@ -13,7 +13,7 @@ import { Observable, of } from 'rxjs';
 		<div class="title">
 			Ngrx Demo
         </div>
-        <div style="margin-top: 2em">
+        <!-- <div style="margin-top: 2em">
             <table border="1" style="margin-left: auto; margin-right: auto">
                 <tr>
                     <td>
@@ -51,7 +51,8 @@ import { Observable, of } from 'rxjs';
                     {{ favoriteMovie }}
                 </li>
             </ul>
-        </div>	`,
+        </div> -->
+    `,
 	styles: [
 		".title { text-align: center; font-size: xx-large; margin-top: 0.5em }",
 	],
@@ -61,50 +62,50 @@ export class NgrxDemoRootComponent {
     // Construction.
 
     constructor(
-        private store: Store<{ main: { greeting: string }, featureState: { featureProperty: string, favoriteMovies: [] } }>
+        //private store: Store<{ main: { greeting: string }, featureState: { featureProperty: string, favoriteMovies: [] } }>
     ) {
 
-        this.greeting$ = store.pipe(select(state => state.main.greeting));
-        this.featurePropertyValue$ = store.pipe(select(state => state.featureState.featureProperty));
-        this.favoriteMovies$ = store.pipe(select(state => state.featureState.favoriteMovies));
+        //this.greeting$ = store.pipe(select(state => state.main.greeting));
+        //this.featurePropertyValue$ = store.pipe(select(state => state.featureState.featureProperty));
+        //this.favoriteMovies$ = store.pipe(select(state => state.featureState.favoriteMovies));
 
-        //console.log(1);
-        //store.pipe(select('main')).subscribe(x => console.log(x.greeting));
-        //store.pipe(select('main')).subscribe(x => console.log(x.secondGreeting));
-        //store.pipe(select('main')).subscribe(x => console.log(x.thirdGreeting));
-        //console.log(2);
-        ////store.dispatch(setGreeting({ greeting: 'Test' }));
-        ////store.dispatch(setGreeting({ greeting: 'Test1' }));
-        ////store.dispatch(setGreeting({ greeting: 'Test2' }));
-        //store.dispatch(setGreeting({ greeting: 'Test4' }));
-        //store.dispatch(setSecondGreeting({ greeting: 'Test5' }));
-        //console.log(3);
-        //store.pipe(select('main')).subscribe(x => console.log(x.secondGreeting));
-        //console.log(4);
+        ////console.log(1);
+        ////store.pipe(select('main')).subscribe(x => console.log(x.greeting));
+        ////store.pipe(select('main')).subscribe(x => console.log(x.secondGreeting));
+        ////store.pipe(select('main')).subscribe(x => console.log(x.thirdGreeting));
+        ////console.log(2);
+        //////store.dispatch(setGreeting({ greeting: 'Test' }));
+        //////store.dispatch(setGreeting({ greeting: 'Test1' }));
+        //////store.dispatch(setGreeting({ greeting: 'Test2' }));
+        ////store.dispatch(setGreeting({ greeting: 'Test4' }));
+        ////store.dispatch(setSecondGreeting({ greeting: 'Test5' }));
+        ////console.log(3);
+        ////store.pipe(select('main')).subscribe(x => console.log(x.secondGreeting));
+        ////console.log(4);
 
     }
 
 
     // Instance variables.
 
-    private greeting$: Observable<string>;
-    private featurePropertyValue$: Observable<string>;
-    private favoriteMovies$: Observable<[]>;
+    //private greeting$: Observable<string>;
+    //private featurePropertyValue$: Observable<string>;
+    //private favoriteMovies$: Observable<[]>;
 
 
-    // Methods
+    //// Methods
 
-    OnGreetingChanged($event) {
-        this.store.dispatch(setGreeting({ greeting: $event.target.value }))
-    }
+    //OnGreetingChanged($event) {
+    //    this.store.dispatch(setGreeting({ greeting: $event.target.value }))
+    //}
 
-    GetFavorites() {
-        this.store.dispatch(loadFavoriteMovies());
-    }
+    //GetFavorites() {
+    //    this.store.dispatch(loadFavoriteMovies());
+    //}
 
-    ClearList() {
+    //ClearList() {
 
-    }
+    //}
 
 }
 
