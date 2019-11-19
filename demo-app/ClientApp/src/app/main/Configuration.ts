@@ -7,6 +7,7 @@ export let configuration = {
         new NavMenuItem("JWT Demo", "JwtDemo", null),
         new NavMenuItem("Commit History", "analytics", null),
         new NavMenuItem("Single Video", "Videos/SingleVideo", null),
+        new NavMenuItem("The Revenue Project", "TheRevenueProject/TheRevenueProjectRoot", null),
         new NavMenuItem("Breeze Demo", "BreezeDemo/BreezeDemoRoot", null),
         new NavMenuItem("Ngrx Demo", "NgrxDemo/NgrxDemoRoot", null),
         new NavMenuItem("Animations", null, [
