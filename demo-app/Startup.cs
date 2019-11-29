@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace demo_app
 {
@@ -20,7 +21,16 @@ namespace demo_app
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services
+				.AddMvc(options => 
+				{ 
+					// Added as part of migration to version 3.0 of ASP.NET Core.  When
+					// migrating Microsoft recommends using the new Endpoint Routing.  It
+					// is the default; hence the need for the statement below.  (Will be 
+					// switching to Endpoint Routing soon.)
+					options.EnableEndpointRouting = false; 
+				})
+				.SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             // In production, the Angular files will be served from this directory. 
             services.AddSpaStaticFiles(configuration =>
@@ -40,7 +50,7 @@ namespace demo_app
 		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
