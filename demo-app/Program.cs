@@ -35,7 +35,7 @@ namespace demo_app
 				})
 				// Specifies where Kestrel listens for encrypted requests.
 				.UseUrls(config.GetValue<string>("IPAddressThatKestrelListensForRequests"))
-
+				.UseIISIntegration()
 				.Build()
 				.Run();
         }
