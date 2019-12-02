@@ -33,9 +33,12 @@ namespace demo_app
 						co.ServerCertificate = new X509Certificate2(config.GetValue<string>("NameOfX509CertificateFileUsedForKestrelHTTPS"));
 					});
 				})
+				// If you want to host app using IIS and the "In-process" model the call UseIIS().
+				.UseIIS()
+				// If you want to host app using IIS and the "Out-of-process" model the call UseIISIntegration(). 
+				.UseIISIntegration()
 				// Specifies where Kestrel listens for encrypted requests.
 				.UseUrls(config.GetValue<string>("IPAddressThatKestrelListensForRequests"))
-				.UseIISIntegration()
 				.Build()
 				.Run();
         }
