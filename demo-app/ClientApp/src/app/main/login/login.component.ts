@@ -8,6 +8,10 @@ import { LoginCallbacksService } from '../../core/login.callbacks.service';
 	template: `
         <div style="text-align: center">
 
+			<div style="margin: 15px">
+			    (username: colin2, password: Woscers101?)
+			</div>
+
 			<form id="theForm" (ngSubmit)="onSubmit()" #loginForm="ngForm">
 
 				<div class="grid-container">
