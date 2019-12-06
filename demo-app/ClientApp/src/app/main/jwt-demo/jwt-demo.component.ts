@@ -16,6 +16,9 @@ import { catchError, map, tap } from 'rxjs/operators';
 			<div style="margin: 15px">
 				JSON Web Token
 			</div>
+			<div style="margin: 15px">
+			    (username: colin2, password: Woscers101?)
+			</div>
 			<div>
  				<textarea id="ta" #ta rows="20" cols="100" [value]="this.AuthenticationService.Jwt" (input)="this.AuthenticationService.Jwt=$event.target.value">
 				</textarea>
