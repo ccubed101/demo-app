@@ -28,6 +28,7 @@ import * as $ from 'jquery'		// Needed in order to use jQuery in this component.
 			padding: 0.5em;						\
 			border: 2px solid cyan;				\
 			position: fixed;					\
+            z-index: 1001;                      \
 			top: 0;								\
 			left: 0;							\
 			transition:							\
@@ -50,6 +51,7 @@ import * as $ from 'jquery'		// Needed in order to use jQuery in this component.
 			color: black;						\
 			white-space: nowrap;				\
 			overflow: hidden;					\
+            z-index: 1001;                      \
 		}",
 		//"#nav-menu:hover {					\
 		//	width: 30em;						\
