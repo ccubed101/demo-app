@@ -4,7 +4,9 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms'
 
 import { TheRevenueProjectRootComponent } from './TheRevenueProjectRootComponent/TheRevenueProjectRoot.component'
-import { TheRevenueProjectRoutingModule } from './TheRevenueProjectRouting.module'
+import { TheRevenueProjectRoutingModule } from './TheRevenueProjectRouting.module';
+import { Layout1Component } from './TheRevenueProjectRootComponent/Layout1Component/Layout1.component'
+import { Layout2Component } from './TheRevenueProjectRootComponent/Layout2Component/Layout2.component'
 
 
 @NgModule({
@@ -15,6 +17,8 @@ import { TheRevenueProjectRoutingModule } from './TheRevenueProjectRouting.modul
 	],
 	declarations: [
 		TheRevenueProjectRootComponent,
+		Layout1Component,
+		Layout2Component,
     ],
     providers: [
     ]
