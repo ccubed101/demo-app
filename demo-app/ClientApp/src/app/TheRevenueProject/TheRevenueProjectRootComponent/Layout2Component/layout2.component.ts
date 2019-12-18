@@ -1,29 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterState, RouterOutlet } from '@angular/router';
-import { HorzResizingService } from '../HorzResizing.service'
-import { VertResizingService } from '../VertResizing.service'
 
-import * as $ from 'jquery'
-import 'jqueryui'
-
-//import { AppStatePersistenceService as ASPS } from '../Services/AppStatePersistence.Service'
-//import { IAppModel, AppModel } from '../Models/AppModel'
+import { HorzResizingService } from '../../HorzResizing.service'
+import { VertResizingService } from '../../VertResizing.service'
 
 @Component({
-    selector: 'the-revenue-project',
+    selector: 'trpLayout2',
     template: `
-        <trpLayout2></trpLayout2>
+        <div id="mapAndBannerPanel" class="horzPanelLayout" style="width: 80%; height: 100%">
+            <div id="banner" style="background-color: red; height: 150px">
+            </div>
+            <div id="mapPanel" style="background-color: green; height: 800px">
+            </div>
+        </div>
+        <div id="controlPanel" class="horzPanelLayout" style="background-color: cyan; width: 20%; height: 950px">
+        </div>
     `,
-	styles: [
-        ".title { text-align: center; font-size: xx-large; margin-top: 0.5em }",
-        ".panel { height: 100%; float: left; overflow: hidden; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}"
+    styles: [
+        ".horzPanelLayout { height: 100%; float: left; overflow: hidden; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}"
     ],
-    providers: [
-        HorzResizingService,
-        VertResizingService,
-    ]
 })
-export class TheRevenueProjectRootComponent implements OnInit {
+export class Layout2Component implements OnInit {
 
     // Construction.
 
@@ -38,8 +34,8 @@ export class TheRevenueProjectRootComponent implements OnInit {
     // Life-cycle
 
     ngOnInit() {
-        this.horzResizingService.Setup(["#leftPanel", "#centerPanel", "#rightPanel"], this.AfterHorzResizing.bind(this));
-        this.vertResizingService.Setup(["#topPanel", "#middlePanel", "#bottomPanel"], this.AfterVertResizing.bind(this));
+        this.horzResizingService.Setup(["#mapAndBannerPanel", "#controlPanel"], this.AfterHorzResizing.bind(this));
+        //this.vertResizingService.Setup(["#mapAndBannerPanel", "#controlPanel"], this.AfterVertResizing.bind(this));
     }
 
 
@@ -64,7 +60,4 @@ export class TheRevenueProjectRootComponent implements OnInit {
     AfterVertResizing() {
 
     }
-
 }
-
-
