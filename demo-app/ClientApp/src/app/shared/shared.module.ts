@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SharedRoutingModule } from './shared-routing.module';
+
 import { SharedSampleService } from './SharedSampleService';
+import { LayoutChangedEventService } from './LayoutChangedEvent.service';
 
 @NgModule({
   imports: [
@@ -27,7 +29,11 @@ export class SharedModule {
     // 
     return {
       ngModule: SharedModule,
-      providers: [ /* List services here. */ SharedSampleService ]
+        providers: [
+            /* List services here. */
+            SharedSampleService,
+            LayoutChangedEventService,
+        ]
     }
   }
 

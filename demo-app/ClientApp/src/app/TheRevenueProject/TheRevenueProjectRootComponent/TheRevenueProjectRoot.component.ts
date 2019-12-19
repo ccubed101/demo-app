@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, RouterState, RouterOutlet } from '@angular/router';
 import { HorzResizingService } from '../HorzResizing.service'
 import { VertResizingService } from '../VertResizing.service'
+import { LayoutChangedEventService } from '../../shared/LayoutChangedEvent.service'
 
 import * as $ from 'jquery'
 import 'jqueryui'
@@ -23,11 +24,14 @@ import 'jqueryui'
         VertResizingService,
     ]
 })
-export class TheRevenueProjectRootComponent implements OnInit {
+export class TheRevenueProjectRootComponent implements OnInit, OnDestroy {
 
     // Construction.
 
-    constructor() { }
+    constructor(
+        private layoutChangedEventService: LayoutChangedEventService,
+    ) {
+    }
 
 
     // Instance variables.
@@ -35,11 +39,21 @@ export class TheRevenueProjectRootComponent implements OnInit {
     private vertResizingService: VertResizingService = new VertResizingService();
 
 
-    // Life-cycle
+    // Life cycle event handlers.
+
+    // Handler for event that is called once immediately after the component is instantiated.
 
     ngOnInit() {
+        this.layoutChangedEventService.Subscribe(this.Resize.bind(this));
+        console.log("ngOnInit(): " + this.layoutChangedEventService.Count);
+
         this.horzResizingService.Setup(["#leftPanel", "#centerPanel", "#rightPanel"], this.AfterHorzResizing.bind(this));
         this.vertResizingService.Setup(["#topPanel", "#middlePanel", "#bottomPanel"], this.AfterVertResizing.bind(this));
+    }
+
+    ngOnDestroy() {
+        this.layoutChangedEventService.Unsubscribe(this.Resize.bind(this))
+        console.log("ngOnDestroy(): " + this.layoutChangedEventService.Count);
     }
 
 
@@ -65,6 +79,12 @@ export class TheRevenueProjectRootComponent implements OnInit {
 
     }
 
+
+    // Private methods.
+
+    private Resize(reason: number): void {
+        console.log('AppComponent.Resize()' + reason);
+    }
 }
 
 

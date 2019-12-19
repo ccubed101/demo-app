@@ -106,6 +106,10 @@
     <None Remove="ClientApp\src\app\RoutingExamples\RoutingExample3.component.ts" />
     <None Remove="ClientApp\src\app\RoutingExamples\RoutingExample4.component.ts" />
     <None Remove="ClientApp\src\app\RoutingExamples\RoutingExamples.component.ts" />
+    <None Remove="ClientApp\src\app\shared\LayoutChangedEvent.service.ts" />
+    <None Remove="ClientApp\src\app\TheRevenueProject\HorzResizing.service.ts" />
+    <None Remove="ClientApp\src\app\TheRevenueProject\TheRevenueProjectRootComponent\TheRevenueProjectRoot.component.ts" />
+    <None Remove="ClientApp\src\app\TheRevenueProject\VertResizing.service.ts" />
     <None Remove="ClientApp\src\app\VideosModule\SingleVideoComponent\SingleVideo.component.ts" />
   </ItemGroup>
 
@@ -169,6 +173,10 @@
     <TypeScriptCompile Include="ClientApp\src\app\RoutingExamples\RoutingExample4.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\RoutingExamples\RoutingExamples.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\RoutingExamples\RouteParamExamples.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\LayoutChangedEvent.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\TheRevenueProject\HorzResizing.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\TheRevenueProject\TheRevenueProjectRootComponent\TheRevenueProjectRoot.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\TheRevenueProject\VertResizing.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\VideosModule\SingleVideoComponent\SingleVideo.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\main.server.ts" />
   </ItemGroup>
