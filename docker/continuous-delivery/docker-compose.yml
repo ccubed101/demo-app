@@ -1,0 +1,115 @@
+version: '3.5'
+
+services:
+
+  sql:
+    image: microsoft/mssql-server-windows-express
+    container_name: sql-express
+    environment: 
+      - sa_password=!Giddyup1!
+      - accept_eula=y
+      - attach_dbs=[{'dbname':'AccountsService','dbfiles':['c:\\Database1\\AccountsService.mdf','c:\\Database1\\AccountsService_log.ldf']}, {'dbname':'BreezeTestDb','dbfiles':['C:\\Database2\\BreezeTestDb.mdf','C:\\Database2\\BreezeTestDb_log.ldf']}, {'dbname':'TrpData','dbfiles':['C:\\Database3\\TrpData.mdf','C:\\Database3\\TrpData_log.ldf']}]
+    ports: 
+      - "1433:1433"
+    volumes:
+      - type: bind
+        source: "D:/Code Projects/AccountsService/AccountsService/Data/Databases"
+        target: c:/Database1
+      - type: bind
+        source: "D:/Code Projects/BreezeDemoDataService/BreezeDemoDataService/Data/Databases"
+        target: c:/Database2
+      - type: bind
+        source: "D:/Code Projects/TrpDataService/TrpDataService/Data/Databases"
+        target: c:/Database3
+    # The following sort of works.  But "attach_dbs" (see above) is the better option.
+    #command: sqlcmd -q "USE MASTER; CREATE DATABASE DataDb ON (FILENAME=N'c:\DataDb\DataDb.mdf') LOG ON (FILENAME=N'c:\DataDb\DataDb_log.ldf') FOR ATTACH;"
+    networks:
+      - net
+
+  accounts-service:
+    image: accounts-service:latest
+    container_name: accounts-service
+    build:
+      context: D:/Code Projects/AccountsService
+      dockerfile: D:/Code Projects/AccountsService/AccountsService/Dockerfile
+    ports:
+     - "9005:443"
+    depends_on:
+       - sql
+    networks:
+      - net
+      
+  shell-rest-api-service:
+    image: shell-rest-api-service:latest
+    container_name: shell-rest-api-service
+    build:
+      context: "D:/Code Projects/ShellRestApiService"
+      dockerfile: "D:/Code Projects/ShellRestApiService/ShellRestApiService/dockerfile"
+    ports:
+      - "9006:443"
+    networks:
+      - net
+      
+  breeze-demo-data-service:
+    image: breeze-demo-data-service:latest
+    container_name: breeze-demo-data-service
+    build:
+      context: "D:/Code Projects/BreezeDemoDataService"
+      dockerfile: "D:/Code Projects/BreezeDemoDataService/Docker/dockerfile"
+    ports:
+      - "9008:443"
+    depends_on:
+       - sql
+    networks:
+      - net
+      
+  trp-data-service:
+    image: trp-data-service:latest
+    container_name: trp-data-service
+    build:
+      context: "D:/Code Projects/TrpDataService"
+      dockerfile: "D:/Code Projects/TrpDataService/Docker/dockerfile"
+    ports:
+      - "9009:443"
+    depends_on:
+       - sql
+    networks:
+      - net
+      
+  # For containers that Docker runs using Windows Hyper-V (which I believe is Windows 10 and above) 
+  # there is a memory limit of 1 GB (or possibly 2 GB) per container.  For containers that need more 
+  # than that the "-m" flag can be used with the "docker run" command.  So, for, example, "docker run -m=5g" 
+  # will make this limit 5 GB.  The equivalent for a docker-compose file is the "mem_limit" option.
+  # However the mem_limit option was removed starting with docker-compose version 3 and above.  So if you
+  # need mem_limit then the folks at Docker say to use an older version (2.x) of docker-compose.  There is 
+  # another alternative.  Versions 3 and above have the deploy/resources/limits/memeory option...but "deploy" 
+  # only applies when deploying to Docker Swarm and will be ignored in all other cases.  However if the
+  # --compatibility flag is used with docker-compose as follows,
+  #     docker-compose --compatibility up
+  # Then new options such as "memory" will be converted to the pre version 3 equivalents, in this case 
+  # "mem_limit".  For more information see the following,
+  #     https://github.com/docker/compose/issues/4513
+  demo-app-continuous-delivery:
+    image: demo-app-continuous-delivery:1.0.0
+    container_name: demo-app-continuous-delivery
+    deploy:
+      resources:
+        limits:
+          memory: 10g 
+    build: 
+      context: "d:/code projects/demo-app/docker/continuous-delivery"
+      dockerfile: "d:/code projects/demo-app/docker/continuous-delivery/dockerfile"
+    ports:
+      - "9007:443"   
+    volumes:
+      - type: bind
+        source: "D:/Code Projects/demo-app/docker/continuous-delivery/output"
+        target: c:/output
+    depends_on:
+      - accounts-service
+    networks:
+      - net 
+      
+networks:
+  net:
+    name: net

@@ -1,0 +1,90 @@
+# escape=`
+# The above parser directive changes escape character from '\' to '`'.  Note this line must come before any other lines except other parser directives.
+
+# demo-app-prod-dotnet-iis
+#
+#  Use this image to created container instances that use Internet Information Services (IIS) to 
+#  server the demo-app.
+#
+# Build command:
+#	docker build --force-rm -t <desired image name> -f <path to this dockerfile> .
+#
+#	Example:
+#		docker build --force-rm -m=5g -f "D:\Code Projects\demo-app\docker\Production\dockerfile-demo-app-prod-dotnet-iis" -t demo-app-prod-dotnet-iis:1.0.0 "D:\Code Projects\demo-app\docker\Production"
+#
+#			(Note that the "-m=5g" is required above; without it you run out of memory.)
+#
+# Run command: 
+#	docker run --rm -v '<Full path to directory on host>:<Full path to directory in container>' --name <desired name of container> <Name of image>
+#
+#	Examples:
+#		docker run --rm -d -t --name demo-app-prod-dotnet-iis demo-app-prod-dotnet-iis:1.0.0
+#
+# Use the following to get the IP address of a Docker container:
+#
+#		docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' demo-app-prod-dotnet-iis
+#
+# Notes:
+#
+#   >> There is no need to specify an ENTRYPOINT in this Dockerfile since the microsoft/iis base image 
+#      already includes an entrypoint application that monitors the status of the IIS World Wide Web 
+#      Publishing Service (W3SVC). 
+#   >> you can't use http://localhost to browse the site from the container host. This is because of 
+#      a known behavior in WinNAT, and will be resolved in future. Until that is addressed, you need to 
+#      use the IP address of the container.
+#   >> So the following will not work:
+#      >> localhost
+#      >> localhost:443
+#      >> http://localhost
+#      >> https://localhost
+#      >> localhost:9007
+#      >> https://localhost:9007
+
+FROM prod-dotnet-iis-base:1.0.0 as publish
+
+# Clone the repository.
+WORKDIR C:\
+RUN git clone https://github.com/ccubed101/demo-app
+
+# The following environment variable has to be set to the specified value
+# in order to suppress a question that is asked during the installation 
+# of one of the packages that is installed by "npm install".  The process
+# is halted until the user enters "Y" or "N"...which we don't want.
+#RUN PowerShell '$Env:NG_CLI_ANALYTICS="ci"'
+RUN SET CLI_ANALYTICS="ci"
+
+# Install all dependencies listed in "dependencies" in the "package.json" file.
+# This basically downloads the contents of the "node_modules" directory.
+# By default, "npm install" will install all modules listed as dependencies in "package.json".
+# With the "--production" flag (or when the NODE_ENV environment variable is set to "production" ), 
+# npm will not install modules listed in "devDependencies".
+WORKDIR C:\demo-app\demo-app\ClientApp
+RUN npm install
+
+# Publish the application to the specified location in the image.
+WORKDIR C:\demo-app
+RUN dotnet publish demo-app.sln -c Release -o C:\publish
+
+WORKDIR C:\demo-app\demo-app\ClientApp
+RUN npm run build:ssr --prod
+RUN xcopy C:\demo-app\demo-app\ClientApp\dist-server\*.* C:\publish
+
+FROM mcr.microsoft.com/windows/servercore/iis
+
+# Install the .NET Core Hosting Bundle.  Note that the hosting bundle must be 
+# installed AFTER IIS is installed.  
+ADD dotnet-hosting-3.0.1-win.exe .
+RUN dotnet-hosting-3.0.1-win -q
+
+# Copy the files needed to run the web app to the IIS root directory.
+WORKDIR C:\inetpub\wwwroot\demo-app
+#RUN xcopy c:\publish\*.* . /s						# If microsoft/windowsservercore base image is being used.
+COPY --from=publish ["c:\\publish\\", "."]			# If cr.microsoft.com/windows/servercore/iis (or some other base image besides microsoft/windowsservercore).
+
+
+# Run a PowerShell script that adds a website to IIS for the app and sets up the SSL certificate needed for HTTPS operation.
+WORKDIR C:\
+ADD demo-app-iis-dotnet.ps1 .
+RUN PowerShell ./demo-app-iis-dotnet.ps1
+
+

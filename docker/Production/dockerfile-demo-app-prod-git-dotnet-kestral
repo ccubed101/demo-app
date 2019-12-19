@@ -1,0 +1,79 @@
+# escape=`
+# The above parser directive changes escape character from '\' to '`'.  Note this line must come before any other lines except other parser directives.
+
+# dockerfile-demo-app-prod-git-dotnet-kestral
+#
+#  This image is used to create container instances that server the demo-app.  
+#  The code is obtained from a code repository (GitHub), built with the .NET 
+#  Core CLI (dotnet.exe) and served by the built-in Kestral server.  (The 
+#  Kestral server is build into demo-app.dll.)
+#
+# Build command:
+#	docker build --force-rm -t <desired image name> -f <path to this dockerfile> .
+#
+#	Example:
+#		docker build --force-rm -m=5g -f "D:\Code Projects\demo-app\docker\Production\dockerfile-demo-app-prod-git-dotnet-kestral" -t demo-app-prod-git-dotnet-kestral:1.0.0 "D:\Code Projects\demo-app\docker\Production"
+#
+#			(Note that the "-m=5g" is required above; without it you run out of memory.)
+#
+# Run command: 
+#	docker run --rm -v '<Full path to directory on host>:<Full path to directory in container>' --name <desired name of container> <Name of image>
+#
+#	Examples:
+#		docker run --rm -d -p 9007:443 --name demo-app-prod-git-dotnet-kestral demo-app-prod-git-dotnet-kestral:1.0.0
+#
+# Use the following to get the IP address of a Docker container:
+#
+#		docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' demo-app-prod-git-dotnet-kestral
+#
+# Notes:
+#
+#	>> if the "-p 9007:443" port mapping option is used then the URL will be "localhost:9007".
+#      "https://" will not be required (and in fact will not work).
+#
+
+FROM prod-dotnet-iis-base:1.0.0 as publish
+
+# Clone the repository.
+WORKDIR C:\
+RUN git clone https://github.com/ccubed101/demo-app
+
+# The following environment variable has to be set to the specified value
+# in order to suppress a question that is asked during the installation 
+# of one of the packages that is installed by "npm install".  The process
+# is halted until the user enters "Y" or "N"...which we don't want.
+#RUN PowerShell '$Env:NG_CLI_ANALYTICS="ci"'
+RUN SET CLI_ANALYTICS="ci"
+
+# Install all dependencies listed in "dependencies" in the "package.json" file.
+# This basically downloads the contents of the "node_modules" directory.
+# By default, "npm install" will install all modules listed as dependencies in "package.json".
+# With the "--production" flag (or when the NODE_ENV environment variable is set to "production" ), 
+# npm will not install modules listed in "devDependencies".
+WORKDIR C:\demo-app\demo-app\ClientApp
+RUN npm install
+
+# Publish the application to the specified location.    This will include both the client
+# side and the server side rendering code (Angular Universal).  It is not necessary to 
+# do "RUN npm run build:ssr --prod"
+WORKDIR C:\demo-app
+RUN dotnet publish demo-app.sln -c Release -o C:\publish
+
+# Image with minimum requirements to run an ASP.NET Core web application.
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0
+
+# Copy published application from previous image.
+WORKDIR C:\publish
+COPY --from=publish ["c:\\publish\\", "."]
+
+# Serve the application when the container is run.
+# Make sure the working directory is the directory that contains the demo-app.dll file.  (If that 
+# is not the case then you will get an error that says the "index.html" file cannot be found.  The 
+# reason for the error is that demo-app.dll will look for the file in ".\ClientApp\dist"--as specified
+# in the ConfigureServices() method in the Startup class in the Startup.cs file.) 
+WORKDIR C:\publish
+CMD dotnet demo-app.dll
+
+
+
+

@@ -1,0 +1,124 @@
+# escape=`
+# The above parser directive changes escape character from '\' to '`'.  Note this line must come before any other lines except other parser directives.
+
+# demo-app-prod-iis
+#
+# This image uses that Angular CLI (as opposed to dotnet) to build demo-app and 
+# then run it on an IIS server.  It is easy to use IIS Manager to create a website
+# that uses the https protocol.  However you have to specify a SSL certificaate.  
+# The only selection is "IIS Express Development Certificate".  For this dockerfile
+# setting up IIS and the certificate is handled by the a PowerShell script file.
+#
+# It may be that using the Angular CLI to build the app is the wrong way to go 
+# about doing things.  It may be better to use dotnet since this is ASP.NET MVC
+# application.  The call to UseIISIntegration() in Program.cs sets up use IIS as
+# a reverse proxy server.  Kestral still serves the app...but via IIS.
+#
+# Build command (execute in the directory that contains the Dockerfile)
+#	docker build --force-rm -t <desired image name> -f <path to this dockerfile> .
+#
+#	Example:
+#		docker build --force-rm -m=5g -f "D:\Code Projects\demo-app\docker\Production\dockerfile" -t demo-app-prod-iis:1.0.0 "D:\Code Projects\demo-app\docker\Production"
+#
+#			(Note that the "-m=5g" is required above; without it you run out of memory.)
+#
+# Run command: 
+#	docker run --rm -v '<Full path to directory on host>:<Full path to directory in container>' --name <desired name of container> <Name of image>
+#
+#	Examples:
+#		docker run --rm -d -t --name demo-app-prod-iis demo-app-prod-iis:1.0.0
+#		
+#       Notes: 
+#         >> If no CMD or ENTRYPOINT is specified in the dockerfile then the 
+#            container will exit immediately.  To prevent immdiate exit use 
+#            the -t flag.  To run in background us the -d flag.  (-dt will NOT 
+#            work.)  
+#         >> Adding a -p flag to map ports does not change anything.  I think 
+#            this is because IIS is running.  To access the website simply use
+#			 https://<IP Address>
+#	      >> The following is a link to an article titled "Bind multiple sites 
+#            on same IP address and Port in SSL",
+#              https://blogs.msdn.microsoft.com/varunm/2013/06/18/bind-multiple-sites-on-same-ip-address-and-port-in-ssl/
+#
+# Use the following to get the IP address of a Docker container:
+#
+#		docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' demo-app-prod-iis
+#
+# Notes:
+#
+#   >> There is no need to specify an ENTRYPOINT in this Dockerfile since the microsoft/iis base image 
+#      already includes an entrypoint application that monitors the status of the IIS World Wide Web 
+#      Publishing Service (W3SVC). 
+#   >> you can't use http://localhost to browse the site from the container host. This is because of 
+#      a known behavior in WinNAT, and will be resolved in future. Until that is addressed, you need to 
+#      use the IP address of the container.
+#   >> So the following will not work:
+#      >> localhost
+#      >> localhost:443
+#      >> http://localhost
+#      >> https://localhost
+#      >> localhost:9007
+#      >> https://localhost:9007
+#   >>
+
+# Need microsoft/windowsservercore base image because it has PowerShell and System.Net.WebClient
+# and we will also be installing IIS.
+FROM microsoft/windowsservercore
+
+# Install Chocolatey so that we can do an unattended installation of Git.
+# See https://chocolatey.org/install for more information.
+RUN PowerShell Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+
+# Do unattended installation of Git using Chocolatey.
+RUN choco install -y git.install
+	 
+# Setup for communicating with GitHub
+RUN git config --global user.name "ccubed101"
+RUN git config --global user.email "ccubed101@gmail.com"
+
+# Install NodeJS
+ENV NODE_VERSION 10.9.0
+RUN PowerShell Invoke-WebRequest $('https://nodejs.org/dist/v{0}/node-v{0}-win-x64.zip' -f $env:NODE_VERSION) -OutFile 'node.zip' -UseBasicParsing ; `
+     Expand-Archive node.zip -DestinationPath C:\ ; `
+     Rename-Item -Path $('C:\node-v{0}-win-x64' -f $env:NODE_VERSION) -NewName 'C:\nodejs'
+
+# Make additions to PATH environment variable for NodeJS.  Don't need to add anything for Git because that was done as part of installation.
+RUN PowerShell setx /M PATH $($Env:PATH + ';C:\nodejs')
+
+# Clone the repository
+RUN git clone https://github.com/ccubed101/demo-app
+
+WORKDIR C:\demo-app\demo-app\ClientApp
+
+# Install all dependencies listed in "dependencies" in the "package.json" file.
+# This basically downloads the contents of the "node_modules" directory.
+# By default, "npm install" will install all modules listed as dependencies in "package.json".
+# With the "--production" flag (or when the NODE_ENV environment variable is set to "production" ), 
+# npm will not install modules listed in "devDependencies".
+RUN npm install
+
+# Angular CLI is needed to build the application.  It is not necessary to install the 
+# Angular CLI because it is in "devDependencies" (package.json) and so will have been 
+# installed when "npm install" was RUN (see above).
+
+# Build the "production" version of the application.  This will include both the client
+# side and the server side rendering code (Angular Universal).  It is not necessary to 
+# do "RUN npm run build:ssr --prod"
+RUN npm run build --prod
+
+# Copy the files needed to run the web app to the IIS root directory.
+#WORKDIR C:\inetpub\wwwroot\
+#RUN xcopy -s C:\demo-app\demo-app\ClientApp\dist C:\inetpub\wwwroot\
+
+# Switch to PowerShell.
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'Continue'; $verbosePreference='Continue';"]
+
+# Install IIS.
+RUN Install-WindowsFeature -Name Web-Server
+
+# Run a PowerShell script that adds a website to IIS for the app and sets up the SSL certificate needed for HTTPS operation.
+WORKDIR C:\
+ADD demo-app-iis-cli.ps1 .
+RUN PowerShell ./demo-app-iis-cli.ps1
+
+

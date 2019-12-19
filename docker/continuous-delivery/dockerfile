@@ -1,0 +1,103 @@
+# escape=`
+# The above parser directive changes escape character from '\' to '`'.  Note this line must come before any other lines except other parser directives.
+
+# Demo-app continuous delivery
+#
+# Build command (execute in the directory that contains the Dockerfile)
+#	docker build --force-rm -t <desired image name> -f <path to this dockerfile> .
+#
+#	Example:
+#		docker build --force-rm -f "D:\Code Projects\demo-app\docker\continuous-delivery\dockerfile" -t demo-app-continuous-delivery:1.0.0 "D:\Code Projects\demo-app\docker\continuous-delivery"
+#
+# Run command: 
+#	docker run --rm -m=5g -v '<Full path to directory on host>:<Full path to directory in container>' --name <desired name of container> <Name of image>
+#
+#	Examples:
+#		docker run --rm -it -m=5g -p 9007:443 -v $PWD\output\.:c:\output --name demo-app-continuous-delivery demo-app-continuous-delivery:1.0.0
+#       docker run --rm -it -m=5g -p 9007:443 -v "D:\Code Projects\demo-app\docker\continuous-delivery\output\.:c:\output" --name demo-app-continuous-delivery demo-app-continuous-delivery:1.0.0
+#
+# Use the following to get the IP address of a Docker container:
+#
+#		docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' demo-app-continuous-delivery:1.0.0
+#
+
+# Need microsoft/windowsservercore base image because it has PowerShell and System.Net.WebClient.
+FROM microsoft/windowsservercore
+
+# Install .NET Core.  Appropriate addition to PATH will be made during installation.
+ADD dotnet-sdk-3.0.101-win-x64.exe .
+RUN dotnet-sdk-3.0.101-win-x64 -q
+
+# Install Chrome.  Appropriate addition to PATH will be made during installation.
+ADD ChromeStandaloneSetup64-v77.exe .
+RUN ChromeStandaloneSetup64-v77 /silent /install
+
+# Install Chocolatey so that we can do an unattended installation of Git.
+# See https://chocolatey.org/install for more information.
+RUN PowerShell Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+
+# Install version 1.3.5.1 of Chocolatey Core Extensions.
+RUN PowerShell choco install chocolatey-core.extension
+
+# Do unattended installation of Git using Chocolatey.
+RUN choco install -y git.install
+
+# Install NodeJS
+ENV NODE_VERSION 10.9.0
+RUN PowerShell Invoke-WebRequest $('https://nodejs.org/dist/v{0}/node-v{0}-win-x64.zip' -f $env:NODE_VERSION) -OutFile 'node.zip' -UseBasicParsing ; `
+     Expand-Archive node.zip -DestinationPath C:\ ; `
+     Rename-Item -Path $('C:\node-v{0}-win-x64' -f $env:NODE_VERSION) -NewName 'C:\nodejs'
+	 
+# Setup for communicating with GitHub
+RUN git config --global user.name "ccubed101"
+RUN git config --global user.email "ccubed101@gmail.com"
+
+# Make additions to PATH environment variable for NodeJS.  Don't need to add anything for Git because that was done as part of installation.
+RUN PowerShell setx /M PATH $($Env:PATH + ';C:\nodejs')
+
+# Switch off SSL checks in order to avoid the following error.  
+# 	fatal: unable to access 'https://github.com/ccubed101/demo-app/': error setting certificate verify locations:
+#		CAfile: C:\Program Files (x86)\git\bin\curl-ca-bundle.crt
+#		CApath: none
+# (Switching off SSL checks is not advisable; but currently do not know of an alternative.)
+RUN git config --system http.sslverify false
+
+# Install Puppeteer to conttrol headless Chrome.  
+# Puppeteer is a Node library which provides a high-level API to control Chrome or Chromium over the DevTools Protocol. 
+# Puppeteer runs headless by default, but can be configured to run full (non-headless) Chrome or Chromium.
+RUN npm i puppeteer
+
+# Install the Karma CLI (Command Line Interface) globally.  (Karma CLI does not work if installed locally in a particular project.)
+RUN npm install -g karma-cli
+
+# Add grep so that we can examine output from Karma
+ADD [ "./grep/*.*", "c:/grep/" ]
+
+# Reference image that is compared to screen shot.  If they are not the same then the smoke test fails.
+ADD reference.png .
+
+# The PowerShell script that is executed when the container is run.
+ADD demo-app-continuous-delivery.ps1 .
+
+
+
+
+#WORKDIR C:\
+#RUN git clone https://github.com/ccubed101/demo-app
+#
+#WORKDIR C:\demo-app
+#RUN dotnet publish demo-app.sln -c Release -o C:\publish
+#
+#WORKDIR C:\
+#
+#ADD Start.ps1 .
+
+
+
+
+# Script that uses Puppeteer to control Chrome to take a screen shot.
+ADD ScreenShot.js .
+
+CMD PowerShell ./demo-app-continuous-delivery.ps1
+#CMD demo-app-continuous-delivery
+#CMD PowerShell
