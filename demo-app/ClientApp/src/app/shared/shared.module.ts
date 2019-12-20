@@ -5,13 +5,9 @@ import { SharedRoutingModule } from './shared-routing.module';
 
 import { SharedSampleService } from './SharedSampleService';
 import { LayoutChangedEventService } from './LayoutChangedEvent.service';
+import { AppStatePersistenceService } from './AppStatePersistence.service';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedRoutingModule
-  ],
-  declarations: []
 })
 export class SharedModule {
 
@@ -33,6 +29,7 @@ export class SharedModule {
             /* List services here. */
             SharedSampleService,
             LayoutChangedEventService,
+            AppStatePersistenceService,
         ]
     }
   }
