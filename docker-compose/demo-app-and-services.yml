@@ -76,6 +76,17 @@ services:
     networks:
       - net
       
+  signalr-chat-service:
+    image: signalr-chat-service:latest
+    container_name: signalr-chat-service
+    build:
+      context: "D:/Code Projects/SignalRChatService"
+      dockerfile: "D:/Code Projects/SignalRChatService/Docker/dockerfile"
+    ports:
+      - "9010:80"
+    networks:
+      - net     
+      
   demo-app:
     image: demo-app-prod-git-dotnet-kestral:1.0.0
     container_name: demo-app-prod-git-dotnet-kestral
@@ -86,6 +97,7 @@ services:
       - "9007:443"
     depends_on:
       - accounts-service
+      - signalr-chat-service
     networks:
       - net 
       

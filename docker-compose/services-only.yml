@@ -75,6 +75,17 @@ services:
        - sql
     networks:
       - net
+
+  signalr-chat-service:
+    image: signalr-chat-service:latest
+    container_name: signalr-chat-service
+    build:
+      context: "D:/Code Projects/SignalRChatService"
+      dockerfile: "D:/Code Projects/SignalRChatService/Docker/dockerfile"
+    ports:
+      - "9010:80"
+    networks:
+      - net  
       
 networks:
   net:
