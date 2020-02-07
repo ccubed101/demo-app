@@ -193,7 +193,12 @@ If ($process.ExitCode -ne 0) {
 # Install protractor.
 Write-host
 Write-host 'npm install protractor'
-$process = Start-Process -FilePath 'npm' -ArgumentList 'install protractor' -WorkingDirectory 'C:\demo-app\demo-app\ClientApp' -PassThru -Wait -RedirectStandardOutput 'C:\output\Install Protractor Output.txt' -RedirectStandardError 'C:\output\Install Protractor Errors.txt'
+# Every version of protractor comes with a version of the ChromeDriver that only works with a 
+# specific range of versions of Chrome (and headless Chrome).  The version that is installed 
+# here, v5.4.3, works with v77 of Chrome.  Then next version of protractor, v6.0.0, only works
+# with v80 of Chrome.  So if the protractor version is updated then the it will be necessary 
+# to locate and download the installation file for Chrome v80.
+$process = Start-Process -FilePath 'npm' -ArgumentList 'install protractor@5.4.3' -WorkingDirectory 'C:\demo-app\demo-app\ClientApp' -PassThru -Wait -RedirectStandardOutput 'C:\output\Install Protractor Output.txt' -RedirectStandardError 'C:\output\Install Protractor Errors.txt'
 Write-host 'ExitCode: |' $process.ExitCode '|'
 If ($process.ExitCode -ne 0) {
 	Add-Content c:\output\results.txt "Fail`t`t$($process.ExitCode)`t`tInstall Protractor.  See output files."
