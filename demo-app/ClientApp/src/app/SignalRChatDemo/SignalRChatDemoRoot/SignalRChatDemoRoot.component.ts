@@ -26,13 +26,13 @@ import { ConnectionFactory } from "./ConnectionFactory"
             <div class="leftSendPanel">
                 <div>
                     <span style="width: calc(100% - 3.5em); float: left; display: table"><input id="message1" type="text" style="width: 100%; min-width: 100px" /></span>
-                    <input type="button" value="Send"  (click)="OnSend1()"/>
+                    <input id="send1" type="button" value="Send"  (click)="OnSend1()"/>
                 </div>
             </div>
             <div class="rightSendPanel">
                  <div>
                     <span style="width: calc(100% - 3.5em); float: left; display: table"><input id="message2" type="text" style="width: 100%; min-width: 100px" /></span>
-                    <input type="button" value="Send" (click)="OnSend2()"/>
+                    <input id="send2" type="button" value="Send" (click)="OnSend2()"/>
                 </div>
            </div>
         </div>
@@ -93,19 +93,7 @@ export class SignalRChatDemoRootComponent implements OnInit, OnDestroy {
         this.messageElem[0] = document.querySelector("#message1");
         this.messageElem[1] = document.querySelector("#message2");
 
-        this.chatService.Setup();
-
-        this.chatService.OnMessageReceived = (connectionIndex: number, username: string, message: string) => {
-
-            let m = document.createElement("div");
-
-            m.innerHTML = `<div>${username}</div><div>${message}</div>`;
-
-            console.log(connectionIndex);
-            this.messagesElem[connectionIndex].appendChild(m);
-            this.messagesElem[connectionIndex].scrollTop = this.messagesElem[connectionIndex].scrollHeight;
-        }
-
+        this.chatService.Setup(this.OnMessageReceived.bind(this));
     }
 
     ngOnDestroy() {
@@ -132,7 +120,18 @@ export class SignalRChatDemoRootComponent implements OnInit, OnDestroy {
         const username = new Date().toLocaleString();
         this.chatService.Send(1, username, this.messageElem[1].value)
             .then(() => this.messageElem[1].value = "");
-   }
+    }
+
+    OnMessageReceived(connectionIndex: number, username: string, message: string) {
+
+        let m = document.createElement("div");
+
+        m.innerHTML = `<div>${username}</div><div>${message}</div>`;
+
+        this.messagesElem[connectionIndex].appendChild(m);
+        this.messagesElem[connectionIndex].scrollTop = this.messagesElem[connectionIndex].scrollHeight;
+    }
+
 
 }
 

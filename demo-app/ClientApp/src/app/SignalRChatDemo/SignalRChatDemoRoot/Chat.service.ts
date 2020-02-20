@@ -35,7 +35,10 @@ export class ChatService {
 
     // Public methods.
 
-    Setup(): void {
+    Setup(OnMessageReceived: (connectionIndex: number, username: string, message: string) => void): void {
+
+        console.log(OnMessageReceived);
+        this.OnMessageReceived = OnMessageReceived;
 
         for (var i: number = 0; i < this.Connections.length; ++i) {
 
