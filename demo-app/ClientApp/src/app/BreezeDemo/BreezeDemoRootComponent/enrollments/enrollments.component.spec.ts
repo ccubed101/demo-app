@@ -19,41 +19,42 @@ import { ITeacherRepository, TeacherRepository } from '../../TeacherRepository'
 // Specifically errors start to occur in test in completely different modules which causes
 // the unit testing operation to fail.  Until the cause can be discerned these test must
 // not be run.
-xdescribe('EnrollmentComponent', () => {
+// One possible explanation is that Karma and Jasmine are fine if the unit tests for
+// components are in the startup module (e.g. app or main).  But in other module problems arise.
+describe('EnrollmentComponent', () => {
+
     let component: EnrollmentsComponent;
     let fixture: ComponentFixture<EnrollmentsComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-        declarations: [
-            EnrollmentsComponent
-        ],
-        imports: [
-            ReactiveFormsModule,
-            BreezeBridgeHttpClientModule,
-        ],
-        providers: [
-            HttpClient,
-            HttpHandler,
-            SchoolModel,
-            UnitOfWork,
-            BreezeDemoEntityManager,
-            CourseRepository,
-            StudentRepository,
-            EnrollmentRepository,
-            TeacherRepository,
-        ]
-   })
-    .compileComponents();
-  }));
+    beforeEach(async(() => {
 
-  beforeEach(() => {
-      fixture = TestBed.createComponent(EnrollmentsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        let schoolModelSpy = jasmine.createSpyObj('SchoolModel', ['AddEnrollments', 'UpdateEnrollments']);
+        let httpClientSpy = jasmine.createSpy('HttpClient');
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+        TestBed.configureTestingModule({
+            declarations: [
+                EnrollmentsComponent
+            ],
+            imports: [
+                ReactiveFormsModule,
+                //BreezeBridgeHttpClientModule,
+            ],
+            providers: [
+                //HttpClient,
+                //HttpHandler,
+                { provide: HttpClient, useValue: httpClientSpy },
+                { provide: SchoolModel, useValue: schoolModelSpy },
+            ]
+        })
+        .compileComponents().then(() => {
+            fixture = TestBed.createComponent(EnrollmentsComponent);
+            component = fixture.componentInstance;
+            fixture.detectChanges();
+        });
+
+    }));
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

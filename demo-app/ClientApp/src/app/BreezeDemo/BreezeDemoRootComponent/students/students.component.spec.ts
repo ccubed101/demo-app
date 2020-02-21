@@ -22,41 +22,43 @@ import { ITestDepObj, testDepObj, TEST_DEP_OBJ } from '../../TestDepObj';
 // Specifically errors start to occur in test in completely different modules which causes
 // the unit testing operation to fail.  Until the cause can be discerned these test must
 // not be run.
-xdescribe('StudentsComponent', () => {
-  let component: StudentsComponent;
-  let fixture: ComponentFixture<StudentsComponent>;
+// One possible explanation is that Karma and Jasmine are fine if the unit tests for
+// components are in the startup module (e.g. app or main).  But in other module problems arise.
+describe('StudentsComponent', () => {
+    let component: StudentsComponent;
+    let fixture: ComponentFixture<StudentsComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-        declarations: [
-            StudentsComponent
-        ],
-        imports: [
-            ReactiveFormsModule,
-            BreezeBridgeHttpClientModule,
-        ],
-        providers: [
-            HttpClient,
-            HttpHandler,
-            SchoolModel,
-            UnitOfWork,
-            BreezeDemoEntityManager,
-            CourseRepository,
-            StudentRepository,
-            EnrollmentRepository,
-            TeacherRepository,
-            TestDepClass,
-            { provide: TEST_DEP_OBJ, useValue: <ITestDepObj>testDepObj },
-       ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(async(() => {
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(StudentsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        let httpClientSpy = jasmine.createSpy('HttpClient');
+        let unitOfWorkSpy = jasmine.createSpy('UnitOfWork');
+        let schoolModelSpy = jasmine.createSpyObj('SchoolModel', ['AddStudents']);
+
+        TestBed.configureTestingModule({
+            declarations: [
+                StudentsComponent
+            ],
+            imports: [
+                ReactiveFormsModule,
+                //BreezeBridgeHttpClientModule,
+            ],
+            providers: [
+                //HttpClient,
+                //HttpHandler,
+                { provide: HttpClient, useValue: httpClientSpy },
+                { provide: UnitOfWork, useValue: unitOfWorkSpy },
+                { provide: SchoolModel, useValue: schoolModelSpy },
+                TestDepClass,
+                { provide: TEST_DEP_OBJ, useValue: <ITestDepObj>testDepObj },
+            ]
+        })
+        .compileComponents().then(() => {
+            fixture = TestBed.createComponent(StudentsComponent);
+            component = fixture.componentInstance;
+            fixture.detectChanges();
+        });
+
+    }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

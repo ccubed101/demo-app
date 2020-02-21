@@ -25,7 +25,9 @@ import { ITestDepObj, testDepObj, TEST_DEP_OBJ } from '../../TestDepObj';
 // Specifically errors start to occur in test in completely different modules which causes
 // the unit testing operation to fail.  Until the cause can be discerned these test must
 // not be run.
-xdescribe('CoursesComponent', () => {
+// One possible explanation is that Karma and Jasmine are fine if the unit tests for
+// components are in the startup module (e.g. app or main).  But in other module problems arise.
+describe('CoursesComponent', () => {
     let component: CoursesComponent;
     let fixture: ComponentFixture<CoursesComponent>;
 
@@ -34,8 +36,8 @@ xdescribe('CoursesComponent', () => {
 
     beforeEach(async(() => {
 
-        //schoolModelSpy = jasmine.createSpyObj('SchoolModel', ['AddStudent']);
-        //httpClientSpy = jasmine.createSpy('HttpClient');
+        let schoolModelSpy = jasmine.createSpyObj('SchoolModel', ['AddCourse']);
+        let httpClientSpy = jasmine.createSpy('HttpClient');
 
         TestBed.configureTestingModule({
             declarations: [
@@ -43,34 +45,24 @@ xdescribe('CoursesComponent', () => {
             ],
             imports: [
                 ReactiveFormsModule,
-                BreezeBridgeHttpClientModule,
+                //BreezeBridgeHttpClientModule,
             ],
             providers: [
-
-                //schoolModelSpy,
-
  		        //HttpClient,
 		        //HttpHandler,
-                SchoolModel,
-                UnitOfWork,
-                BreezeDemoEntityManager,
-                CourseRepository,
-                StudentRepository,
-                EnrollmentRepository,
-                TeacherRepository,
-
+                { provide: HttpClient, useValue: httpClientSpy },
+                { provide: SchoolModel, useValue: schoolModelSpy },
                 TestDepClass,
                 { provide: TEST_DEP_OBJ, useValue: <ITestDepObj>testDepObj },
             ]
     })
-    .compileComponents();
-  }));
+    .compileComponents().then(() => {
+        fixture = TestBed.createComponent(CoursesComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  beforeEach(() => {
-      fixture = TestBed.createComponent(CoursesComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
