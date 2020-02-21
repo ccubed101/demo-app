@@ -7,7 +7,7 @@
 #	docker build --force-rm -t <desired image name> -f <path to this dockerfile> .
 #
 #	Example:
-#		docker build --force-rm -f "D:\Code Projects\demo-app\docker\continuous-delivery\dockerfile" -t demo-app-continuous-delivery:1.0.0 "D:\Code Projects\demo-app\docker\continuous-delivery"
+#		docker build --force-rm -f "D:\Code Projects\demo-app\docker\continuous-delivery\dockerfile" -t demo-app-continuous-delivery:1.0.1 "D:\Code Projects\demo-app\docker\continuous-delivery"
 #
 # Run command: 
 #	docker run --rm -m=5g -v '<Full path to directory on host>:<Full path to directory in container>' --name <desired name of container> <Name of image>
@@ -29,12 +29,38 @@ ADD dotnet-sdk-3.0.101-win-x64.exe .
 RUN dotnet-sdk-3.0.101-win-x64 -q
 
 # Install Chrome.  Appropriate addition to PATH will be made during installation.
-ADD ChromeStandaloneSetup64-v77.exe .
-RUN ChromeStandaloneSetup64-v77 /silent /install
+# To download the latest version of Chrome for Windows 10 go to https://www.askvg.com/official-link-to-download-google-chrome-standalone-offline-installer/
+ADD ChromeStandaloneSetup64-v80.exe .
+RUN ChromeStandaloneSetup64-v80 /silent /install
 
 # Install Chocolatey so that we can do an unattended installation of Git.
 # See https://chocolatey.org/install for more information.
-RUN PowerShell Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+#
+# On 2/3/2020 for security reasons the Chocolatey folks stopped supporting
+# SSL/TLS versions 1.0 and 1.1 and only supported version 1.2.  That resulted 
+# in the following command no longer working.  
+#
+#RUN PowerShell Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+#
+#It produced the following error:
+#
+#	Exception calling "DownloadString" with "1" argument(s): "The request was
+#	aborted: Could not create SSL/TLS secure channel."
+#	At line:1 char:51
+#	+ ... ess -Force; iex ((New-Object System.Net.WebClient).DownloadString('ht ...
+#	+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#	    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+#	    + FullyQualifiedErrorId : WebException
+#
+#So it was commented out.
+#
+# Based on information from https://chocolatey.org/install the following 2 
+# commands Should now be used.  (The first command was only necessary if the
+# operating system required that TLS v1.2 be enabled.  That was not necessary
+# for the base image currently in use.  so the command is commented out.  
+#For more information see https://chocolatey.org/blog/remove-support-for-old-tls-versions.
+#RUN PowerShell [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
+RUN PowerShell Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
 # Install version 1.3.5.1 of Chocolatey Core Extensions.
 RUN PowerShell choco install chocolatey-core.extension
