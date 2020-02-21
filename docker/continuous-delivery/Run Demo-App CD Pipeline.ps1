@@ -48,13 +48,13 @@ Start-Sleep -Seconds 5
 $process = Start-Process -FilePath 'grep\grep' -ArgumentList '"Status: SUCCEEDED" output\results.txt' -PassThru -Wait -NoNewWindow
 If ($process.ExitCode -eq 0)
 {
-	$process = Start-Process `
-			-FilePath 'docker' `
-			-ArgumentList 'build --force-rm -m=5g --no-cache -f "D:\Code Projects\demo-app\docker\Production\dockerfile-demo-app-prod-git-dotnet-kestral" -t demo-app-prod-git-dotnet-kestral:1.0.0 "D:\Code Projects\demo-app\docker\Production"' `
-			-WorkingDirectory 'D:\Code Projects\demo-app\docker\Production' `
-			-RedirectStandardOutput '.\output\Prod Image Output.txt'  
-			-RedirectStandardError '.\output\Prod Image Error.txt'
-			-Wait
+	$process = Start-Process  `
+			-FilePath 'docker'  `
+			-ArgumentList 'build --force-rm -m=5g --no-cache -f "D:\Code Projects\demo-app\docker\Production\dockerfile-demo-app-prod-git-dotnet-kestral" -t demo-app-prod-git-dotnet-kestral:1.0.0 "D:\Code Projects\demo-app\docker\Production"'  `
+			-WorkingDirectory 'D:\Code Projects\demo-app\docker\Production'  `
+			-RedirectStandardOutput '.\output\Prod Image Output.txt'  `
+			-RedirectStandardError '.\output\Prod Image Error.txt'  `
+			-Wait  `
 			-PassThru
 	If ($process.ExitCode -ne 0) {
 		Add-Content .\output\results.txt "Fail`t`t$($process.ExitCode)`t`tBuild production image.  See output files."
