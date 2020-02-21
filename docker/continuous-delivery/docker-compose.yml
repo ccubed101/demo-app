@@ -90,7 +90,7 @@ services:
   # "mem_limit".  For more information see the following,
   #     https://github.com/docker/compose/issues/4513
   demo-app-continuous-delivery:
-    image: demo-app-continuous-delivery:1.0.0
+    image: demo-app-continuous-delivery:1.0.1
     container_name: demo-app-continuous-delivery
     deploy:
       resources:
