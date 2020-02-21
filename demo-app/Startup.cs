@@ -61,10 +61,23 @@ namespace demo_app
             else
             {
                 app.UseExceptionHandler("/Error");
-                app.UseHsts();
+
+				// Microsoft recommends that HTTP Strict Transport Security Protocol (HSTS) headers 
+				// should be sent to the client in production code.  HSTS is a web security policy 
+				// mechanism that helps to protect websites against protocol downgrade attacks[1] and 
+				// cookie hijacking. It allows web servers to declare that web browsers should interact 
+				// with it using only HTTPS connections, which provide Transport Layer Security (TLS/SSL).
+				// Apps deployed in a reverse proxy configuration (kestrel using IIS as a reverse proxy;
+				// which is the "out-of-process" model) do not need HSTS if IIS performs the service.
+				app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+			// Microsoft recommends using HTTP redirection for production code to redirect 
+			// HTTP requests to HTTPS.  Apps deployed in a reverse proxy configuration (kestrel 
+			// using IIS as a reverse proxy; which is the "out-of-process" model) do not need HTTP 
+			// redirection if IIS performs the service.
+			app.UseHttpsRedirection();
+
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
