@@ -109,10 +109,12 @@
     <None Remove="ClientApp\src\app\shared\LayoutChangedEvent.service.ts" />
     <None Remove="ClientApp\src\app\SignalRChatDemo\SignalRChatDemoRoot\Chat.service.ts" />
     <None Remove="ClientApp\src\app\SignalRChatDemo\SignalRChatDemoRoot\ConnectionFactory.ts" />
+    <None Remove="ClientApp\src\app\SignalRChatDemo\SignalRChatDemoRoot\SignalRChatDemoRoot.component.spec.ts" />
     <None Remove="ClientApp\src\app\TheRevenueProject\HorzResizing.service.ts" />
     <None Remove="ClientApp\src\app\TheRevenueProject\TheRevenueProjectRootComponent\TheRevenueProjectRoot.component.ts" />
     <None Remove="ClientApp\src\app\TheRevenueProject\VertResizing.service.ts" />
     <None Remove="ClientApp\src\app\VideosModule\SingleVideoComponent\SingleVideo.component.ts" />
+    <None Remove="ClientApp\tsconfig.spec.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -176,13 +178,16 @@
     <TypeScriptCompile Include="ClientApp\src\app\RoutingExamples\RoutingExamples.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\RoutingExamples\RouteParamExamples.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\LayoutChangedEvent.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\SignalRChatDemo\SignalRChatDemoRoot\Chat.service.spec.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\SignalRChatDemo\SignalRChatDemoRoot\Chat.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\SignalRChatDemo\SignalRChatDemoRoot\ConnectionFactory.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\SignalRChatDemo\SignalRChatDemoRoot\SignalRChatDemoRoot.component.spec.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\TheRevenueProject\HorzResizing.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\TheRevenueProject\TheRevenueProjectRootComponent\TheRevenueProjectRoot.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\TheRevenueProject\VertResizing.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\VideosModule\SingleVideoComponent\SingleVideo.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\main.server.ts" />
+    <TypeScriptCompile Include="ClientApp\tsconfig.spec.json" />
   </ItemGroup>
 
   <ItemGroup>
