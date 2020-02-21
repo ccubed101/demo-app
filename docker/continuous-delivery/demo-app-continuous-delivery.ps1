@@ -193,12 +193,21 @@ If ($process.ExitCode -ne 0) {
 # Install protractor.
 Write-host
 Write-host 'npm install protractor'
-# Every version of protractor comes with a version of the ChromeDriver that only works with a 
-# specific range of versions of Chrome (and headless Chrome).  The version that is installed 
-# here, v5.4.3, works with v77 of Chrome.  Then next version of protractor, v6.0.0, only works
-# with v80 of Chrome.  So if the protractor version is updated then the it will be necessary 
-# to locate and download the installation file for Chrome v80.
-$process = Start-Process -FilePath 'npm' -ArgumentList 'install protractor@5.4.3' -WorkingDirectory 'C:\demo-app\demo-app\ClientApp' -PassThru -Wait -RedirectStandardOutput 'C:\output\Install Protractor Output.txt' -RedirectStandardError 'C:\output\Install Protractor Errors.txt'
+# I originally thought that every version of Protractor as part of the installation process
+# would download a specific version of ChromeDriver that only  worked with a range of Chrome
+# browsers.  That does not appear to be the case.  Instead something called webdriver-manager
+# is responsible downloading that latest version of ChromeDriver which is suppose to work with
+# the 2 most recent versions of the Chrome browser.  That means that every so often the e2e 
+# tests will fail because the version of the Chrome browser will have fallen behing the version 
+# of the ChromeDriver.  At which point it will be necessary to go to 
+#     https://www.askvg.com/official-link-to-download-google-chrome-standalone-offline-installer/
+# to download the most recent version of the Chrome browser, change this docker file to add then
+# newly downloaded Chrome browser stand-alone installer and then rebuild the image.
+# It may be possible to force webdriver-manager to download a specific version of the ChromeDriver
+# but I do not know how to do that.  It may be a bad idea anyway because it would increase the 
+# likelihood of a Chrome browser upgrade (for testing purposes) that spanned multiple versions--
+# which are generally more difficult than upgrading from one version to the next.
+$process = Start-Process -FilePath 'npm' -ArgumentList 'install protractor' -WorkingDirectory 'C:\demo-app\demo-app\ClientApp' -PassThru -Wait -RedirectStandardOutput 'C:\output\Install Protractor Output.txt' -RedirectStandardError 'C:\output\Install Protractor Errors.txt'
 Write-host 'ExitCode: |' $process.ExitCode '|'
 If ($process.ExitCode -ne 0) {
 	Add-Content c:\output\results.txt "Fail`t`t$($process.ExitCode)`t`tInstall Protractor.  See output files."
