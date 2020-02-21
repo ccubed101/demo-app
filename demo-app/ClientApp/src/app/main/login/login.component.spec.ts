@@ -1,48 +1,58 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHandler } from '@angular/common/http';
-import { DebugElement } from '@angular/core';
+import { DebugElement, Injectable } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
 
-import { LoginComponent } from './login.component';
-import { AuthenticationService } from '../../core/authentication.service';
+import { LoginComponent } from './login.component'
+import { AuthenticationService } from '../../core/authentication.service'
+import { LoginCallbacksService } from '../../core/login.callbacks.service'
 
 describe('LoginComponent', () => {
+
 	let component: LoginComponent;
 	let fixture: ComponentFixture<LoginComponent>;
 
-	let authenticationSeriveSpy: jasmine.SpyObj<AuthenticationService>;
+    let authenticationServiceSpy = jasmine.createSpyObj('AuthenticationService', { 'Login': of("HttpResponse") });
+    let loginCallbackServiceSpy: LoginCallbacksService = jasmine.createSpyObj('LoginCallbacksService', [ 'SuccessCallback', 'FailCallback' ]);
+    let httpClientSpy = jasmine.createSpyObj('HttpClient', [ 'dontCare' ]);
+    let httpHandlerSpy = jasmine.createSpyObj('HttpHandler', [ 'dontCare' ]);
 
 	beforeEach(async(() => {
 
-		let p: Partial<AuthenticationService>;
+        TestBed.configureTestingModule({
+            imports: [
+                FormsModule,
+            ],
+            declarations: [
+                LoginComponent
+            ],
+            providers: [
+                //HttpClient,
+                //HttpHandler,
+                //AuthenticationService,
+                //LoginCallbacksService
+                { provide: HttpHandler, useValue: httpHandlerSpy },
+                { provide: HttpClient, useValue: httpClientSpy },
+                { provide: AuthenticationService, useValue: authenticationServiceSpy },
+                { provide: LoginCallbacksService, useValue: loginCallbackServiceSpy }
+            ]
+        }).compileComponents().then(() => {
+            fixture = TestBed.createComponent(LoginComponent);
+		    component = fixture.componentInstance;
+            fixture.detectChanges();
+        });
 
-		authenticationSeriveSpy = jasmine.createSpyObj('AuthenticationService', { 'Login': of("HttpResponse") });
-
-		TestBed.configureTestingModule({
-			imports: [FormsModule], 
-			declarations: [LoginComponent],
-			providers: [
-				//HttpClient,
-				//HttpHandler,
-				{ provide: AuthenticationService, useValue: authenticationSeriveSpy }
-			]
-		})
-		.compileComponents();
-	}));
-
-	beforeEach(async(() => {										// Why did wrapping function passed to beforeEach() with async() allow username and password to be updated on model???
-		fixture = TestBed.createComponent(LoginComponent);
-		component = fixture.componentInstance;
-		fixture.detectChanges();
 	}));
 
 	it('should create', () => {
 		expect(component).toBeTruthy();
 	});
 
-	it('should call AuthenticationService when \"Login\" button is clicked with expected username and password parameters.', () => {
+    it('should call AuthenticationService when \"Login\" button is clicked with expected username and password parameters.', () => {
+
+        let authenticationService: any = TestBed.get(AuthenticationService);
 
 		let username: string = "username";
 		let password: string = "password";
@@ -58,9 +68,10 @@ describe('LoginComponent', () => {
 		let loginButton: HTMLElement = fixture.nativeElement.querySelector("#loginButton");
 		loginButton.click();
 
-		expect(authenticationSeriveSpy.Login.calls.count()).toEqual(1);
-		expect(authenticationSeriveSpy.Login.calls.first().args[0]).toBe(username);
-		expect(authenticationSeriveSpy.Login.calls.first().args[1]).toBe(password);
+        expect(authenticationService.Login.calls.count()).toEqual(1);
+        expect(authenticationService.Login.calls.first().args[0]).toBe(username);
+        expect(authenticationService.Login.calls.first().args[1]).toBe(password);
+
 	});
 });
 
