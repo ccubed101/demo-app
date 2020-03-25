@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
     selector: 'splash',
     template: `
         <div id="splashText">
-          Splash Page!
+          Splash Page X!
         </div>
     `,
   styles: [
