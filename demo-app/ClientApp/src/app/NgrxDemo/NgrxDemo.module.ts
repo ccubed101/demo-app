@@ -8,8 +8,14 @@ import { NgrxDemoRoutingModule } from './NgrxDemoRouting.module'
 
 
 // ngrx 
-//import { StoreModule } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 //import { EffectsModule } from '@ngrx/effects';
+import { ngrxDemoReducer } from './ngrx/NgrxDemo.reducers';
+import { AddRemoveTeacherComponent } from './NgrxDemoRootComponent/AddRemoveTeacher/AddRemoveTeacher.component';
+import { AddRemoveCourseComponent } from './NgrxDemoRootComponent/AddRemoveCourse/AddRemoveCourse.component';
+import { AddRemoveStudentComponent } from './NgrxDemoRootComponent/AddRemoveStudent/AddRemoveStudent.component';
+import { StudentEnrollmentsComponent } from './NgrxDemoRootComponent/StudentEnrollments/StudentEnrollments.component';
+import { TeacherAssignmentsComponent } from './NgrxDemoRootComponent/TeacherAssignments/TeacherAssignments.component';
 //import { mainReducer } from './ngrx/main.reducers';
 //import { featureReducer } from './FeatureState.reducer'
 //import { FavoriteMoviesEffects } from './FavoriteMovies.effects'
@@ -34,11 +40,16 @@ import { NgrxDemoRoutingModule } from './NgrxDemoRouting.module'
         //// up the providers required for effects.
         //EffectsModule.forRoot([
         //]),
-        //StoreModule.forFeature('featureState', featureReducer),
+        StoreModule.forFeature('NgrxDemo', ngrxDemoReducer),
         //EffectsModule.forFeature([FavoriteMoviesEffects]),
 	],
 	declarations: [
 		NgrxDemoRootComponent,
+		AddRemoveTeacherComponent,
+		AddRemoveCourseComponent,
+		AddRemoveStudentComponent,
+		StudentEnrollmentsComponent,
+		TeacherAssignmentsComponent,
     ],
     providers: [
 
