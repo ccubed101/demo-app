@@ -30,7 +30,7 @@ namespace demo_app
 					options.ConfigureHttpsDefaults((co) =>
 					{
 						// Certificate used to encrypt data over TLS (i.e. SSL)
-						co.ServerCertificate = new X509Certificate2(config.GetValue<string>("NameOfX509CertificateFileUsedForKestrelHTTPS"));
+						co.ServerCertificate = new X509Certificate2(config.GetValue<string>("NameOfX509CertificateFileUsedForKestrelHTTPS"), "", X509KeyStorageFlags.MachineKeySet);
 					});
 				})
 				// If you want to use IIS and the "In-process" model to host this app then call UseIIS().
