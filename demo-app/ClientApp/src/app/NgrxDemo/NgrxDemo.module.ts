@@ -6,7 +6,6 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { NgrxDemoRootComponent } from './NgrxDemoRootComponent/NgrxDemoRoot.component'
 import { NgrxDemoRoutingModule } from './NgrxDemoRouting.module'
 
-
 // ngrx 
 import { StoreModule } from '@ngrx/store';
 //import { EffectsModule } from '@ngrx/effects';

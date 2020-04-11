@@ -42,10 +42,9 @@ export class UnitOfWork implements IUnitOfWork {
         from(this.entityManager.fetchMetadata()).subscribe(
             (schema) => {
                 this.schema = schema;
-                console.log(schema);
 
-                // All entity types will have there unique IDs determime by the back-end database.
-                let entityTypes = this.entityManager.metadataStore.getEntityTypes()
+                // All entity types will have their unique IDs determime by the back-end database.
+                let entityTypes = this.entityManager.metadataStore.getEntityTypes();
                 for (let entityType of entityTypes) {
                     if (entityType instanceof EntityType) {
                         (<EntityType>entityType).setProperties({
@@ -111,28 +110,24 @@ export class UnitOfWork implements IUnitOfWork {
     SaveChanges(): void {
 
 
-        console.log("Courses before");
-        let entityType: EntityType | ComplexType = this.entityManager.metadataStore.getEntityType("Course");
-        for (let e of this.entityManager.getEntities([<EntityType>entityType], [EntityState.Added, EntityState.Unchanged, EntityState.Modified])) {
-            console.log(e);
-        }
+        //console.log("Courses before");
+        //let entityType: EntityType | ComplexType = this.entityManager.metadataStore.getEntityType("Course");
+        //for (let e of this.entityManager.getEntities([<EntityType>entityType], [EntityState.Added, EntityState.Unchanged, EntityState.Modified])) {
+        //    console.log(e);
+        //}
 
 
         if (this.entityManager.hasChanges) {
             this.entityManager.saveChanges()
                 .then((saveResult) => {
-                    console.log(saveResult);
 
+                    //console.log(saveResult);
 
-
-                    console.log("Courses after");
-                    let entityType: EntityType | ComplexType = this.entityManager.metadataStore.getEntityType("Course");
-                    for (let e of this.entityManager.getEntities([<EntityType>entityType], [EntityState.Added, EntityState.Unchanged, EntityState.Modified])) {
-                        console.log(e);
-                    }
-
-
-
+                    //console.log("Courses after");
+                    //let entityType: EntityType | ComplexType = this.entityManager.metadataStore.getEntityType("Course");
+                    //for (let e of this.entityManager.getEntities([<EntityType>entityType], [EntityState.Added, EntityState.Unchanged, EntityState.Modified])) {
+                    //    console.log(e);
+                    //}
 
                 })
                 .catch((error) => {

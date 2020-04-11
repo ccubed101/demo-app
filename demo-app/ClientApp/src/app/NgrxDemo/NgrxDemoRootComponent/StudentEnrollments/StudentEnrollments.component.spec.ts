@@ -1,25 +1,33 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms'
+import { StoreModule } from '@ngrx/store';
+import { ngrxDemoReducer } from '../../ngrx/NgrxDemo.reducers';
 
 import { StudentEnrollmentsComponent } from './StudentEnrollments.component';
 
 describe('StudentEnrollmentsComponent', () => {
-  let component: StudentEnrollmentsComponent;
-  let fixture: ComponentFixture<StudentEnrollmentsComponent>;
+    let component: StudentEnrollmentsComponent;
+    let fixture: ComponentFixture<StudentEnrollmentsComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ StudentEnrollmentsComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [
+                ReactiveFormsModule,
+                StoreModule.forRoot({}),
+                StoreModule.forFeature('NgrxDemo', ngrxDemoReducer),
+            ],
+            declarations: [ StudentEnrollmentsComponent ]
+        })
+        .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(StudentEnrollmentsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(StudentEnrollmentsComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

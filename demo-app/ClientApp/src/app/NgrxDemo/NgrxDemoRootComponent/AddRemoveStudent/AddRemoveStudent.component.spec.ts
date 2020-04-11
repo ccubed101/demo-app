@@ -1,4 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms'
+import { StoreModule } from '@ngrx/store';
+import { ngrxDemoReducer } from '../../ngrx/NgrxDemo.reducers';
 
 import { AddRemoveStudentComponent } from './AddRemoveStudent.component';
 
@@ -8,7 +11,12 @@ describe('AddRemoveStudentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddRemoveStudentComponent ]
+        imports: [
+            ReactiveFormsModule,
+            StoreModule.forRoot({}),
+            StoreModule.forFeature('NgrxDemo', ngrxDemoReducer),
+        ],
+        declarations: [ AddRemoveStudentComponent ]
     })
     .compileComponents();
   }));
