@@ -84,11 +84,17 @@ export class TeacherAssignmentsComponent implements OnInit {
         //private store: Store<{ counterFeature: { count: number } }>
         private store: Store<AppState>
     ) {
+        console.log("TeacherAssignmentsComponent");
         this.teachers$ = store.pipe(select(getTeachers));
+        console.log(1);
         this.assignedCourses$ = this.store.pipe(select(getAssignedCourses));
+        console.log(2);
         this.unassignedCourses$ = this.store.pipe(select(getUnassignedCourses));
+        console.log(3);
         this.selectedAssignedCourse$ = this.store.pipe(select(getSelectedAssignedCourse))
+        console.log(4);
         this.selectedUnassignedCourse$ = this.store.pipe(select(getSelectedUnassignedCourse))
+        console.log(5);
     }
 
 

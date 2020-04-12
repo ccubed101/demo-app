@@ -97,8 +97,11 @@ export class AddRemoveStudentComponent implements OnInit {
         //private store: Store<{ counterFeature: { count: number } }>
         private store: Store<any>
     ) {
-        this.students$ = store.pipe(select('NgrxDemo', 'students'));
+        console.log("AddRemoveTeacherComponent");
+        this.students$ = store.pipe(select(getStudents));
+        console.log(1);
         this.selectedStudentToDelete$ = store.pipe(select(getSelectedStudentToRemove));
+        console.log(2);
     }
 
 

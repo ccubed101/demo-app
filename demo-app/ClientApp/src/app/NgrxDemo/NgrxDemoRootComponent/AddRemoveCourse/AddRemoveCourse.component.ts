@@ -89,8 +89,11 @@ export class AddRemoveCourseComponent implements OnInit {
         //private store: Store<{ counterFeature: { count: number } }>
         private store: Store<any>
     ) {
-        this.courses$ = store.pipe(select('NgrxDemo', 'courses'));
+        console.log("AddRemoveCourseComponent");
+        this.courses$ = store.pipe(select(getCourses));
+        console.log(1);
         this.selectedCourseToRemove$ = store.pipe(select(getSelectedCourseToRemove));
+        console.log(2);
     }
 
 
