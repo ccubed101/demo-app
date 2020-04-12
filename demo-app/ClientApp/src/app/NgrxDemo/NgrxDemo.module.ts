@@ -39,6 +39,7 @@ import { TeacherAssignmentsComponent } from './NgrxDemoRootComponent/TeacherAssi
         //// up the providers required for effects.
         //EffectsModule.forRoot([
         //]),
+        StoreModule.forRoot({}),
         StoreModule.forFeature('NgrxDemo', ngrxDemoReducer),
         //EffectsModule.forFeature([FavoriteMoviesEffects]),
 	],
