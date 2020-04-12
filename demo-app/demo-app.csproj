@@ -23,12 +23,16 @@
     <Compile Remove="ClientApp\src\app\main\fetch-data\**" />
     <Compile Remove="ClientApp\src\app\main\home\**" />
     <Compile Remove="ClientApp\src\app\BreezeDemo\BreezeDemoRootComponent\ClassesComponent\**" />
+    <Compile Remove="ClientApp\src\app\NgrxDemo\NgrxDemoRootComponent\StudentInfo\**" />
+    <Compile Remove="ClientApp\src\app\NgrxDemo\NgrxDemoRootComponent\TeacherInfo\**" />
     <Content Remove="$(SpaRoot)**" />
     <Content Remove="ClientApp\src\app\main\components\**" />
     <Content Remove="ClientApp\src\app\main\counter\**" />
     <Content Remove="ClientApp\src\app\main\fetch-data\**" />
     <Content Remove="ClientApp\src\app\main\home\**" />
     <Content Remove="ClientApp\src\app\BreezeDemo\BreezeDemoRootComponent\ClassesComponent\**" />
+    <Content Remove="ClientApp\src\app\NgrxDemo\NgrxDemoRootComponent\StudentInfo\**" />
+    <Content Remove="ClientApp\src\app\NgrxDemo\NgrxDemoRootComponent\TeacherInfo\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
@@ -38,11 +42,15 @@
     <EmbeddedResource Remove="ClientApp\src\app\main\fetch-data\**" />
     <EmbeddedResource Remove="ClientApp\src\app\main\home\**" />
     <EmbeddedResource Remove="ClientApp\src\app\BreezeDemo\BreezeDemoRootComponent\ClassesComponent\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\NgrxDemo\NgrxDemoRootComponent\StudentInfo\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\NgrxDemo\NgrxDemoRootComponent\TeacherInfo\**" />
     <None Remove="ClientApp\src\app\main\components\**" />
     <None Remove="ClientApp\src\app\main\counter\**" />
     <None Remove="ClientApp\src\app\main\fetch-data\**" />
     <None Remove="ClientApp\src\app\main\home\**" />
     <None Remove="ClientApp\src\app\BreezeDemo\BreezeDemoRootComponent\ClassesComponent\**" />
+    <None Remove="ClientApp\src\app\NgrxDemo\NgrxDemoRootComponent\StudentInfo\**" />
+    <None Remove="ClientApp\src\app\NgrxDemo\NgrxDemoRootComponent\TeacherInfo\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,6 +66,7 @@
     <None Remove="ClientApp\src\app\app.server.module.ts" />
     <None Remove="ClientApp\src\app\BreezeDemo\BreezeDemoEntityManager.ts" />
     <None Remove="ClientApp\src\app\BreezeDemo\BreezeDemoRootComponent\BreezeDemoRoot.component.ts" />
+    <None Remove="ClientApp\src\app\BreezeDemo\UnitOfWork.spec.ts" />
     <None Remove="ClientApp\src\app\main\Configuration.ts" />
     <None Remove="ClientApp\src\app\BreezeDemo\Configuration.ts" />
     <None Remove="ClientApp\src\app\BreezeDemo\Course.ts" />
@@ -93,12 +102,9 @@
     <None Remove="ClientApp\src\app\NgrxDemo\FeatureState.reducer.ts" />
     <None Remove="ClientApp\src\app\NgrxDemo\NgrxDemoRootComponent\NgrxDemoRoot.component.ts" />
     <None Remove="ClientApp\src\app\NgrxDemo\ngrx\interfaces.ts" />
-    <None Remove="ClientApp\src\app\NgrxDemo\ngrx\main.actions.ts" />
-    <None Remove="ClientApp\src\app\NgrxDemo\ngrx\main.reducers.ts" />
-    <None Remove="ClientApp\src\app\NgrxDemo\ngrx\page.actions.ts" />
-    <None Remove="ClientApp\src\app\NgrxDemo\ngrx\page.reducers.ts" />
-    <None Remove="ClientApp\src\app\NgrxDemo\ngrx\pages.actions.ts" />
-    <None Remove="ClientApp\src\app\NgrxDemo\ngrx\pages.reducers.ts" />
+    <None Remove="ClientApp\src\app\NgrxDemo\ngrx\NgrxDemo.actions.ts" />
+    <None Remove="ClientApp\src\app\NgrxDemo\ngrx\NgrxDemo.reducers.ts" />
+    <None Remove="ClientApp\src\app\NgrxDemo\ngrx\NgrxDemo.selectors.ts" />
     <None Remove="ClientApp\src\app\RoutingExamples\RouteParamExample1.component.ts" />
     <None Remove="ClientApp\src\app\RoutingExamples\RouteParamExamples.component.ts" />
     <None Remove="ClientApp\src\app\RoutingExamples\RoutingExample1.component.ts" />
@@ -129,6 +135,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\AnimationsModule\AnimationsRootComponent\RotatorWrapperComponent\RotatorWrapper.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\AnalyticsModule\components\commit-history\commit-history.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\BreezeDemoEntityManager.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\UnitOfWork.spec.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\main\configuration.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\Configuration.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\Course.ts" />
@@ -164,12 +171,9 @@
     <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\NgrxDemoRootComponent\NgrxDemoRoot.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\Configuration.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\ngrx\interfaces.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\ngrx\main.actions.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\ngrx\main.reducers.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\ngrx\page.actions.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\ngrx\page.reducers.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\ngrx\pages.actions.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\ngrx\pages.reducers.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\ngrx\NgrxDemo.actions.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\ngrx\NgrxDemo.reducers.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\ngrx\NgrxDemo.selectors.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\RoutingExamples\RouteParamExample1.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\RoutingExamples\RoutingExample1.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\RoutingExamples\RoutingExample2.component.ts" />
@@ -192,6 +196,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\app\main\jwt-demo\" />
+    <Folder Include="ClientApp\src\app\MaterialsDemo\MaterialsDemoRoot\" />
   </ItemGroup>
 
   <ItemGroup>
