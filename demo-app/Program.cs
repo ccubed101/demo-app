@@ -30,7 +30,20 @@ namespace demo_app
 					options.ConfigureHttpsDefaults((co) =>
 					{
 						// Certificate used to encrypt data over TLS (i.e. SSL)
-						co.ServerCertificate = new X509Certificate2(config.GetValue<string>("NameOfX509CertificateFileUsedForKestrelHTTPS"), "", X509KeyStorageFlags.MachineKeySet);
+						// (The 2 lines below are 2 ways to load up the X509 certificate.  The first line
+						// is commented out because it intermittently caused the application not to start
+						// when run with Docker due to something about an incorrect network password.  A
+						// StackOverflow posting suggested using the second line below and provided the 
+						// following explanation: "It appears that the X509Certificate2 constructor tries to 
+						// access the private key store of the local user (even when loading a PFX and the 
+						// private key is in the PFX). With asp.net, the user profile typically isn't loaded,
+						// so the user key store doesn't exist. Specifying MachineKeySet tells the constructor 
+						// to look at the Local Computer key store which always exists."
+						//co.ServerCertificate = new X509Certificate2(config.GetValue<string>("NameOfX509CertificateFileUsedForKestrelHTTPS"));
+						//co.ServerCertificate = new X509Certificate2(config.GetValue<string>("NameOfX509CertificateFileUsedForKestrelHTTPS"), "", X509KeyStorageFlags.MachineKeySet);
+						//co.ServerCertificate = new X509Certificate2(config.GetValue<string>("NameOfX509CertificateFileUsedForKestrelHTTPS"), "", X509KeyStorageFlags.EphemeralKeySet);
+						co.ServerCertificate = new X509Certificate2(config.GetValue<string>("NameOfX509CertificateFileUsedForKestrelHTTPS"), "woscers101");
+
 					});
 				})
 				// If you want to use IIS and the "In-process" model to host this app then call UseIIS().
