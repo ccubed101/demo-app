@@ -39,7 +39,18 @@ import { TeacherAssignmentsComponent } from './NgrxDemoRootComponent/TeacherAssi
         //// up the providers required for effects.
         //EffectsModule.forRoot([
         //]),
+
+        // Ngrx documentation says that StoreModule.forRoot({}) only needs to be called in the root
+        // module.  But while the NgrxDemo module loaded without incident when using the Angular
+        // server (for development) the module would not load when executed in Docker.  The Chrome
+        // console indicated the lack of a provider for a particular injection.  It was not possible
+        // to determine what injected object lacked a provided because optimizations completely
+        // obscured the names of objects.  Only by setting configurations\production\optimization to
+        // 'false' could the name of the object be seen.  It was the ReducerManager.  A web posting
+        // indicated that the only way to resolve this problem was to add the line below.  Note that
+        // this is exactly what had to be done in unit test spec.ts files to unit test Ngrx stuff.
         StoreModule.forRoot({}),
+
         StoreModule.forFeature('NgrxDemo', ngrxDemoReducer),
         //EffectsModule.forFeature([FavoriteMoviesEffects]),
 	],

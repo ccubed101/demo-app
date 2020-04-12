@@ -90,11 +90,8 @@ export class AddRemoveTeacherComponent implements OnInit {
         //private store: Store<{ counterFeature: { count: number } }>
         private store: Store<any>
     ) {
-        console.log("AddRemoveTeacherComponent");
         this.teachers$ = store.pipe(select(getTeachers));
-        console.log(1);
         this.selectedTeacherToRemove$ = store.pipe(select(getSelectedTeacherToRemove));
-        console.log(2);
     }
 
 

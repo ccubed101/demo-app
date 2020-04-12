@@ -84,17 +84,11 @@ export class StudentEnrollmentsComponent implements OnInit {
         //private store: Store<{ counterFeature: { count: number } }>
         private store: Store<AppState>
     ) {
-        console.log("StudentEnrollmentsComponent");
         this.students$ = store.pipe(select(getStudents));
-        console.log(1);
         this.enrolledCourses$ = this.store.pipe(select(getEnrolledCourses));
-        console.log(2);
         this.unenrolledCourses$ = this.store.pipe(select(getUnenrolledCourses));
-        console.log(3);
         this.selectedEnrolledCourse$ = this.store.pipe(select(getSelectedEnrolledCourse))
-        console.log(4);
         this.selectedUnenrolledCourse$ = this.store.pipe(select(getSelectedUnenrolledCourse))
-        console.log(5);
     }
 
 
