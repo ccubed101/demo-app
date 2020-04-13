@@ -7,7 +7,7 @@
 #	docker build --force-rm -t <desired image name> -f <path to this dockerfile> .
 #
 #	Example:
-#		docker build --force-rm -f "D:\Code Projects\demo-app\docker\continuous-delivery\dockerfile" -t demo-app-continuous-delivery:1.0.1 "D:\Code Projects\demo-app\docker\continuous-delivery"
+#		docker build --force-rm -f "D:\Code Projects\demo-app\docker\continuous-delivery\dockerfile" -t demo-app-continuous-delivery:1.0.2 "D:\Code Projects\demo-app\docker\continuous-delivery"
 #
 # Run command: 
 #	docker run --rm -m=5g -v '<Full path to directory on host>:<Full path to directory in container>' --name <desired name of container> <Name of image>
@@ -30,8 +30,8 @@ RUN dotnet-sdk-3.0.101-win-x64 -q
 
 # Install Chrome.  Appropriate addition to PATH will be made during installation.
 # To download the latest version of Chrome for Windows 10 go to https://www.askvg.com/official-link-to-download-google-chrome-standalone-offline-installer/
-ADD ChromeStandaloneSetup64-v80.exe .
-RUN ChromeStandaloneSetup64-v80 /silent /install
+ADD ChromeStandaloneSetup64-v81.exe .
+RUN ChromeStandaloneSetup64-v81 /silent /install
 
 # Install Chocolatey so that we can do an unattended installation of Git.
 # See https://chocolatey.org/install for more information.

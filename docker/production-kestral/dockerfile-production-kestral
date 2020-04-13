@@ -50,8 +50,10 @@ COPY --from=forNodeInsall nodejs nodejs
 RUN setx Path "%Path%;C:\nodejs"
 
 # arguments:
+# Directory in image where project will published to.
 arg pathtopublish=c:\publish
-arg pathtoproject=c:\project
+# Directory in image where project will be copied to.
+arg pathtoproject=c:\project		
 
 # programmer note: how do you consume args in a dockerfile?  the rules are complicated.  
 # assume that we have the following command: 

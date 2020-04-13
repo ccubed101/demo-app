@@ -52,6 +52,8 @@ RUN npm install -g karma-cli
 # it confuses Karma.
 ADD [ "demo-app-unit-tests.cmd",  "c:/" ]							# Note that with ADD you have to use forward slashes.
 
+ADD [ "./grep/*.*", "c:/grep/" ]
+
 # Execute this process when the container is run.  The parameter is the name of the Karma configuration file to use.
 CMD demo-app-unit-tests.cmd karma.ChromeHeadless.conf.js
 
