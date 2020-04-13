@@ -82,11 +82,6 @@
     <None Remove="ClientApp\src\app\main\auth.guard.ts" />
     <None Remove="ClientApp\src\app\main\main.actions.ts" />
     <None Remove="ClientApp\src\app\main\main.reducers.ts" />
-    <None Remove="ClientApp\src\app\main\ngrx\interfaces.ts" />
-    <None Remove="ClientApp\src\app\main\ngrx\page.actions.ts" />
-    <None Remove="ClientApp\src\app\main\ngrx\page.reducers.ts" />
-    <None Remove="ClientApp\src\app\main\ngrx\pages.actions.ts" />
-    <None Remove="ClientApp\src\app\main\ngrx\pages.reducers.ts" />
     <None Remove="ClientApp\src\app\BreezeDemo\BreezeDemoRootComponent\Student.ts" />
     <None Remove="ClientApp\src\app\BreezeDemo\Repository.ts" />
     <None Remove="ClientApp\src\app\BreezeDemo\School.model.ts" />
@@ -101,12 +96,14 @@
     <None Remove="ClientApp\src\app\NgrxDemo\NgrxDemoRootComponent\AddRemoveCourse\AddRemoveCourse.component.ts" />
     <None Remove="ClientApp\src\app\NgrxDemo\NgrxDemoRootComponent\AddRemoveStudent\AddRemoveStudent.component.ts" />
     <None Remove="ClientApp\src\app\NgrxDemo\NgrxDemoRootComponent\AddRemoveTeacher\AddRemoveTeacher.component.ts" />
+    <None Remove="ClientApp\src\app\NgrxDemo\NgrxDemoRootComponent\NgrxDemoData.service.ts" />
     <None Remove="ClientApp\src\app\NgrxDemo\NgrxDemoRootComponent\NgrxDemoRoot.component.ts" />
     <None Remove="ClientApp\src\app\NgrxDemo\NgrxDemoRootComponent\StudentEnrollments\StudentEnrollments.component.ts" />
     <None Remove="ClientApp\src\app\NgrxDemo\NgrxDemoRootComponent\TeacherAssignments\TeacherAssignments.component.ts" />
     <None Remove="ClientApp\src\app\NgrxDemo\NgrxDemoRouting.module.ts" />
     <None Remove="ClientApp\src\app\NgrxDemo\ngrx\interfaces.ts" />
     <None Remove="ClientApp\src\app\NgrxDemo\ngrx\NgrxDemo.actions.ts" />
+    <None Remove="ClientApp\src\app\NgrxDemo\ngrx\NgrxDemo.effects.ts" />
     <None Remove="ClientApp\src\app\NgrxDemo\ngrx\NgrxDemo.reducers.ts" />
     <None Remove="ClientApp\src\app\NgrxDemo\ngrx\NgrxDemo.selectors.ts" />
     <None Remove="ClientApp\src\app\RoutingExamples\RouteParamExample1.component.ts" />
@@ -156,13 +153,6 @@
     <TypeScriptCompile Include="ClientApp\src\app\forms-demo\components\reactive-forms-example3\reactive-forms-example3.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\main\app.server.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\main\auth.guard.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\main\ngrx\interfaces.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\main\ngrx\main.actions.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\main\ngrx\main.reducers.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\main\ngrx\page.actions.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\main\ngrx\page.reducers.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\main\ngrx\pages.actions.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\main\ngrx\pages.reducers.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\StudentRepository.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\Teacher.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\TeacherRepository.ts" />
@@ -173,6 +163,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\NgrxDemoRootComponent\AddRemoveCourse\AddRemoveCourse.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\NgrxDemoRootComponent\AddRemoveStudent\AddRemoveStudent.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\NgrxDemoRootComponent\AddRemoveTeacher\AddRemoveTeacher.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\NgrxDemoRootComponent\NgrxDemoData.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\NgrxDemoRootComponent\NgrxDemoRoot.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\Configuration.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\NgrxDemoRootComponent\StudentEnrollments\StudentEnrollments.component.ts" />
@@ -180,6 +171,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\NgrxDemoRouting.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\ngrx\interfaces.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\ngrx\NgrxDemo.actions.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\ngrx\NgrxDemo.effects.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\ngrx\NgrxDemo.reducers.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\ngrx\NgrxDemo.selectors.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\RoutingExamples\RouteParamExample1.component.ts" />

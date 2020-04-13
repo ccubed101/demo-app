@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, RouterState, RouterOutlet } from '@angular/router';
 
 import { Store, select } from '@ngrx/store';
+import { loadData } from '../ngrx/NgrxDemo.actions';
 
 import { Observable, of } from 'rxjs';
 
@@ -61,16 +62,24 @@ import { Observable, of } from 'rxjs';
             text-align: center;                                 \
         }                                                       \
         "
-	],
+    ],
 })
 export class NgrxDemoRootComponent {
 
     // Construction.
 
     constructor(
+        private store: Store<any>
     ) {
     }
 
+
+    // Life cycle methods
+
+    ngOnInit() {
+        console.log("Load the data.");
+        this.store.dispatch(loadData());
+    }
 }
 
 
