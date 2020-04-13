@@ -38,11 +38,14 @@ namespace demo_app
 						// access the private key store of the local user (even when loading a PFX and the 
 						// private key is in the PFX). With asp.net, the user profile typically isn't loaded,
 						// so the user key store doesn't exist. Specifying MachineKeySet tells the constructor 
-						// to look at the Local Computer key store which always exists."
-						//co.ServerCertificate = new X509Certificate2(config.GetValue<string>("NameOfX509CertificateFileUsedForKestrelHTTPS"));
+						// to look at the Local Computer key store which always exists."  Unfortunately the
+						// second line did not work either.  So decided to try and use the certificate that is
+						// known to work for the account-service project.  The first attempt succeeded.  But 
+						// subsequent attempts failed.  But the error message was different.  It was "Unable 
+						// to start Kestrel."..."An internal error occurred."
+						co.ServerCertificate = new X509Certificate2(config.GetValue<string>("NameOfX509CertificateFileUsedForKestrelHTTPS"));
 						//co.ServerCertificate = new X509Certificate2(config.GetValue<string>("NameOfX509CertificateFileUsedForKestrelHTTPS"), "", X509KeyStorageFlags.MachineKeySet);
-						//co.ServerCertificate = new X509Certificate2(config.GetValue<string>("NameOfX509CertificateFileUsedForKestrelHTTPS"), "", X509KeyStorageFlags.EphemeralKeySet);
-						co.ServerCertificate = new X509Certificate2(config.GetValue<string>("NameOfX509CertificateFileUsedForKestrelHTTPS"), "woscers101");
+						//co.ServerCertificate = new X509Certificate2(config.GetValue<string>("NameOfX509CertificateFileUsedForKestrelHTTPS"), "woscers101");
 
 					});
 				})
