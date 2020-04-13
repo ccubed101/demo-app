@@ -18,6 +18,7 @@ const routes: Routes = [
 	{ path: 'Animations', loadChildren: () => import('../AnimationsModule/Animations.module').then(m => m.AnimationsModule), data: { preload: false } },
     { path: 'SignalRChatDemo', loadChildren: () => import('../SignalRChatDemo/SignalRChatDemo.module').then(m => m.SignalRChatDemoModule), data: { preload: false } },
     { path: 'Videos', loadChildren: () => import('../VideosModule/Videos.module').then(m => m.VideosModule), data: { preload: false } },
+    { path: 'MaterialsDemo', loadChildren: () => import('../MaterialsDemo/MaterialsDemo.module').then(m => m.MaterialsDemoModule), data: { preload: false } },
     { path: 'BreezeDemo', loadChildren: () => import('../BreezeDemo/BreezeDemo.module').then(m => m.BreezeDemoModule), data: { preload: false } },
     { path: 'NgrxDemo', loadChildren: () => import('../NgrxDemo/NgrxDemo.module').then(m => m.NgrxDemoModule), data: { preload: false } },
     { path: 'TheRevenueProject', loadChildren: () => import('../TheRevenueProject/TheRevenueProject.module').then(m => m.TheRevenueProjectModule), data: { preload: false } },
