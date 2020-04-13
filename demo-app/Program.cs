@@ -30,23 +30,21 @@ namespace demo_app
 					options.ConfigureHttpsDefaults((co) =>
 					{
 						// Certificate used to encrypt data over TLS (i.e. SSL)
-						// (The 2 lines below are 2 ways to load up the X509 certificate.  The first line
-						// is commented out because it intermittently caused the application not to start
-						// when run with Docker due to something about an incorrect network password.  A
-						// StackOverflow posting suggested using the second line below and provided the 
-						// following explanation: "It appears that the X509Certificate2 constructor tries to 
-						// access the private key store of the local user (even when loading a PFX and the 
-						// private key is in the PFX). With asp.net, the user profile typically isn't loaded,
-						// so the user key store doesn't exist. Specifying MachineKeySet tells the constructor 
-						// to look at the Local Computer key store which always exists."  Unfortunately the
-						// second line did not work either.  So decided to try and use the certificate that is
-						// known to work for the account-service project.  The first attempt succeeded.  But 
-						// subsequent attempts failed.  But the error message was different.  It was "Unable 
-						// to start Kestrel."..."An internal error occurred."
-						co.ServerCertificate = new X509Certificate2(config.GetValue<string>("NameOfX509CertificateFileUsedForKestrelHTTPS"));
-						//co.ServerCertificate = new X509Certificate2(config.GetValue<string>("NameOfX509CertificateFileUsedForKestrelHTTPS"), "", X509KeyStorageFlags.MachineKeySet);
-						//co.ServerCertificate = new X509Certificate2(config.GetValue<string>("NameOfX509CertificateFileUsedForKestrelHTTPS"), "woscers101");
-
+						// (Around the time that the NgrxDemo module was loaded it became impossible to
+						// run demo-app in Docker.  The error message included the following: "Unable to 
+						// start Kestrel.  Internal.Cryptography.CryptoThrowHelper+WindowsCryptographicException: 
+						// The specified network password is not correct."  The statement used to load 
+						// the X509 certificate was,
+						//   co.ServerCertificate = new X509Certificate2(config.GetValue<string>("NameOfX509CertificateFileUsedForKestrelHTTPS"));
+						// Based on an internet posting the following statement was also tried,
+						//   co.ServerCertificate = new X509Certificate2(config.GetValue<string>("NameOfX509CertificateFileUsedForKestrelHTTPS"), "", X509KeyStorageFlags.MachineKeySet);
+						// It did not work either.  Another internet posting suggested that the problem 
+						// may be due to a broken certificate.  So a certificate which was known to work 
+						// in the accounts-service project was used,
+						co.ServerCertificate = new X509Certificate2(config.GetValue<string>("NameOfX509CertificateFileUsedForKestrelHTTPS"), "woscers101");
+						// This worked but occaisionally failed with message that included: "Unable to start 
+						// Kestrel.  Internal.Cryptography.CryptoThrowHelper+WindowsCryptographicException: 
+						// An internal error occurred."  Bue in such cases you just need to try again.
 					});
 				})
 				// If you want to use IIS and the "In-process" model to host this app then call UseIIS().
