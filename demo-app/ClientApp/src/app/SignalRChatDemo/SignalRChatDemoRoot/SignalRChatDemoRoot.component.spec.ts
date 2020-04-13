@@ -4,8 +4,6 @@ import { SignalRChatDemoRootComponent } from './SignalRChatDemoRoot.component'
 import { ConnectionFactory } from './ConnectionFactory'
 import { ChatService } from './Chat.service'
 
-import { of } from 'rxjs';
-
 
 describe('SignalRChatDemoRootComponent', () => {
 

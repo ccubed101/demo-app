@@ -1,6 +1,19 @@
 ﻿Notes on demo-app
 =================
 
+What does the Demo application include?
+---------------------------------------
+>> Server-side rendering (Angular Universal)
+>> HTTPS
+>> Multiple modules with lazy loading including .NET Core custom middleware on servers to do authentication.
+>> Example of JWT based security
+>> Routing examples with guards
+>> Animation examples
+>> Reactive Forms examples
+>> ngrx
+>> breezeJS
+>> Entity Framework
+
 Documentation for angular.json File
 -----------------------------------
 >> Angular CLI workspace file (angular.json) schema
