@@ -1,3 +1,6 @@
+import { Observable, of } from 'rxjs';
+
+
 import { createAction, props } from '@ngrx/store';
 import { Teacher, Student, Course } from './interfaces';
 
@@ -24,3 +27,6 @@ export const setSelectedEnrolledCourse = createAction('[StudentEnrollment Compon
 export const setSelectedUnenrolledCourse = createAction('[StudentEnrollment Component] setSelectedUnenrolledCourse', props<{ selectedCourse: Course }>());
 export const addStudentEnrollment = createAction('[StudentEnrollment Component] addStudentEnrollment', props<{ selectedStudent: Student, selectedCourse: Course }>());
 export const removeStudentEnrollment = createAction('[StudentEnrollment Component] removeStudentEnrollment', props<{ selectedStudent: Student, selectedCourse: Course }>());
+
+export const loadData = createAction('[NgrxDemoRoot Component] load data');
+export const loadedData = createAction('[NgrxDemoRoot Component] loaded data', props<{ data: Observable<number> }>());

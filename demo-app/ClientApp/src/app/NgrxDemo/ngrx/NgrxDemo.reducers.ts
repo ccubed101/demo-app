@@ -20,6 +20,8 @@ import {
     removeTeacherAssignment,
     addStudentEnrollment,
     removeStudentEnrollment,
+    loadData,
+    loadedData,
 } from './NgrxDemo.actions';
 
 
@@ -139,6 +141,14 @@ const _ngrxDemoReducer = createReducer(initialState,
             ]
         }
     }),
+
+    on(loadData, (state) => {
+        console.log("loadData"); return state;
+    }),
+    on(loadedData, (state, { data }) => {
+        console.log(data);
+        return { ...state };
+    })
 );
 
 

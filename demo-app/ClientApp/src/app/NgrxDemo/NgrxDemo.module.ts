@@ -8,8 +8,12 @@ import { NgrxDemoRoutingModule } from './NgrxDemoRouting.module'
 
 // ngrx 
 import { StoreModule } from '@ngrx/store';
-//import { EffectsModule } from '@ngrx/effects';
+import { EffectsModule } from '@ngrx/effects';
 import { ngrxDemoReducer } from './ngrx/NgrxDemo.reducers';
+import { NgrxDemoEffects } from './ngrx/NgrxDemo.effects'
+
+import { NgrxDemoDataService } from './NgrxDemoRootComponent/NgrxDemoData.service'
+
 import { AddRemoveTeacherComponent } from './NgrxDemoRootComponent/AddRemoveTeacher/AddRemoveTeacher.component';
 import { AddRemoveCourseComponent } from './NgrxDemoRootComponent/AddRemoveCourse/AddRemoveCourse.component';
 import { AddRemoveStudentComponent } from './NgrxDemoRootComponent/AddRemoveStudent/AddRemoveStudent.component';
@@ -49,10 +53,11 @@ import { TeacherAssignmentsComponent } from './NgrxDemoRootComponent/TeacherAssi
         // 'false' could the name of the object be seen.  It was the ReducerManager.  A web posting
         // indicated that the only way to resolve this problem was to add the line below.  Note that
         // this is exactly what had to be done in unit test spec.ts files to unit test Ngrx stuff.
-        StoreModule.forRoot({}),
+        //StoreModule.forRoot({}),
 
         StoreModule.forFeature('NgrxDemo', ngrxDemoReducer),
-        //EffectsModule.forFeature([FavoriteMoviesEffects]),
+
+        EffectsModule.forFeature([NgrxDemoEffects]),
 	],
 	declarations: [
 		NgrxDemoRootComponent,
@@ -78,6 +83,8 @@ import { TeacherAssignmentsComponent } from './NgrxDemoRootComponent/TeacherAssi
          * >> Use the following if you want to inject a string, function or object.
          *      { provider: TEST_DEP_OBJ, useValue: { name: 'Test Name' }
          */
+
+        NgrxDemoDataService
 
     ]
 })
