@@ -5,6 +5,7 @@
 */*/dist-server
 **/bin
 **/obj
+**/ChromeStandaloneSetup64*.exe
 
 # The "./demo-app/ClientApp/node_modules/@angular/cli/" directory will not be copied.
 # It will not be copied because it is listed in the ".dockerignore" file in the same directory that contains the solution

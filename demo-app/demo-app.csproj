@@ -106,6 +106,7 @@
     <None Remove="ClientApp\src\app\NgrxDemo\ngrx\NgrxDemo.effects.ts" />
     <None Remove="ClientApp\src\app\NgrxDemo\ngrx\NgrxDemo.reducers.ts" />
     <None Remove="ClientApp\src\app\NgrxDemo\ngrx\NgrxDemo.selectors.ts" />
+    <None Remove="ClientApp\src\app\NgrxDemo\ngrx\State.ts" />
     <None Remove="ClientApp\src\app\RoutingExamples\RouteParamExample1.component.ts" />
     <None Remove="ClientApp\src\app\RoutingExamples\RouteParamExamples.component.ts" />
     <None Remove="ClientApp\src\app\RoutingExamples\RoutingExample1.component.ts" />
@@ -174,6 +175,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\ngrx\NgrxDemo.effects.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\ngrx\NgrxDemo.reducers.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\ngrx\NgrxDemo.selectors.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\ngrx\State.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\RoutingExamples\RouteParamExample1.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\RoutingExamples\RoutingExample1.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\RoutingExamples\RoutingExample2.component.ts" />

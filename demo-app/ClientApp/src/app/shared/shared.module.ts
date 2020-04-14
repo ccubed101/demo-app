@@ -7,7 +7,18 @@ import { SharedSampleService } from './SharedSampleService';
 import { LayoutChangedEventService } from './LayoutChangedEvent.service';
 import { AppStatePersistenceService } from './AppStatePersistence.service';
 
+import { LibDemoComponent } from './lib-demo/lib-demo.component'
+import { TestlibComponent } from './../../../projects/testlib/src/lib/testlib.component'
+
 @NgModule({
+    imports: [
+        CommonModule,
+        SharedRoutingModule
+    ],
+    declarations: [
+        LibDemoComponent,
+        TestlibComponent
+    ]
 })
 export class SharedModule {
 

@@ -24,7 +24,7 @@ export class NgrxDemoEffects {
             ofType(loadData),
             mergeMap((a) => {
                 return this.dataService.GetData().pipe(
-                    map((data) => { console.log("data"); return loadedData({ data: data }); }),
+                    map((data) => loadedData({ data: data })),
                     catchError(() => EMPTY)
                 )
             })

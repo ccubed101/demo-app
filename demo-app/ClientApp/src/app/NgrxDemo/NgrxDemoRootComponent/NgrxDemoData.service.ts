@@ -1,4 +1,6 @@
 import { Observable, of } from 'rxjs';
+import { NgrxDemoState } from '../ngrx/interfaces';
+import { state } from '../ngrx/State';
 
 
 export class NgrxDemoDataService {
@@ -13,6 +15,6 @@ export class NgrxDemoDataService {
     // Interface
 
     GetData(): Observable<any> {
-        return of([1, 2, 3, 4, 5]);
+        return of(state);
     }
 }

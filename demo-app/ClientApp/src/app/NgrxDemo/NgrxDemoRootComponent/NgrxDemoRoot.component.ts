@@ -31,6 +31,9 @@ import { Observable, of } from 'rxjs';
                 <StudentEnrollments></StudentEnrollments>
             </div>
         </div>
+        <div style="text-align: center; margin-top: 1em">
+		    <button (click)="OnLoadData($event)">Load Data</button>
+        </div>
     `,
 	styles: [
         ".title { text-align: center; font-size: xx-large; margin-top: 0.5em }",
@@ -77,7 +80,9 @@ export class NgrxDemoRootComponent {
     // Life cycle methods
 
     ngOnInit() {
-        console.log("Load the data.");
+    }
+
+    OnLoadData(ev) {
         this.store.dispatch(loadData());
     }
 }
