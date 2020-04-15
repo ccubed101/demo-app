@@ -57,15 +57,15 @@ import { JwtDemoComponent } from './jwt-demo/jwt-demo.component'
         //StoreModule.forRoot({
         //    main: mainReducer,
         //}),
-        StoreModule.forRoot({
-        }),
+        //StoreModule.forRoot({
+        //}),
         //// For ngrx effects.  Note that even if you do not need to register any effects at the
         //// "root" level you still must have the following (with an empty array) because is sets
         //// up the providers required for effects.
         //// Internet says that even if you have no effects at this (the root) level you still
         //// have to import EffectsModule.forRoot([]).        \
-        EffectsModule.forRoot([
-        ]),
+        //EffectsModule.forRoot([
+        //]),
     ],
 	providers: [],
 	bootstrap: [AppComponent]
