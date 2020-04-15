@@ -33,35 +33,48 @@ import { TeacherAssignmentsComponent } from './NgrxDemoRootComponent/TeacherAssi
         // Reactive forms
         ReactiveFormsModule,
 
+        // Ngrx
+        // Ngrx documentation says that if you use the following in a feature module like this one,
+        //   StoreModule.forFeature('featureName', featureReducer),
+        //   EffectsModule.forFeature([featureEffects]),
+        // with the objective of isolating the state for this module in this module...then you
+        // should add the following to the application's root module (i.e. app.module.ts),
+        //   StoreModule.forRoot({}),
+        //   EffectsModule.forRoot([]),
+        // Doing this results in the feather state being added to the application state.  So
+        // Ngrx can be used throughout the entire application but the feature state can be more
+        // easily isolated to the module that implements the feature.
+        // But it turns out that if nothing is added to the application's root module and you add
+        // the following to this module,
+        //   StoreModule.forRoot({ NgrxDemo: ngrxDemoReducer }),
+        //   EffectsModule.forRoot([NgrxDemoEffects]),
+        // everything will still work.  With the additional advantage that the feature state is even
+        // more isolated.
+        // It is possible to have the following in the application's root module 
+        //   StoreModule.forRoot({ propertyName1: aReducer }),
+        // as well as the following in the feature module,  
+        //   StoreModule.forRoot({ propertyName2: anotherReducer }),
+        // which results in 2 store instances.  But that can get complicated because it is problematic
+        // to figure out what effects are connected to which stores.
 
-        //// For ngrx.  This makes the store available for injection everywhere in the app.
-        //StoreModule.forRoot({
-        //    main: mainReducer,
-        //}),
-        //// For ngrx effects.  Note that even if you do not need to register any effects at the
-        //// "root" level you still must have the following (with an empty array) because is sets
-        //// up the providers required for effects.
-        //EffectsModule.forRoot([
-        //]),
+        // Use the following if this module's feature state should be added to the application's state
+        // that is added in app.module.ts.
+        //StoreModule.forFeature('NgrxDemo', ngrxDemoReducer),
+        //EffectsModule.forFeature([NgrxDemoEffects]),
 
-        // Ngrx documentation says that StoreModule.forRoot({}) only needs to be called in the root
-        // module.  But while the NgrxDemo module loaded without incident when using the Angular
-        // server (for development) the module would not load when executed in Docker.  The Chrome
-        // console indicated the lack of a provider for a particular injection.  It was not possible
-        // to determine what injected object lacked a provider because optimizations completely
-        // obscured the names of objects.  Only by setting configurations\production\optimization to
-        // 'false' (angular.json) could the name of the object be seen.  It was the ReducerManager.
-        // A web posting indicated that the only way to resolve this problem was to add the line below.
-        // Note that this is exactly what had to be done in unit test spec.ts files to unit test Ngrx
-        // stuff.
-        // After adding support for Effects the following line was no longer needed.  Not sure why.
+        // Use the following if you want an Ngrx store instance to be available only in this feature
+        // module and nowhere else.  In this case StoreModule and EffectsModule need not be imported
+        // in app.module.ts.
         StoreModule.forRoot({ NgrxDemo: ngrxDemoReducer}),
         EffectsModule.forRoot([NgrxDemoEffects]),
 
-        //StoreModule.forFeature('NgrxDemo', ngrxDemoReducer),
-
-        //EffectsModule.forFeature([NgrxDemoEffects]),
-	],
+        // During development there were times when that app worked when served by the Angular development
+        // server but did not work when run in Docker.  In those cases the Chrome console indicated the
+        // lack of a provider for a particular injection.  It was not possible to determine what injected
+        // object lacked a provider because code optimizations completely obscured the names of objects.
+        // Only by setting configurations\production\optimization to 'false' (in angular.json) could the
+        // name of the object be seen.  In one case the object was the ReducerManager.
+ 	],
 	declarations: [
 		NgrxDemoRootComponent,
 		AddRemoveTeacherComponent,
