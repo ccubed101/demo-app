@@ -58,6 +58,10 @@ services:
       dockerfile: "D:/Code Projects/BreezeDemoDataService/Docker/dockerfile"
     ports:
       - "9008:443"
+    # The following is required when docker-compose is used to run the reference-app and the services.  Not specifying "user: ContainerAdministrator"
+    # results in unpredictable behavior for the app and services where some or all of them fail to startup.  The error(s) reported have something to
+    # do with cryptography.  You get something like "internal error" or "password incorrect".  
+    user: ContainerAdministrator
     depends_on:
        - sql
     networks:
@@ -71,6 +75,7 @@ services:
       dockerfile: "D:/Code Projects/TrpDataService/Docker/dockerfile"
     ports:
       - "9009:443"
+    user: ContainerAdministrator
     depends_on:
        - sql
     networks:
@@ -95,6 +100,7 @@ services:
       dockerfile: "d:/code projects/demo-app/docker/Production/dockerfile-demo-app-prod-git-dotnet-kestral"
     ports:
       - "9007:443"
+    user: ContainerAdministrator
     depends_on:
       - accounts-service
       - signalr-chat-service

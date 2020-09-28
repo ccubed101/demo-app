@@ -29,22 +29,28 @@ namespace demo_app
 				.UseKestrel((options) => {
 					options.ConfigureHttpsDefaults((co) =>
 					{
-						// Certificate used to encrypt data over TLS (i.e. SSL)
-						// (Around the time that the NgrxDemo module was loaded it became impossible to
-						// run demo-app in Docker.  The error message included the following: "Unable to 
-						// start Kestrel.  Internal.Cryptography.CryptoThrowHelper+WindowsCryptographicException: 
-						// The specified network password is not correct."  The statement used to load 
-						// the X509 certificate was,
-						//   co.ServerCertificate = new X509Certificate2(config.GetValue<string>("NameOfX509CertificateFileUsedForKestrelHTTPS"));
-						// Based on an internet posting the following statement was also tried,
+						// When this app was dockerized and run using docker-compose some very strange and
+						// unpredictable behavior surrounding the X509 certificate occurred.  Sometimes there
+						// would be no problem.  But often 1 of 2 exceptions would be thrown, 
+						//   Unable to start Kestrel.  Internal.Cryptography.CryptoThrowHelper+WindowsCryptographicException: The specified network password is not correct.
+						//   Unable to start Kestrel.  Internal.Cryptography.CryptoThrowHelper+WindowsCryptographicException: An internal error occurred.
+						// All kinds of solutions were tried including the following statement to instantiate 
+						// the X509 certificate,
 						//   co.ServerCertificate = new X509Certificate2(config.GetValue<string>("NameOfX509CertificateFileUsedForKestrelHTTPS"), "", X509KeyStorageFlags.MachineKeySet);
-						// It did not work either.  Another internet posting suggested that the problem 
-						// may be due to a broken certificate.  So a certificate which was known to work 
-						// in the accounts-service project was used,
+						// but nothing worked.  Finally came across the following:
+						//    https://github.com/dotnet/dotnet-docker/issues/1048
+						// It suggested 2 possible solutions.  The first is to specify the "ContainerAdministrator"
+						// user in the .yml file using 
+						//   user: ContainerAdministrator
+						// which is equivalent to adding the following to a "docker run" command,
+						//   --user ContainerAdministrator
+						// The second solutions is to instantiate the X509 certificate using the following statement,
+						//   co.ServerCertificate = new X509Certificate2(config.GetValue<string>("NameOfX509CertificateFileUsedForKestrelHTTPS"), "", X509KeyStorageFlags.EphemeralKeySet);
+						// The default user is "ContainerUser".  If you want to stay with the default then
+						// you need to use the X509KeyStorageFlags.EphemeralKeySet.
+						// The first solution where the .yml file is modified appears to work consistently.
+						// The second solution may, or may not, work.  It has not been tested.
 						co.ServerCertificate = new X509Certificate2(config.GetValue<string>("NameOfX509CertificateFileUsedForKestrelHTTPS"), "woscers101");
-						// This worked but occaisionally failed with message that included: "Unable to start 
-						// Kestrel.  Internal.Cryptography.CryptoThrowHelper+WindowsCryptographicException: 
-						// An internal error occurred."  Bue in such cases you just need to try again.
 					});
 				})
 				// If you want to use IIS and the "In-process" model to host this app then call UseIIS().
