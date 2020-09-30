@@ -7,9 +7,9 @@ import { NgrxDemoRootComponent } from './NgrxDemoRootComponent/NgrxDemoRoot.comp
 import { NgrxDemoRoutingModule } from './NgrxDemoRouting.module'
 
 // ngrx 
-import { StoreModule } from '@ngrx/store';
+import { StoreModule, ActionReducerMap } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { ngrxDemoReducer } from './ngrx/NgrxDemo.reducers';
+import { ngrxDemoReducer, loadReducer, reducers, metaReducers } from './ngrx/NgrxDemo.reducers';
 import { NgrxDemoEffects } from './ngrx/NgrxDemo.effects'
 
 import { NgrxDemoDataService } from './NgrxDemoRootComponent/NgrxDemoData.service'
@@ -65,7 +65,7 @@ import { TeacherAssignmentsComponent } from './NgrxDemoRootComponent/TeacherAssi
         // Use the following if you want an Ngrx store instance to be available only in this feature
         // module and nowhere else.  In this case StoreModule and EffectsModule need not be imported
         // in app.module.ts.
-        StoreModule.forRoot({ NgrxDemo: ngrxDemoReducer}),
+        StoreModule.forRoot(reducers, { metaReducers }),
         EffectsModule.forRoot([NgrxDemoEffects]),
 
         // During development there were times when that app worked when served by the Angular development

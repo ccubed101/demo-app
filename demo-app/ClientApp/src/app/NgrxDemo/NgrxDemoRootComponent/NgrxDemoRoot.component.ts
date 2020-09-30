@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, RouterState, RouterOutlet } from '@angular/router';
 
 import { Store, select } from '@ngrx/store';
-import { loadData } from '../ngrx/NgrxDemo.actions';
+import { loadData, testAction, testAction2 } from '../ngrx/NgrxDemo.actions';
 
 import { Observable, of } from 'rxjs';
 
@@ -33,6 +33,8 @@ import { Observable, of } from 'rxjs';
         </div>
         <div style="text-align: center; margin-top: 1em">
 		    <button (click)="OnLoadData($event)">Load Data</button>
+		    <!-- <button (click)="OnTest1($event)">Test 1</button>
+		    <button (click)="OnTest2($event)">Test 2</button> -->
         </div>
     `,
 	styles: [
@@ -84,6 +86,14 @@ export class NgrxDemoRootComponent {
 
     OnLoadData(ev) {
         this.store.dispatch(loadData());
+    }
+
+    OnTest1(ev) {
+        this.store.dispatch(testAction());
+    }
+
+    OnTest2(ev) {
+        this.store.dispatch(testAction2());
     }
 }
 

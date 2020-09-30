@@ -31,3 +31,7 @@ export const removeStudentEnrollment = createAction('[StudentEnrollment Componen
 
 export const loadData = createAction('[NgrxDemoRoot Component] load data');
 export const loadedData = createAction('[NgrxDemoRoot Component] loaded data', props<{ data: NgrxDemoState }>());
+
+export const testAction = createAction('[NgrxDemoRoot Component] test action');
+
+export const testAction2 = createAction('[NgrxDemoRoot Component] test action 2');

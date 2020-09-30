@@ -1,4 +1,4 @@
-import { createReducer, on, props } from '@ngrx/store';
+import { createReducer, on, props, ActionReducerMap, ActionReducer, MetaReducer } from '@ngrx/store';
 import { NgrxDemoState, Teacher, TeachingAssignment, Enrollment } from './interfaces';
 import {
     addTeacher,
@@ -22,6 +22,8 @@ import {
     removeStudentEnrollment,
     loadData,
     loadedData,
+    testAction,
+    testAction2,
 } from './NgrxDemo.actions';
 
 
@@ -46,6 +48,17 @@ export const initialState: NgrxDemoState = {
     selectedEnrolledCourse: null,
     selectedUnenrolledCourse: null,
 };
+
+
+const loadReducers = [
+    on(loadData, (state: NgrxDemoState) => {
+        return state;
+    }),
+    on(loadedData, (state: NgrxDemoState, { data }) => {
+        return data;
+    })
+];
+
 
 const _ngrxDemoReducer = createReducer(initialState,
 
@@ -120,13 +133,7 @@ const _ngrxDemoReducer = createReducer(initialState,
             ]
         }
     }),
-
-    on(loadData, (state) => {
-        return state;
-    }),
-    on(loadedData, (state, { data }) => {
-        return data;
-    })
+    ...loadReducers
 );
 
 
@@ -134,3 +141,43 @@ const _ngrxDemoReducer = createReducer(initialState,
 export function ngrxDemoReducer(state, action) {
     return _ngrxDemoReducer(state, action);
 }
+
+
+const _testReducer = createReducer({},
+    on(testAction, (state) => {
+        console.log(state);
+        return {
+            ...state, prop: { firstName: "Colin", lastName: "Carpi" } };
+    }),
+    on(testAction2, (state) => {
+        console.log(state);
+        return state;
+    }),
+)
+
+export function loadReducer(state, action) {
+    return _testReducer(state, action);
+}
+
+
+export const reducers: ActionReducerMap<any> = {
+    NgrxDemo: _ngrxDemoReducer,
+    Test: _testReducer
+};
+
+
+// Developers can think of meta-reducers as hooks into the action->reducer pipeline.
+// Meta-reducers allow developers to pre - process actions before normal reducers are
+// invoked.
+// console.log all actions
+export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
+    return function (state, action) {
+
+        console.log('state', state);
+        console.log('action', action);
+
+        return reducer(state, action);
+    };
+}
+
+export const metaReducers: MetaReducer<any>[] = [debug];
