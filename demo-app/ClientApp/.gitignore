@@ -1,5 +1,10 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+# Added the following because it was interfering wiht the upgrade of Angular 8 => Angular 9.
+# Using "git stash push --include-untracked" did not include the TestSchematic directory.  It
+# was still listed as "untracked" even after running the git stash command.
+/TestSchematic
+
 # compiled output
 /dist
 /dist-server
