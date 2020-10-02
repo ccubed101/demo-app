@@ -65,7 +65,8 @@ import { TeacherAssignmentsComponent } from './NgrxDemoRootComponent/TeacherAssi
         // Use the following if you want an Ngrx store instance to be available only in this feature
         // module and nowhere else.  In this case StoreModule and EffectsModule need not be imported
         // in app.module.ts.
-        StoreModule.forRoot(reducers, { metaReducers }),
+        StoreModule.forRoot({ NgrxDemo: ngrxDemoReducer }),
+        //StoreModule.forRoot(reducers, { metaReducers }),              // Will compile in development mode, but not in production build (which uses --aot flag).
         EffectsModule.forRoot([NgrxDemoEffects]),
 
         // During development there were times when that app worked when served by the Angular development
