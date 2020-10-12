@@ -7,13 +7,15 @@
     "module": "commonjs",
     "types": []
   },
-  "exclude": [
-    "test.ts",
-    "**/*.spec.ts"
-  ],
   //  Angular Universal support: Add "angularCompilerOptions" with the AppServerModule you wrote
   // set as the "entryModule".
   "angularCompilerOptions": {
     "entryModule": "app/main/app.server.module#AppServerModule"
-  }
+  },
+  "files": [
+    "main.server.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ]
 }

@@ -15,6 +15,7 @@ export interface IEnrollmentRepository extends IRepository<IEnrollment>{
 //@Injectable({
 //    providedIn: NgrxPlusBreezeModule
 //})
+@Injectable()
 export class EnrollmentRepository extends Repository<IEnrollment> implements IEnrollmentRepository {
 
     // Construction.

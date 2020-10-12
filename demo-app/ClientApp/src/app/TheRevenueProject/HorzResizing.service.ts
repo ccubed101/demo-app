@@ -1,4 +1,5 @@
 import * as $ from 'jquery'
+import { Injectable } from "@angular/core";
 import 'jqueryui'
 
 export interface IHorzResizingService {
@@ -13,6 +14,7 @@ class Panel {
     initialWidth: number;
 }
 
+@Injectable()
 export class HorzResizingService implements IHorzResizingService {
 
     // Construction.

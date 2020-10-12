@@ -17,6 +17,7 @@ export interface IStudentRepository extends IRepository<IStudent> {
 //@Injectable({
 //    providedIn: NgrxPlusBreezeModule
 //})
+@Injectable()
 export class StudentRepository extends Repository<IStudent> implements IStudentRepository {
 
     // Construction.

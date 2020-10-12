@@ -24,6 +24,7 @@ export interface IUnitOfWork {
 //@Injectable({
 //    providedIn: NgrxPlusBreezeModule
 //})
+@Injectable()
 export class UnitOfWork implements IUnitOfWork {
 
     // Construction.

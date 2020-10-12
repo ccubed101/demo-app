@@ -6,7 +6,9 @@ import { ICourse } from './Course'
 import { IStudent } from './Student'
 import { IEnrollment } from './Enrollment'
 import { ITeacher } from './Teacher'
+import { Injectable } from "@angular/core";
 
+@Injectable()
 export class SchoolModel {
 
     // Construction

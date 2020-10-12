@@ -1,7 +1,9 @@
 import * as SignalR from "@microsoft/signalr";
 
 import { environment } from './../../../environments/environment';
+import { Injectable } from "@angular/core";
 
+@Injectable()
 export class ConnectionFactory {
 
     // Construction.

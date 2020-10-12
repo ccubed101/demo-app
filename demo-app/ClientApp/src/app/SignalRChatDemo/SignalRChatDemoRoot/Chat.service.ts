@@ -1,9 +1,11 @@
 import { ConnectionFactory } from "../SignalRChatDemoRoot/ConnectionFactory"
 
 import * as SignalR from "@microsoft/signalr"
+import { Injectable } from "@angular/core";
 
 
 
+@Injectable()
 export class ChatService {
 
     // Construction.
