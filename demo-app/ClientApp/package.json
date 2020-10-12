@@ -14,12 +14,12 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^9.1.12",
-    "@angular/cdk": "^10.2.4",
+    "@angular/cdk": "^10.2.4", 
     "@angular/common": "^9.1.12",
     "@angular/compiler": "^9.1.12",
     "@angular/core": "^9.1.12",
     "@angular/forms": "^9.1.12",
-    "@angular/material": "^10.2.4",
+    "@angular/material": "^10.2.4", 
     "@angular/platform-browser": "^9.1.12",
     "@angular/platform-browser-dynamic": "^9.1.12",
     "@angular/platform-server": "^9.1.12",
@@ -41,6 +41,7 @@
     "tslib": "^1.10.0",
     "webpack-cli": "^3.2.3",
     "zone.js": "~0.10.2"
+
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.901.12",
