@@ -1,17 +1,34 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+// Angular Materials
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatListModule } from '@angular/material/List';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+
 import { MaterialsDemoRootComponent } from './MaterialsDemoRoot/MaterialsDemoRoot.component';
 import { MaterialsDemoRoutingModule } from './MaterialsDemoRouting.module';
+import { MaterialsListComponent } from './MaterialsDemoRoot/MaterialsList/MaterialsList.component';
+import { MaterialsTreeComponent } from './MaterialsDemoRoot/MaterialsTree/MaterialsTree.component';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		MaterialsDemoRoutingModule,
-	],
+        MatSliderModule,
+        MatListModule,
+        MatTabsModule,
+        MatTreeModule,
+        MatIconModule,
+        MatButtonModule,
+    ],
 	declarations: [
-        MaterialsDemoRootComponent
-	]
+        MaterialsDemoRootComponent,
+        MaterialsListComponent,
+        MaterialsTreeComponent	]
 })
 export class MaterialsDemoModule {
 
