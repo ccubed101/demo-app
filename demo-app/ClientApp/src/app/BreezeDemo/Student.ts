@@ -1,12 +1,10 @@
 import { Entity, EntityAspect, EntityType } from 'breeze-client';
-import { IEnrollment } from './Enrollment'
 
 export interface IStudent {
-    id: number,
-    firstName: string,
-    lastName: string,
-    enrollmentDate: Date
-    enrollments: IEnrollment[]
+    Id: string;
+    FirstName: string;
+    LastName: string;
+    EnrollmentDate: Date;
 }
 
 //export class Student implements Entity {

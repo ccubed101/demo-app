@@ -9,22 +9,21 @@ import { BreezeDemoEntityManager } from './BreezeDemoEntityManager'
 
 import { BreezeDemoRoutingModule } from './BreezeDemoRouting.module';
 import { BreezeDemoRootComponent } from './BreezeDemoRootComponent/BreezeDemoRoot.component'
-import { CoursesComponent } from './BreezeDemoRootComponent/courses/courses.component'
-import { StudentsComponent } from './BreezeDemoRootComponent/students/students.component'
-import { EnrollmentsComponent } from './BreezeDemoRootComponent/enrollments/enrollments.component'
-import { StudentsCoursesComponent } from './BreezeDemoRootComponent/StudentsCourses/StudentsCourses.component'
+
+import { AddRemoveTeacherComponent } from './BreezeDemoRootComponent/AddRemoveTeacher/AddRemoveTeacher.component'
+import { AddRemoveCourseComponent } from './BreezeDemoRootComponent/AddRemoveCourse/AddRemoveCourse.component'
+import { AddRemoveStudentComponent } from './BreezeDemoRootComponent/AddRemoveStudent/AddRemoveStudent.component'
+import { StudentEnrollmentsComponent } from './BreezeDemoRootComponent/StudentEnrollments/StudentEnrollments.component'
+import { TeacherAssignmentsComponent } from './BreezeDemoRootComponent/TeacherAssignments/TeacherAssignments.component'
 
 import { UnitOfWork } from './UnitOfWork'
+import { TeacherRepository } from './TeacherRepository';
 import { CourseRepository } from './CourseRepository';
 import { StudentRepository } from './StudentRepository';
-import { EnrollmentRepository } from './EnrollmentRepository';
-import { TeacherRepository } from './TeacherRepository';
+import { TeacherAssignmentRepository } from './TeacherAssignmentRepository';
+import { StudentEnrollmentRepository } from './StudentEnrollmentRepository';
 
 import { SchoolModel } from './School.model'
-
-import { TestDepClass } from './TestDepClass'
-import { ITestDepObj, testDepObj, TEST_DEP_OBJ } from './TestDepObj'
-
 
 @NgModule({
 	imports: [
@@ -40,10 +39,13 @@ import { ITestDepObj, testDepObj, TEST_DEP_OBJ } from './TestDepObj'
 	],
 	declarations: [
 		BreezeDemoRootComponent,
-		CoursesComponent,
-        StudentsComponent,
-        EnrollmentsComponent,
-        StudentsCoursesComponent,
+
+        AddRemoveTeacherComponent,
+        AddRemoveCourseComponent,
+        AddRemoveStudentComponent,
+        StudentEnrollmentsComponent,
+        TeacherAssignmentsComponent
+
     ],
     providers: [
 
@@ -82,14 +84,12 @@ import { ITestDepObj, testDepObj, TEST_DEP_OBJ } from './TestDepObj'
 
 
         UnitOfWork,
+        TeacherRepository,
         CourseRepository,
         StudentRepository,
-        EnrollmentRepository,
-        TeacherRepository,
+        TeacherAssignmentRepository,
+        StudentEnrollmentRepository,
         SchoolModel,
-
-        TestDepClass,
-        { provide: TEST_DEP_OBJ, useValue: <ITestDepObj>testDepObj },
     ]
 })
 export class BreezeDemoModule {

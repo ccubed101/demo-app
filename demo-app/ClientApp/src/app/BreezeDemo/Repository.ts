@@ -3,7 +3,7 @@ import { Injectable, Inject } from '@angular/core';
 import { Observable, from, of } from 'rxjs';
 import { map, switchMap, mergeMap, tap, catchError } from 'rxjs/operators';
 
-import { EntityManager, EntityQuery, Entity, EntityType, ComplexType, EntityState, EntityByKeyResult, EntityStateSymbol, FilterQueryOpSymbol, Predicate } from 'breeze-client';
+import { core, EntityManager, EntityQuery, Entity, EntityType, ComplexType, EntityState, EntityByKeyResult, EntityStateSymbol, FilterQueryOpSymbol, Predicate } from 'breeze-client';
 
 export interface IRepository<T> {
     Add(): T;
@@ -12,7 +12,7 @@ export interface IRepository<T> {
     GetAll(): T[];
     fetch(id: number, checkLocalCacheFirst: boolean): Observable<T>;
     fetchWhere(propertyName: string, filterOp: string | FilterQueryOpSymbol, compValue: string): Observable<T[]>;
-    fetchAll(): Observable<T[]>;
+    fetchAll(callback: (results: T[]) => void): void;
     Find(predicate: (T) => boolean): T[];
     //EntityTypeName: string;
 }
@@ -29,9 +29,9 @@ export class Repository<T> implements IRepository<T> {
 
     // Property Accessors.
 
-   // All derived classes should implement this method.  And only those
-   // derived class methods should be called.
-   get EntityTypeName(): string {
+    // All derived classes should implement this method.  And only those
+    // derived class methods should be called.
+    get EntityTypeName(): string {
         throw 'Repository<T>.EntityTypeName (get) shoule never be called.  Only the method in derived classes should be called.';
     }
 
@@ -39,7 +39,12 @@ export class Repository<T> implements IRepository<T> {
     // Methods
 
     Add(): T {
-        return <T><unknown>(this.entityManager.createEntity(this.EntityTypeName));
+        const entity: T = <T><unknown>(this.entityManager.createEntity(this.EntityTypeName));
+        //(entity as any).id = core.getUuid();
+        return entity;
+
+
+        //return <T><unknown>(this.entityManager.createEntity(this.EntityTypeName));
     }
 
     Remove(T): void {
@@ -101,19 +106,28 @@ export class Repository<T> implements IRepository<T> {
             );
    }
 
-    fetchAll(): Observable<T[]> {
+    fetchAll(callback: (results: T[]) => void): void {
 
         // MergeStrategy???
-        let entityType: EntityType = <EntityType>(this.entityManager.metadataStore.getEntityType(this.EntityTypeName, false));
-        let query = EntityQuery.from(entityType.defaultResourceName).toType(this.EntityTypeName);
+        const entityType: EntityType = <EntityType>(this.entityManager.metadataStore.getEntityType(this.EntityTypeName, false));
+        const query = EntityQuery.from(entityType.defaultResourceName).toType(this.EntityTypeName);
 
-        return from(this.entityManager.executeQuery(query)).pipe(
-            map((queryResults) => queryResults.results),
-            map((results) => {
-                console.log(<T[]><unknown>results);
-                return <T[]><unknown>results;
-            })
-        );
+        this.entityManager.executeQuery
+            (query,
+            result => {
+                callback((result.results as unknown) as T[]);
+            });
+
+
+
+
+
+            //map((queryResults) => queryResults.results),
+            //map((results) => {
+            //    console.log(<T[]><unknown>results);
+            //    observable = <T[]><unknown>results;
+            //})
+        //);
 
         //this.entityManager.executeQuery(query)
         //    .then((results) => {

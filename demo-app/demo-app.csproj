@@ -65,14 +65,21 @@
     <None Remove="ClientApp\src\app\AnimationsModule\AnimationsRootComponent\RotatorWrapperComponent\RotatorWrapper.component.ts" />
     <None Remove="ClientApp\src\app\app.server.module.ts" />
     <None Remove="ClientApp\src\app\BreezeDemo\BreezeDemoEntityManager.ts" />
+    <None Remove="ClientApp\src\app\BreezeDemo\BreezeDemoRootComponent\AddRemoveCourse\AddRemoveCourse.component.ts" />
+    <None Remove="ClientApp\src\app\BreezeDemo\BreezeDemoRootComponent\AddRemoveStudent\AddRemoveStudent.component.ts" />
+    <None Remove="ClientApp\src\app\BreezeDemo\BreezeDemoRootComponent\AddRemoveTeacher\AddRemoveTeacher.component.ts" />
     <None Remove="ClientApp\src\app\BreezeDemo\BreezeDemoRootComponent\BreezeDemoRoot.component.ts" />
+    <None Remove="ClientApp\src\app\BreezeDemo\BreezeDemoRootComponent\StudentEnrollments\StudentEnrollments.component.ts" />
+    <None Remove="ClientApp\src\app\BreezeDemo\BreezeDemoRootComponent\TeacherAssignments\TeacherAssignments.component.ts" />
+    <None Remove="ClientApp\src\app\BreezeDemo\StudentEnrollment.ts" />
+    <None Remove="ClientApp\src\app\BreezeDemo\StudentEnrollmentRepository.ts" />
+    <None Remove="ClientApp\src\app\BreezeDemo\TeacherAssignment.ts" />
+    <None Remove="ClientApp\src\app\BreezeDemo\TeacherAssignmentRepository.ts" />
     <None Remove="ClientApp\src\app\BreezeDemo\UnitOfWork.spec.ts" />
     <None Remove="ClientApp\src\app\main\Configuration.ts" />
     <None Remove="ClientApp\src\app\BreezeDemo\Configuration.ts" />
     <None Remove="ClientApp\src\app\BreezeDemo\Course.ts" />
     <None Remove="ClientApp\src\app\BreezeDemo\CourseRepository.ts" />
-    <None Remove="ClientApp\src\app\BreezeDemo\Enrollment.ts" />
-    <None Remove="ClientApp\src\app\BreezeDemo\EnrollmentRepository.ts" />
     <None Remove="ClientApp\src\app\BreezeDemo\EntityManagerFactory.ts" />
     <None Remove="ClientApp\src\app\main.server.ts" />
     <None Remove="ClientApp\src\app\AnalyticsModule\components\commit-history\commit-history.component.ts" />
@@ -88,8 +95,6 @@
     <None Remove="ClientApp\src\app\BreezeDemo\StudentRepository.ts" />
     <None Remove="ClientApp\src\app\BreezeDemo\Teacher.ts" />
     <None Remove="ClientApp\src\app\BreezeDemo\TeacherRepository.ts" />
-    <None Remove="ClientApp\src\app\BreezeDemo\TestDepClass.ts" />
-    <None Remove="ClientApp\src\app\BreezeDemo\TestDepObj.ts" />
     <None Remove="ClientApp\src\app\BreezeDemo\UnitOfWork.ts" />
     <None Remove="ClientApp\src\app\NgrxDemo\Configuration.ts" />
     <None Remove="ClientApp\src\app\NgrxDemo\NgrxDemo.module.ts" />
@@ -137,13 +142,20 @@
     <TypeScriptCompile Include="ClientApp\src\app\AnimationsModule\AnimationsRootComponent\RotatorWrapperComponent\RotatorWrapper.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\AnalyticsModule\components\commit-history\commit-history.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\BreezeDemoEntityManager.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\BreezeDemoRootComponent\AddRemoveCourse\AddRemoveCourse.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\BreezeDemoRootComponent\AddRemoveStudent\AddRemoveStudent.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\BreezeDemoRootComponent\AddRemoveTeacher\AddRemoveTeacher.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\BreezeDemoRootComponent\StudentEnrollments\StudentEnrollments.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\BreezeDemoRootComponent\TeacherAssignments\TeacherAssignments.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\StudentEnrollment.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\StudentEnrollmentRepository.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\TeacherAssignment.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\TeacherAssignmentRepository.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\UnitOfWork.spec.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\main\configuration.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\Configuration.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\Course.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\CourseRepository.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\Enrollment.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\EnrollmentRepository.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\EntityManagerFactory.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\School.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\Student.ts" />
@@ -157,8 +169,6 @@
     <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\StudentRepository.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\Teacher.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\TeacherRepository.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\TestDepClass.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\TestDepObj.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\BreezeDemo\UnitOfWork.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\NgrxDemo.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\NgrxDemo\NgrxDemoRootComponent\AddRemoveCourse\AddRemoveCourse.component.ts" />
@@ -198,7 +208,6 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\app\main\jwt-demo\" />
-    <Folder Include="ClientApp\src\app\MaterialsDemo\MaterialsDemoRoot\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -238,3 +247,4 @@
   </Target>
 
 </Project>
+
