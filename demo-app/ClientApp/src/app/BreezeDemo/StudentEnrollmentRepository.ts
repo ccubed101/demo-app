@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { BreezeDemoEntityManager } from './BreezeDemoEntityManager'
 
 import { IRepository, Repository } from './Repository';
-import { IEnrollment } from './Enrollment'
+import { IStudentEnrollment } from './StudentEnrollment'
 
-export interface IEnrollmentRepository extends IRepository<IEnrollment>{
+export interface IStudentEnrollmentRepository extends IRepository<IStudentEnrollment> {
 
 }
 
@@ -16,7 +16,7 @@ export interface IEnrollmentRepository extends IRepository<IEnrollment>{
 //    providedIn: NgrxPlusBreezeModule
 //})
 @Injectable()
-export class EnrollmentRepository extends Repository<IEnrollment> implements IEnrollmentRepository {
+export class StudentEnrollmentRepository extends Repository<IStudentEnrollment> implements IStudentEnrollmentRepository {
 
     // Construction.
 
@@ -29,7 +29,7 @@ export class EnrollmentRepository extends Repository<IEnrollment> implements IEn
     // Property Accessors
 
     get EntityTypeName(): string {
-        return "Enrollment";
+        return "StudentEnrollment";
     }
 
 }
