@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms'
 import { StoreModule } from '@ngrx/store';
-import { ngrxDemoReducer } from '../../ngrx/NgrxDemo.reducers';
+import { ngrxDemoReducer } from '../../../NgrxDemo/ngrx/NgrxDemo.reducers';
 
 import { TeacherAssignmentsComponent } from './TeacherAssignments.component';
 

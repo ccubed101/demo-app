@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 
 import { Observable, of, pipe } from 'rxjs';
@@ -85,7 +85,7 @@ export class AddRemoveTeacherComponent implements OnInit {
     // Property accessors
 
     get Teachers$(): Observable<ITeacher[]> {
-        return this.schoolModel.Teachers$
+        return this.schoolModel.Teachers$;
     }
 
     get SelectedTeacherToRemove$(): Observable<ITeacher> {

@@ -6,7 +6,7 @@ import { UnitOfWork } from './UnitOfWork'
 import { BreezeDemoEntityManager } from './BreezeDemoEntityManager'
 import { CourseRepository } from './CourseRepository'
 import { StudentRepository } from './StudentRepository'
-import { EnrollmentRepository } from './EnrollmentRepository'
+import { StudentEnrollmentRepository } from './StudentEnrollmentRepository'
 import { TeacherRepository } from './TeacherRepository'
 
 describe('BreezeDemo UnitOfWork', () => {
@@ -58,7 +58,7 @@ describe('BreezeDemo UnitOfWork', () => {
                 { provide: BreezeDemoEntityManager, useValue: entityManager },
                 { provide: CourseRepository, useValue: jasmine.createSpy('CourseRepository') },
                 { provide: StudentRepository, useValue: jasmine.createSpy('StudentRepository') },
-                { provide: EnrollmentRepository, useValue: jasmine.createSpy('EnrollmentRepository') },
+                { provide: StudentEnrollmentRepository, useValue: jasmine.createSpy('StudentEnrollmentRepository') },
                 { provide: TeacherRepository, useValue: jasmine.createSpy('TeacherRepository') },
             ]
         });
