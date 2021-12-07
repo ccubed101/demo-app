@@ -29,13 +29,18 @@
                         "scripts": [
                         ]
                     },
+                    "//": [
+                        "'configurations' are for the ng build command.  For example, 'ng build --configuration production'.",
+                        "If no configuration is specified then a default 'development' configuration is used.",
+                        "That default development configuration can be overridden here."
+                    ],
                     "configurations": {
                         "development": {
                             "//": "'development' is the default configuration for the 'ng build' command.",
                             "//": "Nothing specified here.  So all the defaults will be used."
                         },
                         "production": {
-                            "//":  "'budgets' allow developers to recieve a warning message when a specified part of an application exceeds a maximum size.",
+                            "//": "'budgets' allow developers to recieve a warning message when a specified part of an application exceeds a maximum size.",
                             "budgets": [
                                 {
                                     "type": "anyComponentStyle",
@@ -118,11 +123,6 @@
                         },
                         "resourcesOutputPath": "."
                     },
-                    "//": [
-                        "'configurations' are for the ng build command.  For example, 'ng build --configuration production'.",
-                        "If no configuration is specified then a default 'development' configuration is used.",
-                        "That default development configuration can be overridden here."
-                    ],
                     "configurations": {
                         "production": {
                             "budgets": [
@@ -153,7 +153,7 @@
                 "e2e": {
                     "builder": "@angular-devkit/build-angular:protractor",
                     "options": {
-                        "protractorConfig": "./protractor.headless-chrome.conf.js",
+                        "protractorConfig": "./protractor.conf.js",
                         "devServerTarget": "demo_app:serve"
                     }
                 }

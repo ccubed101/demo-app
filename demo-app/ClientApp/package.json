@@ -1,15 +1,8 @@
 {
-    "//": "  Notes                                                                                            ",
-    "//": "  -----                                                                                            ",
-    "//": "  >> To turn off minification use 'ng build --optimization=false'                                  ",
-    "//": "                                                                                                   ",
-
-
-
+    "//": "To run a 'script' you must use NPM.  For example, 'npm run build'.  Executing 'ng build' will not execute the script but rather the 'build' command for 'ng'.",
     "name": "demo_app",
     "version": "0.0.0",
     "license": "MIT",
-    "//": "To run a 'script' you must use NPM.  For example, 'npm run build'.  Executing 'ng build' will not execute the script but rather the 'build' command for 'ng'.",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
@@ -65,7 +58,7 @@
         "jasmine-core": "~2.8.0",
         "jasmine-spec-reporter": "~4.2.1",
         "karma": "~2.0.0",
-        "karma-chrome-launcher": "~2.2.0",
+        "karma-chrome-launcher": "^3.1.0",
         "karma-coverage-istanbul-reporter": "^1.2.1",
         "karma-jasmine": "~1.1.0",
         "karma-jasmine-html-reporter": "^0.2.2",

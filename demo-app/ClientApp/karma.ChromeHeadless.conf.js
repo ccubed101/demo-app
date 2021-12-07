@@ -59,7 +59,6 @@ module.exports = function (config) {
     browserDisconnectTolerance: 3,
     browserDisconnectTimeout: 210000,
     browserNoActivityTimeout: 210000,
-    reporters: ['progress', 'kjhtml'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
@@ -72,7 +71,7 @@ module.exports = function (config) {
         flags: [
           '--no-sandbox',
           '--disable-gpu',
-          '--enable-logging',
+          //'--enable-logging',                     // Don't use this flag because it causes console windows to be displayed.
           '--no-default-browser-check',
           '--no-first-run',
           '--disable-default-apps',
@@ -85,6 +84,7 @@ module.exports = function (config) {
           '--disable-web-security'
         ]
       }
-    },    singleRun: true,
+    },
+    singleRun: true,
   });
 };
