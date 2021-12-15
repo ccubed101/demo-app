@@ -53,8 +53,8 @@ const puppeteer = require('puppeteer');
         //console.log("await page.goto('https://foxnews.com');");
 		//await page.goto('https://foxnews.com');
 		
-        console.log("await page.goto('https://localhost');");
-        await page.goto('https://localhost');
+        console.log("await page.goto('https://localhost:443');");
+        await page.goto('https://localhost:443');
 	
 			
 		// Wait for the <splash> element to be rendered.
