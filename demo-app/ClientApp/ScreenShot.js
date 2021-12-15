@@ -14,25 +14,29 @@ const puppeteer = require('puppeteer');
 
     console.log("Launch Puppeteer.")
 
+    var browser;
     try {
-        const browser = await puppeteer.launch({
+        browser = await puppeteer.launch({
             defaultViewport: {
                 width: 1200,
                 height: 1000
             },
             // Need this flag to avoid getting the following error when script is executed:
             //   Error: net::ERR_CERT_AUTHORITY_INVALID at https://localhost:443
-            // This error occurs even if the certificate used for HTTPS is added to the 
+            // This error occurs even if the certificate used for HTTPS is added to the
             // certificate store in the Windows OS in the Docker container.
             ignoreHTTPSErrors: true
         });
     }
     catch (error) {
+        console.log("=> catch");
         console.log(error);
+        console.log("<= catch");
     }
     finally {
-        console.log("In finally.");
+        console.log("=> finally.");
         console.log(browser);
+        console.log("<= finally.");
     }
 	
 	try {
@@ -41,15 +45,17 @@ const puppeteer = require('puppeteer');
 		setTimeout((function() {
 			console.log("Max timeout reached for screen shot.  Application is exited.");
 			return process.exit(-2);
-		}), 15000);
+		}), 60000);
 
 		console.log("await browser.newPage();");
-		await browser.newPage();
+        const page = await browser.newPage();
 		
-		console.log("await page.goto('https://localhost');");
-		await page.goto('https://foxnews.com');
+        //console.log("await page.goto('https://foxnews.com');");
+		//await page.goto('https://foxnews.com');
 		
-		
+        console.log("await page.goto('https://localhost');");
+        await page.goto('https://localhost');
+	
 			
 		// Wait for the <splash> element to be rendered.
 		console.log("await page.waitForSelector('splash', { timeout: 3000 });");
@@ -60,10 +66,14 @@ const puppeteer = require('puppeteer');
 		//});
 
 		// Perform process to get screen shot.
-		console.log("await page.screenshot({ path: 'C:/output/output.png' });");
-		await page.screenshot({ path: 'C:/output/output.png' });
+		console.log("await page.screenshot({ path: 'output.png' });");
+		await page.screenshot({ path: 'output.png' });
 
-		await browser.close();
+        console.log("await browser.close();");
+        await browser.close();
+
+        console.log("return process.exit(0);");
+        return process.exit(0);
 		
 	} catch (error) {
 
