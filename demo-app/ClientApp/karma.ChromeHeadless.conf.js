@@ -5,8 +5,8 @@
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
 // Following 2 line required if you want to use "headless" chrome (acutally Chromium).
-const puppeteer = require('puppeteer');
-process.env.CHROME_BIN = puppeteer.executablePath();
+//const puppeteer = require('puppeteer');
+//process.env.CHROME_BIN = puppeteer.executablePath();
 //const isDocker = require('is-docker');
 
 module.exports = function (config) {
@@ -55,11 +55,10 @@ module.exports = function (config) {
     // The configuration below came from the following website:
     // https://github.com/karma-runner/karma/issues/2652
     // It is the only configuration that actually worked everytinme.
-    captureTimeout: 210000,
+    captureTimeout: 10000,
     browserDisconnectTolerance: 3,
-    browserDisconnectTimeout: 30000,
-    browserNoActivityTimeout: 30000,
-	captureTimeout: 10000,
+    browserDisconnectTimeout: 210000,
+    browserNoActivityTimeout: 21000,
     port: 9876,
     colors: true,
 //    logLevel: config.LOG_INFO,
