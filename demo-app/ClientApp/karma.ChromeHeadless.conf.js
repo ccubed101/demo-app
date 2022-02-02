@@ -59,6 +59,7 @@ module.exports = function (config) {
     browserDisconnectTolerance: 3,
     browserDisconnectTimeout: 30000,
     browserNoActivityTimeout: 30000,
+	captureTimeout: 10000,
     port: 9876,
     colors: true,
 //    logLevel: config.LOG_INFO,
