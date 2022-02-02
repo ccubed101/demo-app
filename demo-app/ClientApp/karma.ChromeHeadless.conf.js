@@ -5,13 +5,13 @@
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
 // Following 2 line required if you want to use "headless" chrome (acutally Chromium).
-//const puppeteer = require('puppeteer');
-//process.env.CHROME_BIN = puppeteer.executablePath();
+const puppeteer = require('puppeteer');
+process.env.CHROME_BIN = puppeteer.executablePath();
 //const isDocker = require('is-docker');
 
 module.exports = function (config) {
   config.set({
-    basePath: 'C:\Program Files (x86)\google\chrome\application\chrome.exe',
+    basePath: '',
     //frameworks: ['jasmine', '@angular/cli'],
 	frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: [
