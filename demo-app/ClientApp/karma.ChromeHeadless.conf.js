@@ -58,7 +58,7 @@ module.exports = function (config) {
     captureTimeout: 10000,
     browserDisconnectTolerance: 1,
     browserDisconnectTimeout: 210000,
-    browserNoActivityTimeout: 21000,
+    browserNoActivityTimeout: 210000,
     port: 9876,
     colors: true,
 //    logLevel: config.LOG_INFO,
@@ -67,7 +67,8 @@ module.exports = function (config) {
     browsers: ['ChromeHeadlessNoSandbox'],
     customLaunchers: {
       ChromeHeadlessNoSandbox: {
-        base: 'ChromeHeadless',
+//        base: 'ChromeHeadless',
+        base: 'Chrome',
         flags: [
           '--no-sandbox',
           '--disable-gpu',
