@@ -57,12 +57,12 @@ module.exports = function (config) {
     // It is the only configuration that actually worked everytinme.
     captureTimeout: 210000,
     browserDisconnectTolerance: 3,
-    browserDisconnectTimeout: 210000,
-    browserNoActivityTimeout: 210000,
+    browserDisconnectTimeout: 30000,
+    browserNoActivityTimeout: 30000,
     port: 9876,
     colors: true,
-    logLevel: config.LOG_INFO,
-//    logLevel: config.LOG_DEBUG,
+//    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_DEBUG,
     autoWatch: true,
     browsers: ['ChromeHeadlessNoSandbox'],
     customLaunchers: {
