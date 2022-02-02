@@ -67,11 +67,12 @@ module.exports = function (config) {
     browsers: ['ChromeHeadlessNoSandbox'],
     customLaunchers: {
       ChromeHeadlessNoSandbox: {
-//        base: 'ChromeHeadless',
-        base: 'Chrome',
+        base: 'ChromeHeadless',
+//        base: 'Chrome',
         flags: [
           '--no-sandbox',
           '--disable-gpu',
+		  '--headless',
           //'--enable-logging',                     // Don't use this flag because it causes console windows to be displayed.
           '--no-default-browser-check',
           '--no-first-run',
