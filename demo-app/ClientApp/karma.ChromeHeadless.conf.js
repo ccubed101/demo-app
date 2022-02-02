@@ -11,7 +11,7 @@
 
 module.exports = function (config) {
   config.set({
-    basePath: '',
+    basePath: 'C:\Program Files (x86)\google\chrome\application\chrome.exe',
     //frameworks: ['jasmine', '@angular/cli'],
 	frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: [
