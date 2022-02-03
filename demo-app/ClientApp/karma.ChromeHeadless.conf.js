@@ -55,7 +55,7 @@ module.exports = function (config) {
     // The configuration below came from the following website:
     // https://github.com/karma-runner/karma/issues/2652
     // It is the only configuration that actually worked everytinme.
-    captureTimeout: 10000,
+    captureTimeout: 20000,
     browserDisconnectTolerance: 1,
     browserDisconnectTimeout: 210000,
     browserNoActivityTimeout: 210000,
