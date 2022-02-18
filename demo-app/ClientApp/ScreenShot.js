@@ -55,8 +55,7 @@ const puppeteer = require('puppeteer');
 		
         console.log("await page.goto('https://localhost:443');");
         await page.goto('https://localhost:443');
-	
-			
+		
 		// Wait for the <splash> element to be rendered.
 		console.log("await page.waitForSelector('splash', { timeout: 3000 });");
 		await page.waitForSelector('splash', { timeout: 3000 });
