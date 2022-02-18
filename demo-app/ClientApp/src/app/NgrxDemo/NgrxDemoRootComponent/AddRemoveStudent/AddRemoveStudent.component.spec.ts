@@ -5,7 +5,7 @@ import { ngrxDemoReducer } from '../../ngrx/NgrxDemo.reducers';
 
 import { AddRemoveStudentComponent } from './AddRemoveStudent.component';
 
-describe('AddRemoveStudentComponent', () => {
+describe('AddRemoveStudentComponent (NgrxDemo)', () => {
   let component: AddRemoveStudentComponent;
   let fixture: ComponentFixture<AddRemoveStudentComponent>;
 
