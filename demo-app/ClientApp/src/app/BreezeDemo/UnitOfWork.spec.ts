@@ -4,71 +4,53 @@ import { MetadataStore, NamingConvention, EntityType, ComplexType } from 'breeze
 
 import { UnitOfWork } from './UnitOfWork'
 import { BreezeDemoEntityManager } from './BreezeDemoEntityManager'
+import { TeacherRepository } from './TeacherRepository'
 import { CourseRepository } from './CourseRepository'
 import { StudentRepository } from './StudentRepository'
 import { StudentEnrollmentRepository } from './StudentEnrollmentRepository'
-import { TeacherRepository } from './TeacherRepository'
+import { TeacherAssignmentRepository } from './TeacherAssignmentRepository'
+
 
 describe('BreezeDemo UnitOfWork', () => {
 
     // Programmer Note:  Jasmine's "this" keyword does not work if the async()
     // function is used. So it cannot be used as a global means of sharing state.
 
-    var entityManager;
-
     beforeEach(async(() => {
-
-        let metadataStore = {
-            getEntityTypes: function () {
-                console.log('*****getEntityTypes()*****');
-                return <(EntityType | ComplexType)[]>[];
-            }
-        }
-
-        entityManager = {
-            fetchMetadata: () => {
-                return new Promise((resolve, reject) => { resolve("Dummy Schema") })
-            },
-            metadataStore: {
-                getEntityTypes: function () {
-                    console.log('**getEntityTypes()**');
-                    return <(EntityType | ComplexType)[]>(new Array());
-                }
-            }
-        }
-
-        //spyOn(entityManager.metadataStore, "getEntityTypes");
-
-        //let metadataStore = jasmine.createSpyObj('metadataStore', { 'getEntityTypes': 3 });
-
-        //let entityManager: Partial<BreezeDemoEntityManager> = {
-        //    metadataStore: metadataStore
-        //}
 
         TestBed.configureTestingModule({
             providers: [
-                UnitOfWork,
-                //{
-                //    provide: BreezeDemoEntityManager, useValue: jasmine.createSpyObj('BreezeDemoEntityManager',
-                //        {
-                //            'fetchMetadata': of("Dummy Schema"), 
-                //            'metadataStore': jasmine.createSpyObj('metadataStore', { 'getEntityTypes': [] })
-                //        }), 
-                //},
-                { provide: BreezeDemoEntityManager, useValue: entityManager },
+                { provide: UnitOfWork, useClass: UnitOfWork },
+                {
+                    provide: BreezeDemoEntityManager, useValue: 
+                        {
+                            fetchMetadata: jasmine.createSpy('fetchMetadata').and.returnValue( of('Schema')),
+                            metadataStore: jasmine.createSpyObj({ 'getEntityTypes':  [] })
+                        },
+                },
+
+                //{ provide: BreezeDemoEntityManager, useValue: jasmine.createSpy('entityManager') },
+                { provide: TeacherRepository, useValue: jasmine.createSpy('TeacherRepository') },
                 { provide: CourseRepository, useValue: jasmine.createSpy('CourseRepository') },
                 { provide: StudentRepository, useValue: jasmine.createSpy('StudentRepository') },
+                { provide: TeacherAssignmentRepository, useValue: jasmine.createSpy('TeacherAssignmentRepository') },
                 { provide: StudentEnrollmentRepository, useValue: jasmine.createSpy('StudentEnrollmentRepository') },
-                { provide: TeacherRepository, useValue: jasmine.createSpy('TeacherRepository') },
             ]
         });
     }));
 
 
+
     it('should be created', () => {
+
         const unitOfWork: UnitOfWork = TestBed.get(UnitOfWork);
-        spyOn(entityManager.metadataStore, "getEntityTypes");
         expect(unitOfWork).toBeTruthy();
-        //expect(entityManager.metadataStore.getEntityTypes.calls.count()).toEqual(1);
+
+        // Note that the instance of the BreezeDemoEntityManager that is obtained
+        // on the line below is also the instance that is provided to the constructor
+        // for the UnitOfWork instance above.
+        const entityManager: BreezeDemoEntityManager = TestBed.get(BreezeDemoEntityManager);
+        //console.log('count = ' + ((entityManager.metadataStore.getEntityTypes) as jasmine.Spy).calls.count());
+        expect(((entityManager.metadataStore.getEntityTypes) as jasmine.Spy).calls.count()).toEqual(1);
     });
 });

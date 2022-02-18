@@ -6,6 +6,8 @@ import { ngrxDemoReducer } from '../../../NgrxDemo/ngrx/NgrxDemo.reducers';
 
 import { TeacherAssignmentsComponent } from './TeacherAssignments.component';
 
+import { SchoolModel } from '../../School.model';
+
 describe('TeacherAssignmentsComponent', () => {
     let component: TeacherAssignmentsComponent;
     let fixture: ComponentFixture<TeacherAssignmentsComponent>;
@@ -17,7 +19,10 @@ describe('TeacherAssignmentsComponent', () => {
                 StoreModule.forRoot({}),
                 StoreModule.forFeature('NgrxDemo', ngrxDemoReducer),
             ],
-            declarations: [ TeacherAssignmentsComponent ]
+            declarations: [ TeacherAssignmentsComponent ],
+            providers: [
+                { provide: SchoolModel, useValue: jasmine.createSpy('SchoolModel') }
+            ]
         })
         .compileComponents();
     }));

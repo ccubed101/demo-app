@@ -43,12 +43,11 @@ export class UnitOfWork implements IUnitOfWork {
         private teacherAssignments: TeacherAssignmentRepository,
         private studentEnrollments: StudentEnrollmentRepository,
     ) {
-
         from(this.entityManager.fetchMetadata()).subscribe(
             (schema) => {
                 this.schema = schema;
 
-                // All entity types will have their unique IDs determime by the back-end database.
+                // Specify that all entity types will have their unique IDs determime by the back-end database.
                 let entityTypes = this.entityManager.metadataStore.getEntityTypes();
                 for (let entityType of entityTypes) {
                     if (entityType instanceof EntityType) {
@@ -59,8 +58,9 @@ export class UnitOfWork implements IUnitOfWork {
                 }
 
                 // Invoke method that is called when loading of metadata has completed.
-                if (this.metadataLoadedCallback != null)
+                if (this.metadataLoadedCallback !== null) {
                     this.metadataLoadedCallback();
+                }
             },
             (error) => {
                 console.log(error);

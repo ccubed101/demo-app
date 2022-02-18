@@ -5,18 +5,23 @@ import { ngrxDemoReducer } from '../../../NgrxDemo/ngrx/NgrxDemo.reducers';
 
 import { AddRemoveCourseComponent } from './AddRemoveCourse.component';
 
+import { SchoolModel } from '../../School.model';
+
 describe('AddRemoveCourseComponent', () => {
   let component: AddRemoveCourseComponent;
   let fixture: ComponentFixture<AddRemoveCourseComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-    imports: [
-        ReactiveFormsModule,
-        StoreModule.forRoot({}),
-        StoreModule.forFeature('NgrxDemo', ngrxDemoReducer),
-    ],
-      declarations: [ AddRemoveCourseComponent ]
+        imports: [
+            ReactiveFormsModule,
+            StoreModule.forRoot({}),
+            StoreModule.forFeature('NgrxDemo', ngrxDemoReducer),
+        ],
+        declarations: [AddRemoveCourseComponent],
+        providers: [
+            { provide: SchoolModel, useValue: jasmine.createSpy('SchoolModel') }
+        ]
     })
     .compileComponents();
   }));
