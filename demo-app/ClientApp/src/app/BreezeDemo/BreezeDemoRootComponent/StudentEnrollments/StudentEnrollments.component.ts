@@ -106,15 +106,12 @@ export class StudentEnrollmentsComponent implements OnInit, OnChanges, DoCheck {
     // Life cycle methods
 
     ngOnInit() {
-        console.log("ngOnInit");
     }
 
     ngOnChanges() {
-        console.log("ngOnChanges");
     }
 
     ngDoCheck() {
-        console.log("ngDoCheck");
     }
 
 
