@@ -37,6 +37,7 @@
         "breeze-bridge2-angular": "^1.1.0",
         "breeze-client": "^1.7.2",
         "core-js": "^2.4.1",
+        "events": "^3.3.0",
         "jquery": "^3.4.1",
         "jqueryui": "^1.11.1",
         "rxjs": "^6.6.3",
