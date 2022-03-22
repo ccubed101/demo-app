@@ -29,8 +29,9 @@ import { SchoolModel } from '../School.model'
             </div>
         </div>
         <div style="text-align: center; margin-top: 1em">
-            <button type="button" (click)="OnLoad()" style="margin: 1em" [disabled]="HaveMetadata == false" [style.opacity]="(HaveMetadata) ? 1: 0.33">Load</button>
-            <button type="button" (click)="OnSave()" style="margin: 1em">Save</button>
+            <button id="loadBttn" type="button" (click)="OnLoad()" style="margin: 1em" [disabled]="HaveMetadata == false" [style.opacity]="(HaveMetadata) ? 1: 0.33">Load</button>
+            <button id="saveBttn" type="button" (click)="OnSave()" style="margin: 1em">Save</button>
+            <!-- <button id="testBttn" type="button" (click)="OnTest()" style="margin: 1em">Test</button> -->
         </div>
     `,
     styles: [
@@ -96,6 +97,16 @@ export class BreezeDemoRootComponent {
 
     OnSave() {
         this.unitOfWork.SaveChanges();
+    }
+
+    OnTest() {
+        console.log(this.schoolModel.TeacherAssignments$.subscribe((t) => {
+            console.log("--------");
+            console.log(t.length);
+            console.log(t[0].teacherId);
+            console.log(t[0].courseId);
+            console.log("--------");
+        }));
     }
 
 }

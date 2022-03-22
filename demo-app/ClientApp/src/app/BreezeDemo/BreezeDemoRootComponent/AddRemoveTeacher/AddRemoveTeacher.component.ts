@@ -37,7 +37,7 @@ import * as $ from 'jquery'
                     <td class="selectTableCell">
                         <div id="selectDiv" style="overflow: hidden">
                             <select id="teacherSelect" size="8" (change)="OnChangeTeacher($event)" #teacherSelect style="min-width: 10em">
-                                <option *ngFor="let teacher of Teachers$ | async" [value]="teacher.id">{{ teacher.FirstName + ' ' + teacher.LastName }}</option>
+                                <option *ngFor="let teacher of Teachers$ | async" [value]="teacher.id">{{ teacher.firstName + ' ' + teacher.lastName }}</option>
                             </select>
                         </div>
                     </td>

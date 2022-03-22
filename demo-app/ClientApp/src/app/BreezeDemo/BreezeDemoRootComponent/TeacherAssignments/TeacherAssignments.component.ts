@@ -24,7 +24,7 @@ import { SchoolModel } from '../../School.model';
                     Teachers
                 </div>
                 <select id="teacherList" size="10" (change)="OnChangeTeacher($event)" selected>
-                    <option *ngFor="let teacher of Teachers$ | async" [ngValue]="teacher">{{ teacher.FirstName + ' ' + teacher.LastName }}</option>
+                    <option *ngFor="let teacher of Teachers$ | async" [ngValue]="teacher">{{ teacher.firstName + ' ' + teacher.lastName }}</option>
                 </select>
             </div>
             <div class="gridDiv">
@@ -32,7 +32,7 @@ import { SchoolModel } from '../../School.model';
                     Assigned
                 </div>
                 <select size="10" (change)="OnChangeAssigned($event)">
-                    <option *ngFor="let assignedCourse of AssignedCourses$ | async">{{ assignedCourse.Title }}</option>
+                    <option *ngFor="let assignedCourse of AssignedCourses$ | async">{{ assignedCourse.title }}</option>
                 </select>
             </div>
             <div class="gridDiv">
@@ -53,7 +53,7 @@ import { SchoolModel } from '../../School.model';
                     Unassigned
                 </div>
                 <select size="10" (change)="OnChangeUnassigned($event)">
-                    <option *ngFor="let unassignedCourse of UnassignedCourses$ | async">{{ unassignedCourse.Title }}</option>
+                    <option *ngFor="let unassignedCourse of UnassignedCourses$ | async">{{ unassignedCourse.title }}</option>
                 </select>
             </div>
         </div>
@@ -124,7 +124,7 @@ export class TeacherAssignmentsComponent implements OnInit {
         this.schoolModel.AssignedCourses$.subscribe(
             (courses) => {
                 const coursesArray: ICourse[] = courses as ICourse[];
-                console.log(coursesArray[ev.target.selectedIndex].Title);
+                console.log(coursesArray[ev.target.selectedIndex].title);
                 this.schoolModel.SelectedAssignedCourse$ = of(coursesArray[ev.target.selectedIndex]);
             }
         ).unsubscribe();
@@ -147,8 +147,8 @@ export class TeacherAssignmentsComponent implements OnInit {
                     this.schoolModel.SelectedAssignedCourse$.subscribe(
                         (course) => {
                             if (course) {
-                                console.log(teacher.FirstName + " " + teacher.LastName);
-                                console.log(course.Title);
+                                console.log(teacher.firstName + " " + teacher.lastName);
+                                console.log(course.title);
                                 this.schoolModel.RemoveTeacherAssignment(teacher, course);
                                 this.schoolModel.SelectedAssignedCourse$ = of();
                             }
@@ -168,8 +168,8 @@ export class TeacherAssignmentsComponent implements OnInit {
                     this.schoolModel.SelectedUnassignedCourse$.subscribe(
                         (course) => {
                             if (course) {
-                                console.log(teacher.FirstName + " " + teacher.LastName);
-                                console.log(course.Title);
+                                console.log(teacher.firstName + " " + teacher.lastName);
+                                console.log(course.title);
                                 this.schoolModel.AddTeacherAssignment(teacher, course);
                                 this.schoolModel.SelectedUnassignedCourse$ = of();
                             }

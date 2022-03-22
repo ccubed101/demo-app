@@ -1,5 +1,5 @@
 export interface IStudentEnrollment {
-    StudentId: string;
-    CourseId: string;
-    Grade: number;
+    studentId: string;
+    courseId: string;
+    grade: number;
 }

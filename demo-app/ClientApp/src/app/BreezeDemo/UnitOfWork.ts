@@ -47,7 +47,14 @@ export class UnitOfWork implements IUnitOfWork {
             (schema) => {
                 this.schema = schema;
 
-                // Specify that all entity types will have their unique IDs determime by the back-end database.
+                // Specify that all entity types will the value of their primary keys
+                // determime by the backend database.  In this particular case we are
+                // specifying that SQL Server Identity will be used to generate primary
+                // keys.  So the primary key will be an integer and will start and be
+                // incremented as specified in the database.  Note that I think this
+                // information is merely conveyed to BreezeJS on the client side.  In
+                // other words it is just informational and the programmer is responsible
+                // for making sure that is, in fact, how the database tables are setup.
                 let entityTypes = this.entityManager.metadataStore.getEntityTypes();
                 for (let entityType of entityTypes) {
                     if (entityType instanceof EntityType) {
@@ -117,7 +124,6 @@ export class UnitOfWork implements IUnitOfWork {
     // Methods
 
     SaveChanges(): void {
-
 
         //console.log("Courses before");
         //let entityType: EntityType | ComplexType = this.entityManager.metadataStore.getEntityType("Course");

@@ -44,7 +44,7 @@ import * as $ from 'jquery'
                         <td class="selectTableCell">
                             <div id="selectDiv" style="overflow: hidden">
                                 <select id="studentSelect" size="8" (change)="OnChangeStudent($event)" #studentSelect style="min-width: 10em">
-                                    <option *ngFor="let student of Students$ | async" [value]="student.id">{{ student.FirstName + ' ' + student.LastName }}</option>
+                                    <option *ngFor="let student of Students$ | async" [value]="student.id">{{ student.firstName + ' ' + student.lastName }}</option>
                                 </select>
                             </div>
                        </td>

@@ -24,7 +24,7 @@ import { SchoolModel } from '../../School.model';
                     Students
                 </div>
                 <select id="studentList" size="10" (change)="OnChangeStudent($event)" selected #studentList>
-                    <option *ngFor="let student of Students$ | async" [ngValue]="student">{{ student.FirstName + ' ' + student.LastName }}</option>
+                    <option *ngFor="let student of Students$ | async" [ngValue]="student">{{ student.firstName + ' ' + student.lastName }}</option>
                 </select>
             </div>
             <div class="gridDiv">
@@ -32,7 +32,7 @@ import { SchoolModel } from '../../School.model';
                     Enrolled Courses
                 </div>
                 <select size="10" (change)="OnChangeEnrolled($event)">
-                    <option *ngFor="let enrolledCourse of EnrolledCourses$ | async">{{ enrolledCourse.Title }}</option>
+                    <option *ngFor="let enrolledCourse of EnrolledCourses$ | async">{{ enrolledCourse.title }}</option>
                 </select>
             </div>
             <div class="gridDiv">
@@ -53,7 +53,7 @@ import { SchoolModel } from '../../School.model';
                     Unenrolled Courses
                 </div>
                 <select size="10" (change)="OnChangeUnenrolled($event)">
-                    <option *ngFor="let unenrolledCourse of UnenrolledCourses$ | async">{{ unenrolledCourse.Title }}</option>
+                    <option *ngFor="let unenrolledCourse of UnenrolledCourses$ | async">{{ unenrolledCourse.title }}</option>
                 </select>
             </div>
         </div>

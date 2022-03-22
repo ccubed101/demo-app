@@ -1,4 +1,4 @@
-import { Injectable, ApplicationRef, ChangeDetectorRef, NgZone } from "@angular/core";
+import { Injectable, ApplicationRef, NgZone } from "@angular/core";
 
 import { Observable, of } from 'rxjs'
 import { map, mergeMap, tap } from 'rxjs/operators'
@@ -17,7 +17,6 @@ export class SchoolModel {
     constructor(
         private unitOfWork: UnitOfWork,
         private applicationRef: ApplicationRef,
-        //private changeDetectorRef: ChangeDetectorRef
         private zone: NgZone
     ) {
         this.unitOfWork.MetadataLoadedCallback = this.Initialize.bind(this);
@@ -26,7 +25,7 @@ export class SchoolModel {
     // Instance variables
 
     private teachers$: Observable<ITeacher[]> = of([
-   ]);
+    ]);
     private courses$: Observable<ICourse[]> = of([
     ]);
     private students$: Observable<IStudent[]> = of([
@@ -142,6 +141,8 @@ export class SchoolModel {
 
     get AssignedCourses$(): Observable<ICourse[]> {
 
+        console.log("AssignedCourses");
+
         return (
             // Start with the currently selected student.
             this.SelectedTeacherForAssignment$
@@ -151,13 +152,13 @@ export class SchoolModel {
                         return this.TeacherAssignments$
                             .pipe(
                                 // Filter out teacher assignments that don't apply to teacher.
-                                map(teacherAssignmentArray => teacherAssignmentArray.filter(teacherAssignment => teacherAssignment.TeacherId === selectedTeacherForAssignment.Id)),
+                                map(teacherAssignmentArray => teacherAssignmentArray.filter(teacherAssignment => teacherAssignment.teacherId === selectedTeacherForAssignment.id)),
                                 // Go from Observable<ITeacherAssignment[]> to Observable<ICourse[]>
                                 mergeMap(teacherAssignmentArray => {
                                     return this.Courses$
                                         .pipe(
                                             // Filter out courses that teacher is not assigned to.
-                                            map(courseArray => courseArray.filter(course => teacherAssignmentArray.find(teacherAssignment => teacherAssignment.CourseId === course.Id) !== undefined))
+                                            map(courseArray => courseArray.filter(course => teacherAssignmentArray.find(teacherAssignment => teacherAssignment.courseId === course.id) !== undefined))
                                         )
                                 })
                             )
@@ -178,13 +179,13 @@ export class SchoolModel {
                         return this.TeacherAssignments$
                             .pipe(
                                 // Filter out teacher assignments that don't apply to teacher.
-                                map(teacherAssignmentArray => teacherAssignmentArray.filter(teacherAssignment => teacherAssignment.TeacherId === selectedTeacherForAssignment.Id)),
+                                map(teacherAssignmentArray => teacherAssignmentArray.filter(teacherAssignment => teacherAssignment.teacherId === selectedTeacherForAssignment.id)),
                                 // Go from Observable<ITeacherAssignment[]> to Observable<ICourse[]>
                                 mergeMap(teacherAssignmentArray => {
                                     return this.Courses$
                                         .pipe(
                                             // Filter out courses that teacher is not assigned to.
-                                            map(courseArray => courseArray.filter(course => teacherAssignmentArray.find(teacherAssignment => teacherAssignment.CourseId === course.Id) === undefined))
+                                            map(courseArray => courseArray.filter(course => teacherAssignmentArray.find(teacherAssignment => teacherAssignment.courseId === course.id) === undefined))
                                         )
                                 })
                             )
@@ -229,13 +230,13 @@ export class SchoolModel {
                         return this.StudentEnrollments$
                             .pipe(
                                 // Filter out student enrollments that don't apply to student.
-                                map(studentEnrollmentArray => studentEnrollmentArray.filter(se => se.StudentId === selectedStudentForEnrollment.Id)),
+                                map(studentEnrollmentArray => studentEnrollmentArray.filter(se => se.studentId === selectedStudentForEnrollment.id)),
                                 // Go from Observable<IStudentEnrollment[]> to Observable<ICourse[]>
                                 mergeMap(studentEnrollmentArray => {
                                     return this.Courses$
                                         .pipe(
                                             // Filter out courses that student is not enrolled in.
-                                            map(courseArray => courseArray.filter(course => studentEnrollmentArray.find(studentEnrollment => studentEnrollment.CourseId === course.Id) !== undefined))
+                                            map(courseArray => courseArray.filter(course => studentEnrollmentArray.find(studentEnrollment => studentEnrollment.courseId === course.id) !== undefined))
                                         )
                                 })
                             )
@@ -256,13 +257,13 @@ export class SchoolModel {
                         return this.StudentEnrollments$
                             .pipe(
                                 // Filter out student enrollments that don't apply to student.
-                                map(studentEnrollmentArray => studentEnrollmentArray.filter(se => se.StudentId === selectedStudentForEnrollment.Id)),
+                                map(studentEnrollmentArray => studentEnrollmentArray.filter(se => se.studentId === selectedStudentForEnrollment.id)),
                                 // Go from Observable<IStudentEnrollment[]> to Observable<ICourse[]>
                                 mergeMap(studentEnrollmentArray => {
                                     return this.Courses$
                                         .pipe(
                                             // Filter out courses that student is not enrolled in.
-                                            map(courseArray => courseArray.filter(course => studentEnrollmentArray.find(studentEnrollment => studentEnrollment.CourseId === course.Id) === undefined))
+                                            map(courseArray => courseArray.filter(course => studentEnrollmentArray.find(studentEnrollment => studentEnrollment.courseId === course.id) === undefined))
                                         )
                                 })
                             )
@@ -306,8 +307,8 @@ export class SchoolModel {
     ): void {
         const teacher: ITeacher = this.UnitOfWork.Teachers.Add();
 
-        teacher.FirstName = FirstName;
-        teacher.LastName = LastName;
+        teacher.firstName = FirstName;
+        teacher.lastName = LastName;
         console.log(teacher);
 
         this.Teachers$ = of(this.UnitOfWork.Teachers.GetAll());
@@ -319,8 +320,11 @@ export class SchoolModel {
     ): void {
         const course: ICourse = this.UnitOfWork.Courses.Add();
 
-        course.Title = title;
-        course.Credits = credits;
+        course.title = title;
+        course.credits = credits;
+
+        console.log(title);
+        console.log(credits);
 
         this.Courses$ = of(this.UnitOfWork.Courses.GetAll());
     }
@@ -332,9 +336,9 @@ export class SchoolModel {
     ): void {
         const student: IStudent = this.UnitOfWork.Students.Add();
 
-        student.FirstName = FirstName;
-        student.LastName = LastName;
-        student.EnrollmentDate = EnrollmentDate;
+        student.firstName = FirstName;
+        student.lastName = LastName;
+        student.enrollmentDate = EnrollmentDate;
 
         this.Students$ = of(this.UnitOfWork.Students.GetAll());
     }
@@ -345,8 +349,8 @@ export class SchoolModel {
     ): void {
         const studentEnrollment: IStudentEnrollment = this.UnitOfWork.StudentEnrollments.Add();
 
-        studentEnrollment.StudentId = student.Id;
-        studentEnrollment.CourseId = course.Id;
+        studentEnrollment.studentId = student.id;
+        studentEnrollment.courseId = course.id;
 
         this.StudentEnrollments$ = of(this.UnitOfWork.StudentEnrollments.GetAll());
     }
@@ -357,8 +361,8 @@ export class SchoolModel {
     ): void {
         const teacherAssignment: ITeacherAssignment = this.UnitOfWork.TeacherAssignments.Add();
 
-        teacherAssignment.TeacherId = teacher.Id;
-        teacherAssignment.CourseId = course.Id;
+        teacherAssignment.teacherId = teacher.id;
+        teacherAssignment.courseId = course.id;
 
         this.TeacherAssignments$ = of(this.UnitOfWork.TeacherAssignments.GetAll());
     }
@@ -381,7 +385,7 @@ export class SchoolModel {
     public RemoveTeacherAssignment(teacher: ITeacher, course: ICourse): void {
         this.TeacherAssignments$.subscribe(teacherAssignments => {
             const teacherAssignmentToRemove: ITeacherAssignment =
-                (teacherAssignments as ITeacherAssignment[]).find(teacherAssignment => teacherAssignment.TeacherId === teacher.Id && teacherAssignment.CourseId === course.Id);
+                (teacherAssignments as ITeacherAssignment[]).find(teacherAssignment => teacherAssignment.teacherId === teacher.id && teacherAssignment.courseId === course.id);
             this.unitOfWork.TeacherAssignments.Remove(teacherAssignmentToRemove);
             this.TeacherAssignments$.subscribe(teacherAssignments =>
                 this.TeacherAssignments$ = of((teacherAssignments.filter(teacherAssignment => teacherAssignment !== teacherAssignmentToRemove))));
@@ -391,17 +395,45 @@ export class SchoolModel {
     public RemoveStudentEnrollment(student: IStudent, course: ICourse): void {
         let studentEnrollmentToRemove: IStudentEnrollment;
         this.StudentEnrollments$.subscribe(studentEnrollments => studentEnrollmentToRemove =
-            (studentEnrollments as IStudentEnrollment[]).find(studentEnrollment => studentEnrollment.StudentId === student.Id && studentEnrollment.CourseId === course.Id));
+            (studentEnrollments as IStudentEnrollment[]).find(studentEnrollment => studentEnrollment.studentId === student.id && studentEnrollment.courseId === course.id));
         this.unitOfWork.StudentEnrollments.Remove(studentEnrollmentToRemove);
         this.StudentEnrollments$.subscribe(studentEnrollments =>
             this.StudentEnrollments$ = of((studentEnrollments.filter(studentEnrollment => studentEnrollment !== studentEnrollmentToRemove))));
     }
 
     public Load() {
-        this.UnitOfWork.Teachers.fetchAll((results) => { this.Teachers$ = of(results); });
-        this.UnitOfWork.Courses.fetchAll((results) => { this.Courses$ = of(results); });
-        this.UnitOfWork.Students.fetchAll((results) => { this.Students$ = of(results); });
-        this.UnitOfWork.TeacherAssignments.fetchAll((results) => this.TeacherAssignments$ = of(results));
-        this.UnitOfWork.StudentEnrollments.fetchAll((results) => { this.StudentEnrollments$ = of(results); });
-   }
+        this.UnitOfWork.Teachers.fetchAll(this.CallbackTeachers.bind(this));
+        this.UnitOfWork.Courses.fetchAll(this.CallbackCoures.bind(this));
+        this.UnitOfWork.Students.fetchAll(this.CallbackStudents.bind(this));
+        this.UnitOfWork.TeacherAssignments.fetchAll(this.CallbackTeacherAssignments.bind(this));
+        this.UnitOfWork.StudentEnrollments.fetchAll(this.CallbackStudentEnrollments.bind(this));
+
+
+
+        //this.UnitOfWork.Teachers.fetchAll((results) => { this.Teachers$ = of(results); });
+        //this.UnitOfWork.Courses.fetchAll(this.zone, (results) => { this.Courses$ = of(results); });
+        //this.UnitOfWork.Students.fetchAll(this.zone, (results) => { this.Students$ = of(results); });
+        //this.UnitOfWork.TeacherAssignments.fetchAll(this.zone, (results) => { this.TeacherAssignments$ = of(results) });
+        //this.UnitOfWork.StudentEnrollments.fetchAll(this.zone, (results) => { this.StudentEnrollments$ = of(results); });
+    }
+
+    public CallbackTeachers(t: ITeacher[]): void {
+        this.zone.run(() => { setTimeout(() => { this.Teachers$ = of(t); }) });
+    }
+
+    public CallbackCoures(c: ICourse[]): void {
+        this.zone.run(() => { setTimeout(() => { this.Courses$ = of(c); }) });
+    }
+
+    public CallbackStudents(s: IStudent[]): void {
+        this.zone.run(() => { setTimeout(() => { this.Students$ = of(s); }) });
+    }
+
+    public CallbackTeacherAssignments(ta: ITeacherAssignment[]): void {
+        this.zone.run(() => { setTimeout(() => { this.TeacherAssignments$ = of(ta); }) });
+    }
+
+    public CallbackStudentEnrollments(se: IStudentEnrollment[]): void {
+        this.zone.run(() => { setTimeout(() => { this.StudentEnrollments$ = of(se); }) });
+    }
 }

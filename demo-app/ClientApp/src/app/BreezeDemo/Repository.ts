@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject, NgZone } from '@angular/core';
 
 import { Observable, from, of } from 'rxjs';
 import { map, switchMap, mergeMap, tap, catchError } from 'rxjs/operators';
@@ -104,21 +104,23 @@ export class Repository<T> implements IRepository<T> {
                     return <T[]><unknown>results;
                 })
             );
-   }
+    }
 
-    fetchAll(callback: (results: T[]) => void): void {
+    fetchAll(callback: (results: T[]) => void) {
 
         // MergeStrategy???
         const entityType: EntityType = <EntityType>(this.entityManager.metadataStore.getEntityType(this.EntityTypeName, false));
         const query = EntityQuery.from(entityType.defaultResourceName).toType(this.EntityTypeName);
 
+
+
         this.entityManager.executeQuery
             (query,
-            result => {
-                callback((result.results as unknown) as T[]);
-            });
+                result => {
+                    callback((result.results as unknown) as T[]);
+                })
 
-
+        callback(null);
 
 
 

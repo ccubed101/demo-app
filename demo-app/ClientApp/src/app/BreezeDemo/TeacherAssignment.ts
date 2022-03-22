@@ -1,4 +1,4 @@
 export interface ITeacherAssignment {
-    TeacherId: string;
-    CourseId: string;
+    teacherId: string;
+    courseId: string;
 }
