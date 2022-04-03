@@ -12,7 +12,8 @@ exports.config = {
         chromeOptions: {
             args: [ "--headless" ]
         },
-        'browserName': 'chrome'
+        'browserName': 'chrome',
+        acceptInsecureCerts: true
 	},
     directConnect: true,
     baseUrl: 'http://localhost:4200/',
